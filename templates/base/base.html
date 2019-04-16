@@ -1,0 +1,133 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}"> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <title>{% block title %}Home-Constructora {% endblock %}</title>
+
+</head>
+<body >
+
+  <header>
+      <header id="header">
+          {% block header %}
+          
+              <div class="hero-text text-center">
+                  <a href="{% url 'index' %}"><img style="float: left; " src="{% static 'img/logo.jpg' %}" alt="Logo Empresa" width="120px"></a>           
+                  <h1>Empresa Constructora</h1>              
+                  <p>{% block mensaje%}Bienvenido al Sistema de Gestión de Recursos{% endblock %}</p>
+              </div>
+          
+         
+            
+          {% endblock %}
+        </header>
+  </header>
+   {% block navbar %}
+<div><nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Navbar </font> </font> </a>
+    <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-expand = "false" aria-label = "Toggle navigation ">
+      <span class = "navbar-toggler-icon"> </span>
+    </button>
+  
+    <div class = "collapse navbar-collapse" id = "navbarColor01">
+      <ul class = "navbar-nav mr-auto">
+        <li class = "nav-item active">
+          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> <span class = "sr-only"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> (actual) </font> </font> </ span > </a>
+        </li>
+        <li class = "nav-item">
+          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Caracteristicas </font> </font> </a>
+        </li>
+        <li class = "nav-item">
+          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Precios </font> </font> </a>
+        </li>
+        <li class = "nav-item">
+          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Acerca de </font> </ font > </a>
+        </li>
+      </ul>
+      <form class = "form-inline my-2 my-lg-0">
+        <input class = "mr-sm-2" control de formulario = tipo = "texto" placeholder = "Buscar">
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+      </form>
+    </div>
+  </nav>
+</div>
+   
+   {% endblock %}
+   <hr><br><br>
+   {% block contenido %}
+
+   {% endblock %}
+   <hr><br>
+   {% block xxx %}
+   
+   {% endblock %}
+
+    <div>
+
+        <footer id="footer">
+        
+            <div class="footer-top">
+              <div class="container">
+                <div itemscope itemtype="https://schema.org/ContactPage" class="row">
+        
+                  <div class="col-lg-4 col-md-6 ">
+                    <h3>Constructora XXX</h3>
+                    <p itemprop="description" class="text-justify">Somos una empresa constructora que brinda los mejores servicios en infraestructuras para tus inmuebles.</p>
+                  </div>
+        
+                  
+        
+                  <div class="col-lg-4 col-md-6 ">
+                    <h4>Contactanos</h4>
+                    <p>
+                      Universidad de El Salvador <br>
+                      San Salvador,<br>
+                      El Salvador <br>
+                      <strong>Telefono:</strong> 2237 2154<br>
+                      <strong>Email:</strong> constructoraxxxxo@gmail.com<br>
+                    </p>
+        
+                    <div class="social-links">
+                      <a href="https://twitter.com/mercaempleado" itemprop="url" class="twitter"><img src="{% static 'img/t.ico' %}"  width="40" alt="logo twitter"></a>
+                      <a href="www.facebook.com/Mercaempleado-2374719745891252/" itemprop="url" class="facebook"><img src="{% static 'img/logofacebook.ico' %}"  width="40" alt="logo facebook"></a>
+                      <a href="https://www.instagram.com/mercaempleado/?hl=es-la" itemprop="url" class="instagram"><img src="{% static 'img/logo_instagram.ico' %}"  width="40" alt="logo instagram"></a>
+                    </div>
+        
+                  </div>
+        
+                  <div class="col-lg-4 col-md-6 ">
+        
+                    <h4>¿Quieres Resivir Notificaciones?</h4>
+                    <p class="text-justify">Ingresa tu correo electronico en el siguiente campo y resive nuestras mejores ofertas.</p>
+                    <form action="" method="post" class="form-inline">
+                      {% csrf_token %}
+                      <input class="form-control" type="email" name="email"><input class="btn btn-primary" type="submit"  value="Suscribirse">
+                    </form>
+                  </div>
+        
+                </div>
+              </div>
+            </div>
+        
+            <div class="container">
+              <div class="copyright">
+                &copy; Copyright <strong>Constructores</strong>. Todos los derechos reservados
+              </div>
+            </div>
+      
+          </footer>
+    </div>
+
+   <script src="{% static 'js/bootstrap.js' %}"></script>
+   <script src="{% static 'js/bootstrap.js' %}"></script>
+
+</body>
+</html>
