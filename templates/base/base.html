@@ -20,7 +20,7 @@
           {% block header %}
           
               <div class="hero-text text-center">
-                  <a href="{% url 'index' %}"><img style="float: left; " src="{% static 'img/logo.jpg' %}" alt="Logo Empresa" width="120px"></a>           
+                  <a href=""><img style="float: left; " src="{% static 'img/logo.jpg' %}" alt="Logo Empresa" width="120px"></a>           
                   <h1>Empresa Constructora</h1>              
                   <p>{% block mensaje%}Bienvenido al Sistema de Gestión de Recursos{% endblock %}</p>
               </div>
@@ -31,7 +31,8 @@
         </header>
   </header>
    {% block navbar %}
-<div><nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
+<div>
+  <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Navbar </font> </font> </a>
     <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-expand = "false" aria-label = "Toggle navigation ">
       <span class = "navbar-toggler-icon"> </span>
@@ -51,25 +52,30 @@
         <li class = "nav-item">
           <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Acerca de </font> </ font > </a>
         </li>
+        
       </ul>
+      
       <form class = "form-inline my-2 my-lg-0">
         <input class = "mr-sm-2" control de formulario = tipo = "texto" placeholder = "Buscar">
         <button type="submit" class="btn btn-secondary">Buscar</button>
+        <a class="btn btn-outline-danger" href="{% url 'logout'%}" role="button">Salir</a>      
       </form>
+
     </div>
   </nav>
 </div>
    
    {% endblock %}
-   <hr><br><br>
+   <hr><hr>
    {% block contenido %}
 
    {% endblock %}
-   <hr><br>
+  <br>
    {% block xxx %}
    
    {% endblock %}
-
+   <hr><hr>
+   {% block footer %}
     <div>
 
         <footer id="footer">
@@ -124,7 +130,8 @@
             </div>
       
           </footer>
-    </div>
+    </div>   
+    {% endblock %}
 
    <script src="{% static 'js/bootstrap.js' %}"></script>
    <script src="{% static 'js/bootstrap.js' %}"></script>
