@@ -14,70 +14,95 @@
 
 </head>
 <body >
-
-  <header>
+    {% block header %}
       <header id="header">
-          {% block header %}
+
           
               <div class="hero-text text-center">
-                  <a href=""><img style="float: left; " src="{% static 'img/logo.jpg' %}" alt="Logo Empresa" width="120px"></a>           
-                  <h1>Empresa Constructora</h1>              
-                  <p>{% block mensaje%}Bienvenido al Sistema de Gestión de Recursos{% endblock %}</p>
-              </div>
+
+                  <div class="titulo">
+                    <h1>CCFL CONSTRUCTION</h1>              
+                    <p>Somos una entidad comprometida en tus proyectos</p>
+     
+                  </div>
+           </div>
           
-         
+              {% block navbar %}
+              <div>
+                <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
+                  <a class="navbar-brand" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> </a>
+                  <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-expand = "false" aria-label = "Toggle navigation ">
+                    <span class = "navbar-toggler-icon"> </span>
+                  </button>
+                
+                  <div class = "collapse navbar-collapse" id = "navbarColor01">
+                    <ul class = "navbar-nav mr-auto">
+                      <li class = "nav-item active">
+                        <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Empleados </font> </font> <span class = "sr-only"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> (actual) </font> </font> </ span > </a>
+                      </li>
+                      <li class = "nav-item">
+                        <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Recursos </font> </font> </a>
+                      </li>
+                      <li class = "nav-item">
+                        <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Proyectos </font> </font> </a>
+                      </li>
+                      <li class = "nav-item">
+                        <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Registrar asistencias </font> </ font > </a>
+                      </li>
+                      <li class = "nav-item">
+                        <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Recursos-Proyecto </font> </ font > </a>
+                      </li>
+              
+                      
+                    </ul>
+                    
+                    <form class = "form-inline my-2 my-lg-0">
+              
+                      <a class="btn btn-outline-danger" href="{% url 'logout'%}" role="button">Salir</a>   
+                    </form>
+              
+                  </div>
+                </nav>
+              </div>
+                 {% endblock %}         
             
+   <hr><hr>
           {% endblock %}
         </header>
-  </header>
-   {% block navbar %}
-<div>
-  <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Navbar </font> </font> </a>
-    <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-expand = "false" aria-label = "Toggle navigation ">
-      <span class = "navbar-toggler-icon"> </span>
-    </button>
-  
-    <div class = "collapse navbar-collapse" id = "navbarColor01">
-      <ul class = "navbar-nav mr-auto">
-        <li class = "nav-item active">
-          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> <span class = "sr-only"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> (actual) </font> </font> </ span > </a>
-        </li>
-        <li class = "nav-item">
-          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Caracteristicas </font> </font> </a>
-        </li>
-        <li class = "nav-item">
-          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Precios </font> </font> </a>
-        </li>
-        <li class = "nav-item">
-          <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Acerca de </font> </ font > </a>
-        </li>
-        
-      </ul>
-      
-      <form class = "form-inline my-2 my-lg-0">
-        <input class = "mr-sm-2" control de formulario = tipo = "texto" placeholder = "Buscar">
-        <button type="submit" class="btn btn-secondary">Buscar</button>
-        <a class="btn btn-outline-danger" href="{% url 'logout'%}" role="button">Salir</a>      
-      </form>
 
-    </div>
-  </nav>
-</div>
-   
-   {% endblock %}
-   <hr><hr>
+
+
+   </div>
+
    {% block contenido %}
 
+   <section class="main">
+    <div class= "row">
+      <aside class="col-md-3">
+          <div class="list-group">
+              <a href="#" class="list-group-item list-group-item-action active">
+                Lista de enlaces
+              </a>
+              <a href="#" class="list-group-item list-group-item-action">Enlace1</a>
+              <a href="#" class="list-group-item list-group-item-action">Enlace2</a>
+              <a href="#" class="list-group-item list-group-item-action">Enlace3</a>
+              <a href="#" class="list-group-item list-group-item-action">Enlace4</a>
+            </div>
+      </aside>
+      <section class="col-md-9">
+          <article>
+              <h2></h2>
+              <p>Esto es un ejemplo</p>
+            </article>
+      </section>
+    </div> 
+   </section>  
    {% endblock %}
-  <br>
-   {% block xxx %}
-   
-   {% endblock %}
-   <hr><hr>
+
+
    {% block footer %}
     <div>
-
+        <hr><hr>
         <footer id="footer">
         
             <div class="footer-top">
@@ -85,7 +110,7 @@
                 <div itemscope itemtype="https://schema.org/ContactPage" class="row">
         
                   <div class="col-lg-4 col-md-6 ">
-                    <h3>Constructora XXX</h3>
+                    <h3>CCFL CONSTRUCTION</h3>
                     <p itemprop="description" class="text-justify">Somos una empresa constructora que brinda los mejores servicios en infraestructuras para tus inmuebles.</p>
                   </div>
         
