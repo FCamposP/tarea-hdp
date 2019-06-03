@@ -3,4 +3,5 @@ from django.views.generic import TemplateView
 # Create your views here.
 
 class Vista(TemplateView):
-	template_name='base/base.html'
+	template_name='home/home.html'
+

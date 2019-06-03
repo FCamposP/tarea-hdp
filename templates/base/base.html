@@ -30,7 +30,7 @@
               {% block navbar %}
               <div>
                 <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
-                  <a class="navbar-brand" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> </a>
+                  <a class="navbar-brand" href="http://127.0.0.1:8000/const/index/"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> </a>
                   <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-expand = "false" aria-label = "Toggle navigation ">
                     <span class = "navbar-toggler-icon"> </span>
                   </button>
@@ -44,7 +44,7 @@
                         <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Recursos </font> </font> </a>
                       </li>
                       <li class = "nav-item">
-                        <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Proyectos </font> </font> </a>
+                        <a class="nav-link" href="http://127.0.0.1:8000/proyectos/busquedaProyecto/"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Proyectos </font> </font> </a>
                       </li>
                       <li class = "nav-item">
                         <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Registrar asistencias </font> </ font > </a>
@@ -74,11 +74,12 @@
 
    </div>
 
-   {% block contenido %}
+  {%block cuerpo%}
 
    <section class="main">
     <div class= "row">
       <aside class="col-md-3">
+        {%block links%}
           <div class="list-group">
               <a href="#" class="list-group-item list-group-item-action active">
                 Lista de enlaces
@@ -88,17 +89,20 @@
               <a href="#" class="list-group-item list-group-item-action">Enlace3</a>
               <a href="#" class="list-group-item list-group-item-action">Enlace4</a>
             </div>
+        {%endblock%}    
       </aside>
       <section class="col-md-9">
+          {% block contenido %}
           <article>
               <h2></h2>
               <p>Esto es un ejemplo</p>
-            </article>
+          </article>
+          {% endblock %}
       </section>
     </div> 
    </section>  
-   {% endblock %}
 
+  {% endblock %}
 
    {% block footer %}
     <div>
@@ -123,7 +127,7 @@
                       San Salvador,<br>
                       El Salvador <br>
                       <strong>Telefono:</strong> 2237 2154<br>
-                      <strong>Email:</strong> constructoraxxxxo@gmail.com<br>
+                      <strong>Email:</strong>ccflconstruction@gmail.com<br>
                     </p>
         
                     <div class="social-links">

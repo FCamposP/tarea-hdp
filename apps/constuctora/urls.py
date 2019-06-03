@@ -7,4 +7,5 @@ from django.contrib.auth.views import login
 app_name="const"
 urlpatterns = [
     url(r'^index/$',login_required(Vista.as_view()),name="index"),
+
 ]

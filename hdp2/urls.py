@@ -21,6 +21,7 @@ from django.contrib.auth.views import login, logout_then_login
 urlpatterns = [ 
     path('admin/', admin.site.urls),
     url(r'^const/',include('apps.constuctora.urls',namespace="const")),
+    url(r'^proyectos/',include('apps.proyecto.urls',namespace="proyectos")),
     url(r'^',login, {'template_name':'login/login.html'}, name="login"),
     url(r'^logout/',logout_then_login, name='logout'),
 

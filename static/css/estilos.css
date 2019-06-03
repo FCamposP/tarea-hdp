@@ -12,6 +12,11 @@ margin:auto; }
 
 }
 
+#buscadorProyecto{
+  width: 40%;
+  margin-left: 60%
+}
+
 
 #footer {
     background: #000;
