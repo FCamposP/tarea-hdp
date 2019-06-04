@@ -18,17 +18,18 @@
       <header id="header">
 
           
-              <div class="hero-text text-center">
+        <div class="hero-text text-center">
+          <a href="" class="col-md-3"><img id="logo" style="float:left; padding: 15px 0 0 0;"  src="{% static 'img/logo.jpg' %}" alt="Logo ccfl" width="220px"></a>           
+          <div class="col-md-9" style="margin:auto; ">
+              <h1>CCFL CONSTRUCTION</h1>              
+              <p>{% block mensaje%}Construyendo tus mejores metas{% endblock %}</p>
+          </div>
 
-                  <div class="titulo">
-                    <h1>CCFL CONSTRUCTION</h1>              
-                    <p>Somos una entidad comprometida en tus proyectos</p>
-     
-                  </div>
-           </div>
-          
+      </div>
+  
+      </header>    
               {% block navbar %}
-              <div>
+              <div id="navbar">
                 <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
                   <a class="navbar-brand" href="http://127.0.0.1:8000/const/index/"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> </a>
                   <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-expand = "false" aria-label = "Toggle navigation ">
@@ -58,7 +59,7 @@
                     
                     <form class = "form-inline my-2 my-lg-0">
               
-                      <a class="btn btn-outline-danger" href="{% url 'logout'%}" role="button">Salir</a>   
+                      <a class="btn btn-danger" href="{% url 'logout'%}" role="button">Salir</a>   
                     </form>
               
                   </div>
@@ -66,9 +67,7 @@
               </div>
                  {% endblock %}         
             
-   <hr><hr>
-          {% endblock %}
-        </header>
+
 
 
 
@@ -77,6 +76,9 @@
   {%block cuerpo%}
 
    <section class="main">
+      <hr>{% block Apartado%} {% endblock %} <hr>
+      {% endblock %}
+
     <div class= "row">
       <aside class="col-md-3">
         {%block links%}

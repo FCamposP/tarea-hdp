@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-
+{% block Apartado%} <h4 style=" text-align: center;">PROYECTOS</h4>{% endblock %}
 {%block links%}
 <div class="list-group">
     <a href="#" class="list-group-item list-group-item-action active">
@@ -13,15 +13,43 @@
 {%endblock%}  
 
 {% block contenido %}
-<div id="buscadorProyecto">
+<div style="display:inline-block">
+  <button type="button" class="btn btn-secondary">Nuevo Proyecto</button>
+
+</div>
+
+<div id="buscadorProyecto" style="display:inline-block">
     <nav class="navbar navbar-light bg-light">
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Proyecto" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">buscar</button>
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
         </form> 
     </nav>
             
 </div>
-
+<br>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>001</td>
+          <td>Proyecto xx</td>
+          <td>Cliente 01</td>
+          <td>Esto es un ejemplo</td>
+          <td>    <a href="" class="btn btn-success">Editar</a>
+          </td>
+        </tr>
+ 
+    </tbody>
+  </table>
 
 {% endblock %}

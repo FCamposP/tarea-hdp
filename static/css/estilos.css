@@ -1,7 +1,7 @@
 body{background: #E1E6E2;
 }
 
-header,.main{width:90%;
+header,.main,#navbar{width:90%;
 margin:auto; }
 
 
@@ -14,7 +14,7 @@ margin:auto; }
 
 #buscadorProyecto{
   width: 40%;
-  margin-left: 60%
+  margin-left: 42%
 }
 
 
