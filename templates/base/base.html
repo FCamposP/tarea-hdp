@@ -15,19 +15,19 @@
 </head>
 <body >
     {% block header %}
-      <header id="header">
-
-          
-        <div class="hero-text text-center">
-          <a href="" class="col-md-3"><img id="logo" style="float:left; padding: 15px 0 0 0;"  src="{% static 'img/logo.jpg' %}" alt="Logo ccfl" width="220px"></a>           
-          <div class="col-md-9" style="margin:auto; ">
-              <h1>CCFL CONSTRUCTION</h1>              
-              <p>{% block mensaje%}Construyendo tus mejores metas{% endblock %}</p>
-          </div>
-
+  <header id="header">
+    <div class="hero-text text-center">
+      {%block logo%} 
+      <a href="http://127.0.0.1:8000/const/index/" class="col-md-3"><img id="logo" style="float:left; padding: 15px 0 0 0;"  src="{% static 'img/logo.jpg' %}" alt="Logo ccfl" width="220px"></a>           
+      {% endblock %}
+      <div class="col-md-9" style="margin:auto; ">
+        <h1>CCFL CONSTRUCTION</h1>              
+        <p>{% block mensaje%}Construyendo tus mejores metas{% endblock %}</p>
       </div>
+    </div>
+  </header>     
+  {% endblock %} <!--fin de block header-->   
   
-      </header>    
               {% block navbar %}
               <div id="navbar">
                 <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
@@ -47,9 +47,7 @@
                       <li class = "nav-item">
                         <a class="nav-link" href="http://127.0.0.1:8000/proyectos/busquedaProyecto/"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Proyectos </font> </font> </a>
                       </li>
-                      <li class = "nav-item">
-                        <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Registrar asistencias </font> </ font > </a>
-                      </li>
+
                       <li class = "nav-item">
                         <a class="nav-link" href="#"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Recursos-Proyecto </font> </ font > </a>
                       </li>
@@ -59,28 +57,23 @@
                     
                     <form class = "form-inline my-2 my-lg-0">
               
-                      <a class="btn btn-danger" href="{% url 'logout'%}" role="button">Salir</a>   
+                      <a class="btn btn-danger" href="{% url 'logout'%}" role="button">Cerrar Sesión</a>   
                     </form>
               
                   </div>
                 </nav>
-              </div>
-                 {% endblock %}         
-            
+              </div> <!--fin de navbar-->
+                 {% endblock %}       <!--fin de block navbar-->  
 
 
-
-
-   </div>
-
-  {%block cuerpo%}
+   <div class="separadores">
+      <hr>{% block Apartado%} {% endblock %} <hr>
+  </div>
 
    <section class="main">
-      <hr>{% block Apartado%} {% endblock %} <hr>
-      {% endblock %}
-
+      {%block cuerpo%}
     <div class= "row">
-      <aside class="col-md-3">
+      <aside class="col-md-2">
         {%block links%}
           <div class="list-group">
               <a href="#" class="list-group-item list-group-item-action active">
@@ -91,24 +84,28 @@
               <a href="#" class="list-group-item list-group-item-action">Enlace3</a>
               <a href="#" class="list-group-item list-group-item-action">Enlace4</a>
             </div>
-        {%endblock%}    
+        {%endblock%}    <!--fin de block links-->
       </aside>
-      <section class="col-md-9">
+      <section class="col-md-10">
           {% block contenido %}
           <article>
               <h2></h2>
               <p>Esto es un ejemplo</p>
           </article>
-          {% endblock %}
+          {% endblock %} <!--fin de block contenido-->
       </section>
     </div> 
+    {% endblock %} <!--fin de block cuerpo-->
    </section>  
 
-  {% endblock %}
+
+  <div class="separadores">
+      <hr><hr>
+  </div>
 
    {% block footer %}
-    <div>
-        <hr><hr>
+    <div >
+
         <footer id="footer">
         
             <div class="footer-top">
@@ -162,7 +159,7 @@
       
           </footer>
     </div>   
-    {% endblock %}
+    {% endblock %} <!--fin de block footer-->
 
    <script src="{% static 'js/bootstrap.js' %}"></script>
    <script src="{% static 'js/bootstrap.js' %}"></script>

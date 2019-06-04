@@ -2,19 +2,17 @@
 {% block Apartado%} <h4 style=" text-align: center;">PROYECTOS</h4>{% endblock %}
 {%block links%}
 <div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action active">
+    <a href="" class="list-group-item list-group-item-action active">
       Lista de enlaces
     </a>
-    <a href="#" class="list-group-item list-group-item-action">Buscar</a>
-    <a href="#" class="list-group-item list-group-item-action">Otro enlace</a>
-    <a href="#" class="list-group-item list-group-item-action">Enlace3</a>
-    <a href="#" class="list-group-item list-group-item-action">Enlace4</a>
+    <a href="http://127.0.0.1:8000/proyectos/busquedaProyecto/" class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="http://127.0.0.1:8000/proyectos/edicionProyecto/" class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+
   </div>
 {%endblock%}  
 
 {% block contenido %}
 <div style="display:inline-block">
-  <button type="button" class="btn btn-secondary">Nuevo Proyecto</button>
 
 </div>
 
@@ -32,11 +30,11 @@
 <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Codigo</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Cliente</th>
-        <th scope="col">Descripción</th>
-        <th scope="col">Acción</th>
+        <th scope="col" style="width:10%" class="centrarCol">Codigo</th>
+        <th scope="col"style="width:15%" class="centrarCol">Nombre</th>
+        <th scope="col"style="width:15%" class="centrarCol">Cliente</th>
+        <th scope="col" style="width:40%" class="centrarCol">Descripción</th>
+        <th scope="col" colspan='2'style="width:25%" class="centrarCol">Acción</th>
       </tr>
     </thead>
     <tbody>
@@ -44,9 +42,9 @@
           <td>001</td>
           <td>Proyecto xx</td>
           <td>Cliente 01</td>
-          <td>Esto es un ejemplo</td>
-          <td>    <a href="" class="btn btn-success">Editar</a>
-          </td>
+          <td>Estoesunejemplklnvxcvns lkslffffffffffffffff skvndfjvks.d kmfmlskkdfjjjjjo</td>
+          <td>    <a href="http://127.0.0.1:8000/proyectos/edicionProyecto/" class="btn btn-primary">Editar</a></td>
+          <td>    <a class="btn btn-warning" href="http://127.0.0.1:8000/proyectos/asignacionRecurso/" >Asignar</a></td>
         </tr>
  
     </tbody>

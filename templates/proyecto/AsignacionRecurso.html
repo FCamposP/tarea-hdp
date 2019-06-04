@@ -1,0 +1,68 @@
+{% extends 'base/base.html'%}
+{% block Apartado%} <h4 style=" text-align: center;">Asignación de Recursos</h4>{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active">Lista de enlaces</a>
+    <a href="http://127.0.0.1:8000/proyectos/busquedaProyecto/" class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="http://127.0.0.1:8000/proyectos/edicionProyecto/" class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+</div>
+{%endblock%}  
+
+{% block contenido %}
+
+<div class="row">
+    <div class="col-md-6" class="cajasAñadir">
+        <fieldset class="groupbox">
+            <legend > Empleado</legend>
+            
+            <div class="btnAñadir">
+            <button type="button" class="btn btn-secondary">Añadir</button>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-md-6">
+        <fieldset class="groupbox">
+            <legend > Bien Material</legend>
+            <div class="btnAñadir">
+                <button type="button" class="btn btn-secondary">Añadir</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<br>
+<h4 id="recursoAñadido">Recursos añadidos</h4>
+
+<div class="recursosAsignar">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="width:9%">#</th>
+                <th scope="col" style="width:18%">Código</th>
+                <th scope="col" style="width:18%">Nombre</th>
+                <th scope="col" style="width:18%">Tipo de Recurso</th>
+                <th scope="col" style="width:26%">Tarea</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>codigo 001</td>
+                <td>Empleado1</td>
+                <td>Empleado</td>
+                <td>Soldador</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>codigo 002</td>
+                <td>Maquina01</td>
+                <td>Bien Material</td>
+                <td>Cortar bloques de cemento</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btnAñadir">
+        <button type="button" class="btn btn-success">Asignar Recursos</button>
+    </div>
+</div>
+{%endblock%} 
