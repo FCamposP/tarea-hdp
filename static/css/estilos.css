@@ -34,8 +34,17 @@ border-style:groove;
   text-align: center;
 }
 
+.cajasAñadir{
+  margin: auto;
+}
+
 .centrarCol{
 text-align: center;
+}
+
+.selectSolicitar{
+  display: inline;
+  margin-left: 10%
 }
 #footer {
     background: #000;

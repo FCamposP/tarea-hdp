@@ -19,3 +19,5 @@ class detalleProyecto(TemplateView):
 class solicitarRecursos(TemplateView):
 	template_name='proyecto/SolicitarRecursos.html'
 
+class verProyecto(TemplateView):
+	template_name='proyecto/VerProyecto.html'

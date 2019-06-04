@@ -1,0 +1,97 @@
+{% extends 'base/base.html'%}
+{% block Apartado%} <h4 style=" text-align: center;">Solicitar Recursos</h4>{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
+    <a href="http://127.0.0.1:8000/proyectos/verProyecto/" class="list-group-item list-group-item-action">Detalles Proyecto</a>
+    <a href="http://127.0.0.1:8000/proyectos/solicitarRecursos/" class="list-group-item list-group-item-action">Solicitar Recursos</a>
+</div>
+{%endblock%}  
+
+{% block contenido %}
+<div class="col-md-12" class="cajas">
+    <form action="">
+    <fieldset class="groupbox">
+        <legend >Pedir nuevos recursos</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Tipo de Recurso</label>
+                    <select class="selectSolicitar" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
+                        <option>Elija un valor</option>  
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Recurso Disponibles</label>
+                    <select class="selectSolicitar" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
+                        <option>Elija un valor</option>  
+                        <option></option>
+                    </select>
+                </div>
+            </div> <br>
+        <div class="row">
+            <div class="col-md-6" >
+                <label for="">Cantidad deseada</label> 
+                <input type="text">
+            </div>
+            <div class="col-md-6">         
+                <label for="" >Periodo estimado a usar</label> 
+                <input type="text">
+            </div>
+        </div>
+            <br><br>
+            <div >
+                <label for="">Asignaciones</label> 
+                <select class="" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
+                    <option>Elija un valor</option>  
+                    <option></option>
+                </select>
+    
+            </div>
+            <div class="btnAñadir"><br>
+            <button type="button" class="btn btn-secondary">Agregar</button>
+            <input class="btn btn-primary" style="margin-left:10%" type="reset" value="Resetear">
+            </div>
+        </fieldset>
+    </form>
+    </div> <!--fin cajas-->
+
+    <br><hr><h4 id="recursoAñadido">Recursos a solicitar</h4><hr>
+
+
+    <div class="recursosAsignar">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" style="width:9%" class="centrarCol">#</th>
+                        <th scope="col" style="width:25%" class="centrarCol">Tipo de Recurso</th>
+                        <th scope="col" style="width:25%" class="centrarCol">Recurso</th>
+                        <th scope="col" style="width:30%" class="centrarCol">Tarea</th>
+                        <th scope="col" style="width:30%" class="centrarCol">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Empleado</td>
+                        <td>Soldador</td>
+                        <td>Soldar 100 vigas</td>
+                        <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
+        
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Maquina</td>
+                        <td>Tractor industrial</td>
+                        <td>Movilizar ripio</td>
+                        <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
+        
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btnAñadir">
+                <button type="button" class="btn btn-success">Solicitar Recursos</button>
+            </div>
+        </div>    
+
+{%endblock%} 
