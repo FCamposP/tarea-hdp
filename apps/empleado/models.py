@@ -1,6 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+class AsignacionUsuario(models.Model):
+    usuario = models.OneToOneField(User,on_delete=models.CASCADE)
+    empleado_proyecto=models.OneToOneField('proyecto.AsignacionPuestoProyecto',on_delete=models.CASCADE)
+    tipo_usuario = models.CharField(max_length=25)
+    descripcion_tipo_usuario = models.CharField(max_length=150)
 
 class Empleado(models.Model):
     nombres=models.CharField(max_length=50)

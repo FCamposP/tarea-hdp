@@ -13,7 +13,6 @@ class Cliente(models.Model):
     numTelefono=models.CharField(max_length=15)
     
 class Puesto(models.Model):
-    empleados=models.ManyToManyField(Empleado)
     codigoPuesto=models.CharField(max_length=10)
     nombrePuesto=models.CharField(max_length=25)
     descripcionPuesto=models.CharField(max_length=150)
@@ -29,6 +28,10 @@ class Proyecto(models.Model):
     fechaInicioConstruccion=models.DateField(auto_now_add=True)
     fechaFinalizacion=models.DateField(auto_now_add=True)
 
+class AsignacionPuestoProyecto(models.Model):
+    empleado=models.ForeignKey(Empleado,on_delete=models.CASCADE)
+    puesto=models.ForeignKey(Puesto,on_delete=models.CASCADE)
+    proyecto=models.ForeignKey(Proyecto,on_delete=models.CASCADE)
 
 class Tarea(models.Model):
     codigoPuesto=models.ForeignKey(Puesto,on_delete=models.CASCADE)
