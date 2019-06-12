@@ -19,7 +19,7 @@ from django.conf.urls import url, include
 from django.contrib.auth.views import login, logout_then_login
 
 urlpatterns = [ 
-    path('admin/', admin.site.urls),
+    url('admin',admin.site.urls),
     url(r'^const/',include('apps.constuctora.urls',namespace="const")),
     url(r'^proyectos/',include('apps.proyecto.urls',namespace="proyectos")),
     url(r'^empleados/',include('apps.empleado.urls',namespace="empleados")),

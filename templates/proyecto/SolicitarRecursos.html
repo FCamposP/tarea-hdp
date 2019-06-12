@@ -3,8 +3,9 @@
 {%block links%}
 <div class="list-group">
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
-    <a href="http://127.0.0.1:8000/proyectos/verProyecto/" class="list-group-item list-group-item-action">Detalles Proyecto</a>
-    <a href="http://127.0.0.1:8000/proyectos/solicitarRecursos/" class="list-group-item list-group-item-action">Solicitar Recursos</a>
+    <a href="{% url 'proyectos:verProyecto' %}"  class="list-group-item list-group-item-action">Datos del Proyecto</a>
+    <a href="{% url 'proyectos:recursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
+    <a href="{% url 'proyectos:solicitarRecursos' %}" class="list-group-item list-group-item-action">Solicitar Recursos</a>
 </div>
 {%endblock%}  
 

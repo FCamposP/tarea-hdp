@@ -3,8 +3,8 @@
 {%block links%}
 <div class="list-group">
     <a href="#" class="list-group-item list-group-item-action active">Lista de enlaces</a>
-    <a href="http://127.0.0.1:8000/proyectos/busquedaProyecto/" class="list-group-item list-group-item-action">Buscar Proyecto</a>
-    <a href="http://127.0.0.1:8000/proyectos/edicionProyecto/" class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+    <a href="{% url 'proyectos:busquedaProyecto' %}" class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'proyectos:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
 </div>
 {%endblock%}  
 

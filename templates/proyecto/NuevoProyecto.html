@@ -3,7 +3,7 @@
 {%block scripts%}
 
 {%endblock%}
-{% block Apartado%} <h4 style=" text-align: center;">Actualizar Proyecto</h4>{% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">Nuevo Proyecto</h4>{% endblock %}
 {%block links%}
 <div class="list-group">
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
@@ -13,40 +13,33 @@
 {%endblock%}  
 
 {% block contenido %}
-
-<div class="col-md-12" class="cajas">
-        <form action="">
-            <fieldset class="groupbox">
+<form method="POST">
+        {%csrf_token%}
+        <fieldset class="groupbox">
                 <legend >Detalles Proyecto</legend>
                     <div class="row">
                         <div class="col-md-6">
-                            <div>
-                                <label for="">Elija un cliente</label><br>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                        <option></option>
-     
-                                      </select>
-                            </div>
+                            <label for="">Elija un cliente</label>
+                            {{formpro.idCliente}}
+                           
                             <div > <br>
                                 <label for="">Nombre del Proyecto</label> 
-                                <input type="text" name="nombrePro" style="width: 100%">
+                                {{formpro.nombreProyecto}}
                             </div>
                             <div><br>
                                 <label>Fecha que dará inicio</label>
-                                <input type="text" name="fechaInicio" style="width: 100%">
+                                {{formpro.fechaInicioConstruccion}}
                             </div>                    
                         </div>
         
                         <div class="col-md-6">
                             <div>
                                 <label for="">Descripcion</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="descripcion" rows="2" placeholder=""></textarea>
-
+                                {{formpro.descripcionProyecto}}
                             </div>
                             <div >  <br>        
                                 <label for="" >Dirección</label> 
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="ubicacion" placeholder=""></textarea>
-
+                                {{formpro.ubicacion}}
                             </div>                    
                         </div>
         
@@ -59,6 +52,5 @@
                         <input class="btn btn-primary" style="margin-left:10%" type="reset" value="Resetear">
                     </div>
                 </fieldset>
-        </form>
-        </div> <!--fin cajas-->
+</form>
 {%endblock%} 

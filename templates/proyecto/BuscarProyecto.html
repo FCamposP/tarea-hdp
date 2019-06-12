@@ -5,8 +5,8 @@
     <a href="" class="list-group-item list-group-item-action active">
       Lista de enlaces
     </a>
-    <a href="http://127.0.0.1:8000/proyectos/busquedaProyecto/" class="list-group-item list-group-item-action">Buscar Proyecto</a>
-    <a href="http://127.0.0.1:8000/proyectos/edicionProyecto/" class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+    <a href="{% url 'proyectos:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'proyectos:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
 
   </div>
 {%endblock%}  
@@ -38,15 +38,16 @@
       </tr>
     </thead>
     <tbody>
+      {%for p in proyectos%}
         <tr>
-          <td>001</td>
-          <td>Proyecto xx</td>
-          <td>Cliente 01</td>
-          <td>Estoesunejemplklnvxcvns lkslffffffffffffffff skvndfjvks.d kmfmlskkdfjjjjjo</td>
-          <td>    <a href="http://127.0.0.1:8000/proyectos/edicionProyecto/" class="btn btn-primary">Editar</a></td>
+          <td>{{p.codigoProyecto}}</td>
+          <td>{{p.nombreProyecto}}</td>
+          <td>{{p.idCliente.nombreCliente}}</td>
+          <td>{{p.descripcionProyecto}}</td>
+          <td>    <a href="http://127.0.0.1:8000/proyectos/editarProyecto/" class="btn btn-primary">Editar</a></td>
           <td>    <a class="btn btn-warning" href="http://127.0.0.1:8000/proyectos/asignacionRecurso/" >Asignar</a></td>
         </tr>
- 
+        {%endfor%}
     </tbody>
   </table>
 
