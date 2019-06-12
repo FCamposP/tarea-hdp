@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <title>{% block title %}Home-Constructora {% endblock %}</title>
-
+{%block scripts%}
+{%endblock%}
 </head>
 <body >
     {% block header %}
@@ -38,22 +39,31 @@
                 
                   <div class = "collapse navbar-collapse" id = "navbarColor01">
                     <ul class = "navbar-nav mr-auto">
+                      {%if user.is_superuser == True%}
                         <li class = "nav-item"> <!--administrador-->
                           <a class="nav-link" href="http://127.0.0.1:8000/proyectos/busquedaProyecto/" style="color:white">  Proyectos </a>
                         </li>
+                      {%endif%}
+                      {%if user.is_superuser == False%}
                         <li class = "nav-item"><!--encargado-->
                           <a class="nav-link" href="http://127.0.0.1:8000/proyectos/verProyecto/" style="color:white">  Proyecto </a>
                         </li>
+                        {%endif%}  
+                        {%if user.is_superuser == True%}
                       <li class = "nav-item active"> <!--administrador-->
                         <a class="nav-link" href="#" style="color:white"> Empleados  </a>
                       </li>
+                      {%endif%}
+                      {%if user.is_superuser == False%}
                       <li class = "nav-item active"><!--encargado-->
                         <a class="nav-link" href="#" style="color:white"> Asistencias  </a>
                       </li>
+                      {%endif%}
+                      {%if user.is_superuser == True%}
                       <li class = "nav-item"> <!--administrador-->
                         <a class="nav-link" href="#" style="color:white"> Recursos </a>
                       </li>
-                      
+                      {%endif%}
                     </ul>
                     
                     <form class = "form-inline my-2 my-lg-0">
@@ -164,6 +174,6 @@
 
    <script src="{% static 'js/bootstrap.js' %}"></script>
    <script src="{% static 'js/bootstrap.js' %}"></script>
-
+   <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

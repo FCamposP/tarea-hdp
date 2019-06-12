@@ -11,7 +11,9 @@ class Cliente(models.Model):
     nit=models.CharField(max_length=15)
     giro=models.CharField(max_length=50)
     numTelefono=models.CharField(max_length=15)
-    
+    def __str__(self): 
+    	return self.nombreCliente    
+
 class Puesto(models.Model):
     codigoPuesto=models.CharField(max_length=10)
     nombrePuesto=models.CharField(max_length=25)
@@ -20,13 +22,12 @@ class Puesto(models.Model):
 
 class Proyecto(models.Model):
     idCliente=models.ForeignKey(Cliente,on_delete=models.CASCADE)
-    puestos=models.ManyToManyField(Puesto)
     codigoProyecto=models.CharField(max_length=10)
     nombreProyecto=models.CharField(max_length=25)
     descripcionProyecto=models.CharField(max_length=250)
     ubicacion=models.CharField(max_length=200)
-    fechaInicioConstruccion=models.DateField(auto_now_add=True)
-    fechaFinalizacion=models.DateField(auto_now_add=True)
+    fechaInicioConstruccion=models.DateField(null=True)
+    fechaFinalizacion=models.DateField(null=True)
 
 class AsignacionPuestoProyecto(models.Model):
     empleado=models.ForeignKey(Empleado,on_delete=models.CASCADE)
