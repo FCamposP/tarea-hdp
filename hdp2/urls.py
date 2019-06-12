@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^const/',include('apps.constuctora.urls',namespace="const")),
     url(r'^proyectos/',include('apps.proyecto.urls',namespace="proyectos")),
+    url(r'^empleados/',include('apps.empleado.urls',namespace="empleados")),
     url(r'^',login, {'template_name':'login/login.html'}, name="login"),
     url(r'^logout/',logout_then_login, name='logout'),
 
