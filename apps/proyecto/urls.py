@@ -6,10 +6,11 @@ from django.contrib.auth.views import login
 
 app_name="proyectos"
 urlpatterns = [
-    url(r'^busquedaProyecto/$',login_required(buscarProyecto.as_view()),name="busquedaProyecto"),
-    url(r'^edicionProyecto/$',login_required(editarProyecto),name="editarProyecto"),
+    url(r'^busquedaProyecto/$',login_required(buscarProyecto),name="busquedaProyecto"),
+    url(r'^nuevoProyecto/$',login_required(nuevoProyecto),name="nuevoProyecto"),
+    url(r'^editarProyecto/$',login_required(editarProyecto),name="editarProyecto"),
     url(r'^asignacionRecurso/$',login_required(asignacionRecurso.as_view()),name="asignacionRecurso"),
-    url(r'^detalleProyecto/$',login_required(detalleProyecto.as_view()),name="detalleProyecto"),
+    url(r'^recursosProyecto/$',login_required(recursosProyecto.as_view()),name="recursosProyecto"),
     url(r'^solicitarRecursos/$',login_required(solicitarRecursos.as_view()),name="solicitarRecursos"),
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
 
