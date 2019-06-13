@@ -19,7 +19,7 @@
   <header id="header">
     <div class="hero-text text-center">
       {%block logo%} 
-      <a href="{%url 'const:index'%}" class="col-md-3"><img id="logo" style="float:left; padding: 15px 0 0 0;"  src="{% static 'img/logo.jpg' %}" alt="Logo ccfl" width="220px"></a>           
+      <a href="{%url 'constructora:index'%}" class="col-md-3"><img id="logo" style="float:left; padding: 15px 0 0 0;"  src="{% static 'img/logo.jpg' %}" alt="Logo ccfl" width="220px"></a>           
       {% endblock %}
       <div class="col-md-9" style="margin:auto; ">
         <h1>CCFL CONSTRUCTION</h1>              
@@ -32,7 +32,7 @@
               {% block navbar %}
               <div id="navbar">
                 <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
-                  <a class="navbar-brand" href="{%url 'const:index'%}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> </a>
+                  <a class="navbar-brand" href="{%url 'constructora:index'%}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Inicio </font> </font> </a>
                   <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-expand = "false" aria-label = "Toggle navigation ">
                     <span class = "navbar-toggler-icon"> </span>
                   </button>
@@ -41,12 +41,12 @@
                     <ul class = "navbar-nav mr-auto">
                       {%if user.is_superuser == True%}
                         <li class = "nav-item"> <!--administrador-->
-                          <a class="nav-link" href="{%url 'proyectos:busquedaProyecto'%}" style="color:white">  Proyectos </a>
+                          <a class="nav-link" href="{%url 'constructora:busquedaProyecto'%}" style="color:white">  Proyectos </a>
                         </li>
                       {%endif%}
                       {%if user.is_superuser == False%}
                         <li class = "nav-item"><!--encargado-->
-                          <a class="nav-link" href="{%url 'proyectos:verProyecto'%}" style="color:white">  Proyecto </a>
+                          <a class="nav-link" href="{%url 'constructora:verProyecto'%}" style="color:white">  Proyecto </a>
                         </li>
                         {%endif%}  
                         {%if user.is_superuser == True%}

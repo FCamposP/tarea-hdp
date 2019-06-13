@@ -38,10 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.constuctora',
-    'apps.proyecto',
-    'apps.empleado',
-    'apps.recurso',
+    'apps.constructora',
 ]
 
 MIDDLEWARE = [
@@ -131,4 +128,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 LOGIN_URL="/accounts/login/"
-LOGIN_REDIRECT_URL = reverse_lazy('const:index') 
+LOGIN_REDIRECT_URL = reverse_lazy('constructora:index') 

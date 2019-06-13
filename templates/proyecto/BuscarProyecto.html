@@ -5,8 +5,8 @@
     <a href="" class="list-group-item list-group-item-action active">
       Lista de enlaces
     </a>
-    <a href="{% url 'proyectos:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
-    <a href="{% url 'proyectos:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+    <a href="{% url 'constructora:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
 
   </div>
 {%endblock%}  
@@ -18,8 +18,8 @@
 
 <div id="buscadorProyecto" style="display:inline-block">
     <nav class="navbar navbar-light bg-light">
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Proyecto" aria-label="Search">
+        <form class="form-inline"  >
+            <input class="form-control mr-sm-2" style="width: 70%" type="search" placeholder="Proyecto" aria-label="Search">
                 <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
         </form> 
     </nav>
@@ -44,8 +44,8 @@
           <td>{{p.nombreProyecto}}</td>
           <td>{{p.idCliente.nombreCliente}}</td>
           <td>{{p.descripcionProyecto}}</td>
-          <td>    <a href="http://127.0.0.1:8000/proyectos/editarProyecto/" class="btn btn-primary">Editar</a></td>
-          <td>    <a class="btn btn-warning" href="http://127.0.0.1:8000/proyectos/asignacionRecurso/" >Asignar</a></td>
+          <td>    <a href="{% url 'constructora:editarProyecto' p.id %}"  class="btn btn-warning">Editar</a></td>
+          <td>    <a class="btn btn-primary" href="{% url 'constructora:asignacionRecurso' %}" >Asignar</a></td>
         </tr>
         {%endfor%}
     </tbody>

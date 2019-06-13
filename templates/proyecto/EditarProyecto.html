@@ -7,8 +7,8 @@
 {%block links%}
 <div class="list-group">
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
-    <a href="{% url 'proyectos:busquedaProyecto' %}" class="list-group-item list-group-item-action">Buscar Proyecto</a>
-    <a href="{% url 'proyectos:nuevoProyecto' %}" class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+    <a href="{% url 'constructora:busquedaProyecto' %}" class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'constructora:nuevoProyecto' %}" class="list-group-item list-group-item-action">Nuevo Proyecto</a>
 </div>
 {%endblock%}  
 
@@ -23,29 +23,31 @@
                             <div>
                                 <label for="">Elija un cliente</label><br>
                                 <select class="form-control" id="exampleFormControlSelect1">
-                                        <option></option>
-     
+                                        <option>{{proyecto.idCliente.nombreCliente}}</option>
+                                        {%for c in clientes%}
+                                        <option>{{c.nombreCliente}}</option>
+                                        {%endfor%}
                                       </select>
                             </div>
                             <div > <br>
                                 <label for="">Nombre del Proyecto</label> 
-                                <input type="text" name="nombrePro" style="width: 100%">
+                                <input type="text" name="nombrePro" value="{{proyecto.nombreProyecto}}" style="width: 100%">
                             </div>
                             <div><br>
-                                <label>Fecha que dará inicio</label>
-                                <input type="text" name="fechaInicio" style="width: 100%">
+                                <label>Fecha de inicio</label>
+                                <input type="text" name="fechaInicio" value="{{proyecto.fechaInicioConstruccion}}" disabled style="width: 100%">
                             </div>                    
                         </div>
         
                         <div class="col-md-6">
                             <div>
                                 <label for="">Descripcion</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="descripcion" rows="2" placeholder=""></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1"  name="descripcion" rows="2" placeholder="">{{proyecto.descripcionProyecto}} </textarea>
 
                             </div>
                             <div >  <br>        
                                 <label for="" >Dirección</label> 
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="ubicacion" placeholder=""></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="ubicacion" placeholder="">{{proyecto.ubicacion}} </textarea>
 
                             </div>                    
                         </div>
@@ -56,7 +58,7 @@
         
                     <div class="btnAñadir">
                         <input class="btn btn-success" style="margin-left:10%" type="submit" value="Guardar">
-                        <input class="btn btn-primary" style="margin-left:10%" type="reset" value="Resetear">
+                        <a class="btn btn-secondary" href="{% url 'constructora:busquedaProyecto'%}" role="button">Cancelar</a>   
                     </div>
                 </fieldset>
         </form>
