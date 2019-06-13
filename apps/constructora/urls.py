@@ -15,4 +15,4 @@ urlpatterns = [
     url(r'^solicitarRecursos/$',login_required(solicitarRecursos.as_view()),name="solicitarRecursos"),
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
 
-]
+] 
