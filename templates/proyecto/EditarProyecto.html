@@ -15,14 +15,15 @@
 {% block contenido %}
 
 <div class="col-md-12" class="cajas">
-        <form action="">
+        <form action="" method="POST">
+                {%csrf_token%}
             <fieldset class="groupbox">
                 <legend >Detalles Proyecto</legend>
                     <div class="row">
                         <div class="col-md-6">
                             <div>
                                 <label for="">Elija un cliente</label><br>
-                                <select class="form-control" id="exampleFormControlSelect1">
+                                <select class="form-control" name="selectCliente" id="exampleFormControlSelect1">
                                         <option>{{proyecto.idCliente.nombreCliente}}</option>
                                         {%for c in clientes%}
                                         <option>{{c.nombreCliente}}</option>
@@ -30,8 +31,12 @@
                                       </select>
                             </div>
                             <div > <br>
+                                <label for="">Código del Proyecto</label> 
+                                <input type="text" id="codPro" name="codPro" value="{{proyecto.codigoProyecto}}" style="width: 100%" disabled >
+                            </div>
+                            <div > <br>
                                 <label for="">Nombre del Proyecto</label> 
-                                <input type="text" name="nombrePro" value="{{proyecto.nombreProyecto}}" style="width: 100%">
+                                <input type="text" id="nombrePro" name="nombrePro" value="{{proyecto.nombreProyecto}}" style="width: 100%">
                             </div>
                             <div><br>
                                 <label>Fecha de inicio</label>
@@ -42,12 +47,12 @@
                         <div class="col-md-6">
                             <div>
                                 <label for="">Descripcion</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1"  name="descripcion" rows="2" placeholder="">{{proyecto.descripcionProyecto}} </textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1"  name="descripcion" rows="3" placeholder="">{{proyecto.descripcionProyecto}} </textarea>
 
                             </div>
                             <div >  <br>        
                                 <label for="" >Dirección</label> 
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="ubicacion" placeholder="">{{proyecto.ubicacion}} </textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ubicacion" placeholder="">{{proyecto.ubicacion}} </textarea>
 
                             </div>                    
                         </div>
@@ -57,10 +62,10 @@
                     </div> <br>
         
                     <div class="btnAñadir">
-                        <input class="btn btn-success" style="margin-left:10%" type="submit" value="Guardar">
-                        <a class="btn btn-secondary" href="{% url 'constructora:busquedaProyecto'%}" role="button">Cancelar</a>   
+                        <input class="btn btn-success" style="margin-left:10%" type="submit" href="{% url 'constructora:busquedaProyecto'%}" value="Guardar">
+                        <a class="btn btn-secondary" href="{% url 'constructora:busquedaProyecto'%}" role="button">Regresar</a>   
                     </div>
                 </fieldset>
-        </form>
+        </form>{{nombre}}
         </div> <!--fin cajas-->
 {%endblock%} 

@@ -7,18 +7,24 @@ class Recurso(models.Model):
     nombreRecurso=models.CharField(max_length=25)
     tipoRecurso=models.CharField(max_length=20)
     descripcionRecurso=models.CharField(max_length=150)
+    def __str__(self): 
+    	return self.nombreRecurso   
 
 class Ejemplar(models.Model):
     idRecurso=models.ForeignKey(Recurso,on_delete=models.CASCADE)
     codigoEjemplar=models.CharField(max_length=10)
     nombreEjemplar=models.CharField(max_length=25)
-    descripcionEjemplar=models.CharField(max_length=10)
-    disponible=models.BooleanField
+    descripcionEjemplar=models.CharField(max_length=100)
+    disponible=models.BooleanField(default=True)
+    def __str__(self): 
+    	return self.codigoEjemplar   
 
 class Herramienta(models.Model):
     nombreHerramienta=models.CharField(max_length=15)
-    cantidadHerramienta=models.IntegerField 
-    canatidadDisponibles=models.IntegerField
+    cantidadHerramienta=models.IntegerField(default=0)
+    canatidadDisponibles=models.IntegerField(default=0)
+    def __str__(self): 
+    	return self.nombreHerramienta   
 
 class Cliente(models.Model):
     codigoCliente=models.CharField(max_length=10)
@@ -39,9 +45,9 @@ class Proyecto(models.Model):
     ubicacion=models.CharField(max_length=200)
     fechaInicioConstruccion=models.DateField(null=True)
     fechaFinalizacion=models.DateField(null=True)
+    finalizado=models.BooleanField(default=False)
     def __str__(self): 
     	return self.nombreProyecto 
-
 
 class AsignacionHerramienta(models.Model):
     idProyecto=models.ForeignKey(Proyecto,on_delete=models.CASCADE)
@@ -70,6 +76,7 @@ class Empleado(models.Model):
     dui=models.CharField(max_length=15)
     nit=models.CharField(max_length=15)
     isss=models.CharField(max_length=15)
+    disponible=models.BooleanField(default=True)
     def __str__(self): 
     	return self.nombres 
 
@@ -96,7 +103,7 @@ class Solicitud(models.Model):
 class DetalleSolicitud(models.Model):
     solicitud=models.ForeignKey(Solicitud,on_delete=models.CASCADE)
     recurso=models.ForeignKey(Recurso,on_delete=models.CASCADE)
-    cantidad=models.IntegerField
+    cantidad=models.IntegerField(default=0)
 
 class AsignacionUsuario(models.Model):
     usuario = models.OneToOneField(User,on_delete=models.CASCADE)
@@ -115,4 +122,4 @@ class Contrato(models.Model):
 class Asistencia(models.Model):
     puesto=models.ForeignKey(Puesto,on_delete=models.CASCADE)
     fechaAsistencia=models.DateField(auto_now_add=True)
-    asistencia=models.BooleanField
+    asistencia=models.BooleanField(default=True)
