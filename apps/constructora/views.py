@@ -19,7 +19,13 @@ class Vista(TemplateView):
 
 
 #INICIO DE VISTAS KILMER
+def Empleado(request):
+	
+	return render(request,'empleados/empleado.html')
 
+def crearEmpleado(request):
+	
+	return render(request,'empleados/crearEmpleado.html')
 
 #FIN VISTAS KILMER
 

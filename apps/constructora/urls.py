@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^solicitarRecursos/$',login_required(solicitarRecursos.as_view()),name="solicitarRecursos"),
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
     url(r'^obtenerEjemplares/$',login_required(obtenerEjemplares),name="obtenerEjemplares"),
+    url(r'^empleado/$',login_required(Empleado),name="empleado"),
+    url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
 
 ] 

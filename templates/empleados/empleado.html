@@ -3,10 +3,53 @@
 {%block links%}
 <div class="list-group">
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
-    <a href="" class="list-group-item list-group-item-action">Empleados</a>
-    <a href="http://127.0.0.1:8000/empleados/NuevoEmpleado/" class="list-group-item list-group-item-action">Nuevo empleado</a>
+    <a href="{%url 'constructora:empleado'%}" class="list-group-item list-group-item-action">Empleados</a>
+    <a href="{%url 'constructora:nuevoEmpleado'%}" class="list-group-item list-group-item-action">Nuevo empleado</a>
 </div>
 {%endblock%}  
 
 {% block contenido %}
+
+<div style="display:inline-block">
+
+</div>
+
+<div id="buscadorEmpleado" style="display:inline-block">
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Empleado" aria-label="Search">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form> 
+    </nav>
+            
+</div>
+<br>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width:10%" class="centrarCol">Nombre</th>
+        <th scope="col"style="width:15%" class="centrarCol">Apellido</th>
+        <th scope="col"style="width:15%" class="centrarCol">Direccion</th>
+        <th scope="col" style="width:40%" class="centrarCol">Numero telefono</th>
+        <th scope="col" colspan='2'style="width:25%" class="centrarCol">Dui</th>
+        <th scope="col" colspan='2'style="width:25%" class="centrarCol">Nit</th>
+        <th scope="col" colspan='2'style="width:25%" class="centrarCol">Isss</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      
+    </tbody>
+  </table>
+
+
 {% endblock %}
