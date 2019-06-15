@@ -19,7 +19,7 @@ class Vista(TemplateView):
 
 
 #INICIO DE VISTAS KILMER
-def Empleado(request):
+def ListaEmpleado(request):
 	
 	return render(request,'empleados/empleado.html')
 
@@ -62,8 +62,8 @@ def buscarProyecto(request):
 def asignacionRecurso(request):
 	pro=Proyecto.objects.filter(finalizado=False)
 	pues=Puesto.objects.all()
-	emp=Empleado.objects.filter(disponible=True)
 	recursos=Recurso.objects.all()
+	emp=Empleado.objects.filter(disponible=True)
 	herramientas=Herramienta.objects.all()
 	contexto={'proyectos':pro,'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
