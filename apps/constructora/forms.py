@@ -39,7 +39,7 @@ class ProyectoForm(forms.ModelForm):
 class RecursoForm(forms.ModelForm):
 
     class Meta:
-        model = Materia
+        model = Recurso
 
         fields = [
             'codigoRecurso',
@@ -65,7 +65,7 @@ class RecursoForm(forms.ModelForm):
 class EjemplarForm(forms.ModelForm):
 
     class Meta:
-        model = Materia
+        model = Ejemplar
 
         fields = [
             'codigoEjemplar',
@@ -88,10 +88,10 @@ class EjemplarForm(forms.ModelForm):
 class HerramientaForm(forms.ModelForm):
 
     class Meta:
-        model = Materia
+        model = Herramienta
 
         fields = [
-            'codigoHerramienta'
+            'codigoHerramienta',
             'nombreHerramienta',
             'cantidadHerramienta',
             'descripcionHerramienta',
