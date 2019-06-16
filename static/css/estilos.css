@@ -243,7 +243,7 @@ color: white;
 .input-group-prepend span{
 width: 50px;
 background-color: #0E2EF9;
-color: black;
+color: white;
 border:0 !important;
 }
 
@@ -266,7 +266,7 @@ margin-right: 5px;
 }
 
 .login_btn{
-color: black;
+color: white;
 background-color: #0E2EF9;
 width: 100px;
 }

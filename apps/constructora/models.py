@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Recurso(models.Model):
-    codigoRecurso=models.CharField(max_length=10)
+    codigoRecurso=models.CharField(max_length=10,primary_key=True)
     nombreRecurso=models.CharField(max_length=25)
     tipoRecurso=models.CharField(max_length=20)
     descripcionRecurso=models.CharField(max_length=150)
@@ -11,8 +11,8 @@ class Recurso(models.Model):
     	return self.nombreRecurso   
 
 class Ejemplar(models.Model):
+    codigoEjemplar=models.CharField(max_length=10,primary_key=True)
     idRecurso=models.ForeignKey(Recurso,on_delete=models.CASCADE)
-    codigoEjemplar=models.CharField(max_length=10)
     nombreEjemplar=models.CharField(max_length=25)
     descripcionEjemplar=models.CharField(max_length=100)
     disponible=models.BooleanField(default=True)
@@ -20,11 +20,13 @@ class Ejemplar(models.Model):
     	return self.codigoEjemplar   
 
 class Herramienta(models.Model):
+    codigoHerramienta=models.CharField(max_length=10,primary_key=True)
     nombreHerramienta=models.CharField(max_length=15)
     cantidadHerramienta=models.IntegerField(default=0)
     canatidadDisponibles=models.IntegerField(default=0)
+    descripcionHerramienta=models.CharField(max_length=100)
     def __str__(self): 
-    	return self.nombreHerramienta   
+    	return self.nombreHerramienta  
 
 class Cliente(models.Model):
     codigoCliente=models.CharField(max_length=10)
