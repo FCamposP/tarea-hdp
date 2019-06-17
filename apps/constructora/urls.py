@@ -15,7 +15,8 @@ urlpatterns = [
     url(r'^recursosProyecto/$',login_required(recursosProyecto.as_view()),name="recursosProyecto"),
     url(r'^solicitarRecursos/$',login_required(solicitarRecursos.as_view()),name="solicitarRecursos"),
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
-    url(r'^obtenerEjemplares/$',login_required(obtenerEjemplares),name="obtenerEjemplares"),
+    url(r'^prueba/$',login_required(prueba),name="prueba"),
+
     url(r'^empleado/$',login_required(ListaEmpleado),name="empleado"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
 

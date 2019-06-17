@@ -106,28 +106,34 @@ def asignacionRecurso(request):
 	recursos=Recurso.objects.all()
 	emp=Empleado.objects.filter(disponible=True)
 	herramientas=Herramienta.objects.all()
-	idproyecto=Proyecto.objects.get(id=request.POST['selectProyecto'])
-	if 'btnEmpleado' in request.POST:
-		asignacion= AsignacionPuestoProyecto()
-		asignacion.empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
-		asignacion.puesto=Puesto.objects.get(id=2)
-		asignacion.proyecto=idproyecto
-		asignacion.salario=20000
-		asignacion.save()
-		pass
-	empleadosAsignados=AsignacionPuestoProyecto.objects.filter(proyecto=idproyecto)
-	maquinariaAsignada=''
-	herramientasAsignadas=''
-	contexto={'proyectos':pro,'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'EmAsignados':empleadosAsignados,'maquinariaAsignada':maquinariaAsignada,'herramientasAsignadas':herramientasAsignadas}
+
+	contexto={'proyectos':pro,'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 
-def obtenerEjemplares(request):
-	id_recurso=request.GET['id']
-	return redirect('constructora:busquedaProyecto')
-	ejem=Ejemplar.objects.filter(idRecurso=id_recurso,disponible=True)
-	data=serializers.serialize('json',ejem,
-	fields=('id','codigoEjemplar','nombreEjemplar','descripcionEjemplar'))
+
+
+def eliminarRecurso(request, id_p, tipo_rec):
+	contexto={}
+	if(tipo_rec==1):
+		dato=AsignacionPuestoProyecto.objects.get(id=id_p)
+		contexto={'dato':dato}
+		if request.method=='POST':
+			dato.delete()
+			return redirect('constructora:asignacionRecurso')
+			pass
+		
+
+	return render(request,'proyecto/EliminarRecurso.html',contexto)
+
+
+
+def prueba(request):
+	ejemplares=Ejemplar.objects.filter(idRecurso=request.GET['id_re'],disponible=True)
+	
+	data=serializers.serialize('json',ejemplares)
+	print(data)
 	return HttpResponse(data,content_type='application/json')
+	
 
 
 def nuevoProyecto(request):

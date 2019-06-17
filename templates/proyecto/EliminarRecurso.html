@@ -1,0 +1,53 @@
+{% extends 'base/base.html'%}
+{% block Apartado%} <h4 style=" text-align: center;">Eliminación de Recursos</h4>{% endblock %}
+{%block links%}
+
+{% block tagbody %} 
+<body onUnLoad="resetearpaginaAsignacion()"> {% endblock %}
+
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active">Lista de enlaces</a>
+    <a href="{% url 'constructora:busquedaProyecto' %}" class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+</div>
+{%endblock%}  
+
+{% block contenido %}
+<form method="POST">
+	{% csrf_token %}
+	<div class="row">
+
+		<div class="col-md-4 " style="margin-left: 10%">
+			<hr>	
+			<h4>¿Desea eliminar el Recurso  {{ dato}}?</h4>
+			<br>
+			<p>Con los Siguientes Datos:</p>
+			<dl class="dl-horizontal">
+				<dt>Dui:</dt>
+				<dd>{{docente.dui_docente}}</dd>
+				<dt>Nombre:</dt>
+				<dd>{{docente.nombre_docente}} {{docente.apellidos_docente}}</dd>
+				<dt>Fecha de Nacimiento:</dt>
+				<dd>{{docente.fecha_nacimiento_docente}}</dd>
+				<dt>Telefono:</dt>
+				<dd>{{docente.telefono_docente}}</dd>
+				<dt>Email:</dt>
+				<dd>{{docente.email_docente}}</dd>
+				<dt>Fecha de Contratacion:</dt>
+				<dd>{{docente.fecha_contratacion_docente}}</dd>
+				<dt>Direccion de Docente:</dt>
+				<dd>{{docente.direccion_docente}}</dd>
+			</dl>
+			<button class="btn btn-danger" type="submit">Si Eliminar</button>
+		</div>
+		<div class="col-md-4">
+
+		</div>
+	</div>
+	
+	
+	
+</form>
+{%endblock%}  
+
+
