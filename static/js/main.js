@@ -17,14 +17,12 @@ function habilitarProyecto(){
    var pues=document.getElementById('selectPuesto');
    var btnEmpleado=document.getElementById('btnEmpleado');
    var selectRecurso=document.getElementById('selectRecurso');
-   var selectEjemplar=document.getElementById('selectEjemplar');
    var btnRecurso=document.getElementById('btnRecurso');
    var selectHerra=document.getElementById('selectHerra');
    var inputCantidad=document.getElementById('inputCantidad');
    var btnHerra=document.getElementById('btnHerra');
     if(sel==""){
         selectRecurso.disabled=true
-        selectEjemplar.disabled=true
         btnRecurso.disabled=true
         selectHerra.disabled=true
         inputCantidad.disabled=true
@@ -65,29 +63,10 @@ function habilitarPuesto(){
     }
 }
 
-function habilitarRecurso(){
-    var selectRecurso=document.getElementById('selectRecurso');
-    var selectEjemplar=document.getElementById('selectEjemplar');
-    var btnRecurso=document.getElementById('btnRecurso');
-    if(selectRecurso==""){
-        selectEjemplar.disabled=true
-        btnRecurso.disabled=true
-    }
-    else{
-        selectEjemplar.disabled=false
-    }
-}
+
 
 function habilitarEjemplares(){
-    var selectEjemplar=document.getElementById('selectEjemplar');
     var btnRecurso=document.getElementById('btnRecurso');
-
-    if(selectEjemplar==""){
-        btnRecurso.disabled=true;
-    }
-    else{
-        btnRecurso.disabled=false;
-    }
 }
 
 function HabilitarHerra(){
@@ -105,4 +84,39 @@ function HabilitarHerra(){
     }
 
 }
+
+function habilitarRecurso(){
+    
+    var selectRecurso=document.getElementById('selectRecurso');
+    var btnRecurso=document.getElementById('btnRecurso');
+    if(selectRecurso==""){
+        btnRecurso.disabled=true
+    }
+    else{
+    }
+    AsignarEmpleado();
+}
+
+function AsignarEmpleado(){
+
+    var id_re=document.getElementById('selectRecurso').value;
+
+    $.ajax({
+        data:{'id_re':id_re},
+        url:'/constructora/prueba/',
+        type:'GET',
+        success: function(data){
+         
+            var html="";
+            html+=" <option></option>";
+            for (var i=0; i<data.length;i++){
+               
+            html+="<option value="+"data[i].fields.codigoEjemplar"+">"+data[i].fields.nombreEjemplar+"</option>";
+        } 
+        $('#ejemplaresT').html(html);      
+ 
+        }
+    });
+}
+
 // fin de js FC

@@ -32,7 +32,7 @@
             <legend > Empleado</legend>
             <div style="width: 50%; ">
                     <label for="">Elija un Empleado</label><br>
-                    <select  class="form-control" name="selectEmpleado" id="selectEmpleado" onchange="habilitarEmpleado()">
+                    <select disabled class="form-control" name="selectEmpleado" id="selectEmpleado" onchange="habilitarEmpleado()">
                         <option></option>
                         {%for e in empleados%}
                         <option value="{{e.id}}" >{{e.nombres}}  {{e.apellidos}}</option>
@@ -41,16 +41,15 @@
                  </div> <br>
                  <div style="width: 50%; ">
                         <label for="">Elija un Puesto</label><br>
-                        <select class="form-control" name="selectPuesto" id="selectPuesto" onchange="habilitarPuesto()">
+                        <select disabled class="form-control" name="selectPuesto" id="selectPuesto" onchange="habilitarPuesto()">
                             <option></option>
                             {%for p in puestos%}
-                            <option value="{{p.id}}">{{p.id}}{{p.nombrePuesto}}</option>
+                            <option value="{{p.id}}">{{p.nombrePuesto}}</option>
                             {%endfor%}
                         </select>
                      </div> <br>
             <div class="btnAñadir">
-            <input type="submit" value="Asignar" name="btnEmpleado" class="btn btn-secondary" />
-            </div>
+                <a href=""  class="btn btn-secondary" id="btnEmpleado" >Asignar</a>            </div>
         </fieldset>
     </form>  
     </div>
@@ -59,27 +58,27 @@
             <legend > Bien Material</legend>
             <div style="width: 50%; ">
                     <label for="">Elija un Recurso</label><br>
-                    <select class="form-control" class="ElejirRecurso" name="selectRecurso" id="selectRecurso" onchange="habilitarRecurso()">
+                    <select disabled class="form-control" class="ElejirRecurso" name="selectRecurso" id="selectRecurso" onchange="habilitarRecurso()">
                         <option></option>
                         {%for r in recursos%}
-                        <option value="{{r.id}}"  >{{r.nombreRecurso}} </option>
+                        
+                        <option value="{{r.codigoRecurso}}">{{r.nombreRecurso}} </option>
                         {%endfor%}
                     </select>
                  </div> <br>
-                 <div style="width: 50%; ">
+                 <div style="width: 70%;">
                         <label for="">Elija un Ejemplar</label><br>
-                        <div id="Ejemplares">
-                        <select class="form-control" name="selectEjemplar" id="selectEjemplar" onchange="habilitarEjemplares()">
-                            <option></option>
-                            {%for e in recursos%}
-                            <option>{{r.nombreRecurso}} </option>
-                            {%endfor%}
+                        <div >
+                        <select  id="ejemplaresT" class="form-control"onchange="habilitarEjemplares()">
+                      
+                        <div id="ejemplaresT">
+       
+                        </div>
                         </select>
                      </div> 
                     </div><br> <!--fin de div para ajax-->
             <div class="btnAñadir">
-                <button type="button" id="btnRecurso" class="btn btn-secondary">Añadir</button>
-            </div>
+                </div>
         </fieldset>
     </div> <br>
     <div class="col-md-4" >
@@ -88,7 +87,7 @@
                 <legend > Herramientas</legend>
                 <div style="width: 50%; ">
                         <label for="">Elija Herramienta</label><br>
-                        <select class="form-control" name="selectHerramienta" id="selectHerra" onchange="HabilitarHerra()">
+                        <select disabled class="form-control" name="selectHerramienta" id="selectHerra" onchange="HabilitarHerra()">
                             <option></option>
                             {%for h in herramientas%}
                             <option>{{h.nombreHerramienta}} </option>
@@ -97,10 +96,10 @@
                      </div> <br>
                      <div style="width: 50%; ">
                             <label for="">Cantidad</label><br>
-                            <input type="text" id="inputCantidad" name="cantidadHerramientas"  style="width: 100%">
+                            <input disabled type="text" id="inputCantidad" name="cantidadHerramientas"  style="width: 100%">
                          </div> <br>
                 <div class="btnAñadir">
-                    <button type="button" id="btnHerra" class="btn btn-secondary">Añadir</button>
+                    <button disabled type="button" id="btnHerra" class="btn btn-secondary">Añadir</button>
                 </div>
             </fieldset>
      
@@ -109,6 +108,7 @@
 
 <br>
 
+<div id="pruuueba"></div>
 
 
 <div id="RecursosAñadidos" style="display: ">
@@ -125,27 +125,22 @@
             </tr>
         </thead>
         <tbody>
-            {%for em in EmAsignados%}
+        <div id="recursosEmpleados">
+         
             <tr>
-                <th scope="row">{{forloop.counter }}</th>
-                <td>Empleado</td>
-                <td>{{em.empleado.nombres}} {{em.empleado.apellidos}}</td>
+                <th scope="row"></th>
+                <td id="aver">Empleado</td>
+                <td></td>
 
-                <td>{{em.puesto.nombrePuesto}}</td>
-                <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
+                <td></td>
+                <td> <a href=""  class="btn btn-warning">Eliminar</a></td>
 
             </tr>
-            {%endfor%}
+        </div>
+   
             {%for em in maquinariaAsignada%}
-            <tr>
-                <th scope="row">{{forloop.counter }}</th>
-                <td>Empleado</td>
-                <td>{{em.empleado.nombres}} {{em.empleado.apellidos}}</td>
 
-                <td>{{em.puesto.nombrePuesto}}</td>
-                <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
 
-            </tr>
             {%endfor%}
             {%for em in herramientasAsignadas%}
             <tr>
@@ -167,4 +162,3 @@
 </div> <!--fin de recursos asignar-->
 </div><!--fin de recursosasignados-->
 {%endblock%} 
-
