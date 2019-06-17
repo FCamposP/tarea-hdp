@@ -1,6 +1,10 @@
 {% extends 'base/base.html'%}
 {% block Apartado%} <h4 style=" text-align: center;">Asignación de Recursos</h4>{% endblock %}
 {%block links%}
+
+{% block tagbody %} 
+<body onUnLoad="resetearpaginaAsignacion()"> {% endblock %}
+
 <div class="list-group">
     <a href="#" class="list-group-item list-group-item-action active">Lista de enlaces</a>
     <a href="{% url 'constructora:busquedaProyecto' %}" class="list-group-item list-group-item-action">Buscar Proyecto</a>
@@ -9,52 +13,54 @@
 {%endblock%}  
 
 {% block contenido %}
-<form method="POST">
+
         <div style="width: 50%; margin-left: 25%">
                 <label for="">Elija un Proyecto</label><br>
-                <select class="form-control" name="selectProyecto" id="exampleFormControlSelect1">
-                    <option>Proyectos</option>
+                <select class="form-control"  name="selectProyecto" id="selectProyecto"  onchange="habilitarProyecto()">
+                    <option></option>
                     {%for p in proyectos%}
-                    <option>{{p.nombreProyecto}}</option>
+                    <option value="{{p.id}}">{{p.nombreProyecto}}</option>
                     {%endfor%}
                 </select>
              </div> <br>
 <div class="row">
     <div class="col-md-4" class="cajasAñadir">
 
-
+      <form method="POST">
+            {%csrf_token%}
         <fieldset class="groupbox">
             <legend > Empleado</legend>
             <div style="width: 50%; ">
                     <label for="">Elija un Empleado</label><br>
-                    <select class="form-control" name="selectEmpleado" id="exampleFormControlSelect1">
-                        <option>Empleado</option>
+                    <select  class="form-control" name="selectEmpleado" id="selectEmpleado" onchange="habilitarEmpleado()">
+                        <option></option>
                         {%for e in empleados%}
-                        <option>{{e.nombres}}  {{e.apellidos}}</option>
+                        <option value="{{e.id}}" >{{e.nombres}}  {{e.apellidos}}</option>
                         {%endfor%}
                     </select>
                  </div> <br>
                  <div style="width: 50%; ">
                         <label for="">Elija un Puesto</label><br>
-                        <select class="form-control" name="selectPuesto" id="exampleFormControlSelect1">
-                            <option>Puesto</option>
+                        <select class="form-control" name="selectPuesto" id="selectPuesto" onchange="habilitarPuesto()">
+                            <option></option>
                             {%for p in puestos%}
-                            <option>{{p.nombrePuesto}}</option>
+                            <option value="{{p.id}}">{{p.id}}{{p.nombrePuesto}}</option>
                             {%endfor%}
                         </select>
                      </div> <br>
             <div class="btnAñadir">
-            <button type="button" class="btn btn-secondary">Añadir</button>
+            <input type="submit" value="Asignar" name="btnEmpleado" class="btn btn-secondary" />
             </div>
         </fieldset>
+    </form>  
     </div>
     <div class="col-md-4">
         <fieldset class="groupbox">
             <legend > Bien Material</legend>
             <div style="width: 50%; ">
                     <label for="">Elija un Recurso</label><br>
-                    <select class="form-control" class="ElejirRecurso" name="selectRecurso" id="Recurso">
-                        <option>Recurso</option>
+                    <select class="form-control" class="ElejirRecurso" name="selectRecurso" id="selectRecurso" onchange="habilitarRecurso()">
+                        <option></option>
                         {%for r in recursos%}
                         <option value="{{r.id}}"  >{{r.nombreRecurso}} </option>
                         {%endfor%}
@@ -63,8 +69,8 @@
                  <div style="width: 50%; ">
                         <label for="">Elija un Ejemplar</label><br>
                         <div id="Ejemplares">
-                        <select class="form-control" name="selectEjemplar" id="exampleFormControlSelect2">
-                            <option>Ejemplar</option>
+                        <select class="form-control" name="selectEjemplar" id="selectEjemplar" onchange="habilitarEjemplares()">
+                            <option></option>
                             {%for e in recursos%}
                             <option>{{r.nombreRecurso}} </option>
                             {%endfor%}
@@ -72,7 +78,7 @@
                      </div> 
                     </div><br> <!--fin de div para ajax-->
             <div class="btnAñadir">
-                <button type="button" class="btn btn-secondary">Añadir</button>
+                <button type="button" id="btnRecurso" class="btn btn-secondary">Añadir</button>
             </div>
         </fieldset>
     </div> <br>
@@ -82,8 +88,8 @@
                 <legend > Herramientas</legend>
                 <div style="width: 50%; ">
                         <label for="">Elija Herramienta</label><br>
-                        <select class="form-control" name="selectHerramienta" id="exampleFormControlSelect1">
-                            <option>Herramienta</option>
+                        <select class="form-control" name="selectHerramienta" id="selectHerra" onchange="HabilitarHerra()">
+                            <option></option>
                             {%for h in herramientas%}
                             <option>{{h.nombreHerramienta}} </option>
                             {%endfor%}
@@ -91,54 +97,74 @@
                      </div> <br>
                      <div style="width: 50%; ">
                             <label for="">Cantidad</label><br>
-                            <input type="text" id="cantHerr" name="cantidadHerramientas"  style="width: 100%">
+                            <input type="text" id="inputCantidad" name="cantidadHerramientas"  style="width: 100%">
                          </div> <br>
                 <div class="btnAñadir">
-                    <button type="button" class="btn btn-secondary">Añadir</button>
+                    <button type="button" id="btnHerra" class="btn btn-secondary">Añadir</button>
                 </div>
             </fieldset>
      
         </div>
 </div>
-</form> 
-<br><hr><h4 id="recursoAñadido">Recursos añadidos</h4><hr>
 
-<div class="recursosAsignar">
+<br>
+
+
+
+<div id="RecursosAñadidos" style="display: ">
+<hr><h4 id="recursoAñadido">Recursos añadidos</h4><hr>
+<div class="recursosAsignar" >
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col" style="width:9%">#</th>
-                <th scope="col" style="width:18%">Código</th>
-                <th scope="col" style="width:18%">Nombre</th>
-                <th scope="col" style="width:18%">Tipo de Recurso</th>
-                <th scope="col" style="width:26%">Tarea</th>
-                <th scope="col" style="width:26%">Acción</th>
+                <th scope="col" style="width:%">#</th>
+                <th scope="col" style="width:%">Tipo Recurso</th>
+                <th scope="col" style="width:%">Nombre</th>
+                <th scope="col" style="width:%">Asignación</th>
+                <th scope="col" style="width:%">Acción</th>
             </tr>
         </thead>
         <tbody>
+            {%for em in EmAsignados%}
             <tr>
-                <th scope="row">1</th>
-                <td>codigo 001</td>
-                <td>Empleado1</td>
+                <th scope="row">{{forloop.counter }}</th>
                 <td>Empleado</td>
-                <td>Soldador</td>
+                <td>{{em.empleado.nombres}} {{em.empleado.apellidos}}</td>
+
+                <td>{{em.puesto.nombrePuesto}}</td>
                 <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
 
             </tr>
+            {%endfor%}
+            {%for em in maquinariaAsignada%}
             <tr>
-                <th scope="row">2</th>
-                <td>codigo 002</td>
-                <td>Maquina01</td>
-                <td>Bien Material</td>
-                <td>Cortar bloques de cemento</td>
+                <th scope="row">{{forloop.counter }}</th>
+                <td>Empleado</td>
+                <td>{{em.empleado.nombres}} {{em.empleado.apellidos}}</td>
+
+                <td>{{em.puesto.nombrePuesto}}</td>
                 <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
 
             </tr>
+            {%endfor%}
+            {%for em in herramientasAsignadas%}
+            <tr>
+                <th scope="row">{{forloop.counter }}</th>
+                <td>Empleado</td>
+                <td>{{em.empleado.nombres}} {{em.empleado.apellidos}}</td>
+
+                <td>{{em.puesto.nombrePuesto}}</td>
+                <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
+
+            </tr>
+            {%endfor%}
+
         </tbody>
     </table>
     <div class="btnAñadir">
         <button type="button" class="btn btn-success">Asignar Recursos</button>
     </div>
-</div>
+</div> <!--fin de recursos asignar-->
+</div><!--fin de recursosasignados-->
 {%endblock%} 
 

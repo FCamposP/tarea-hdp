@@ -7,6 +7,7 @@ import datetime
 from apps.constructora.forms import ProyectoForm
 from django.core import serializers
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 # Create your views here.
 
 class Vista(TemplateView):
@@ -99,12 +100,25 @@ def buscarProyecto(request):
 	return render(request,'proyecto/BuscarProyecto.html',contexto)
 
 def asignacionRecurso(request):
+	idUsuario=request.user.id
 	pro=Proyecto.objects.filter(finalizado=False)
 	pues=Puesto.objects.all()
 	recursos=Recurso.objects.all()
 	emp=Empleado.objects.filter(disponible=True)
 	herramientas=Herramienta.objects.all()
-	contexto={'proyectos':pro,'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas}
+	idproyecto=Proyecto.objects.get(id=request.POST['selectProyecto'])
+	if 'btnEmpleado' in request.POST:
+		asignacion= AsignacionPuestoProyecto()
+		asignacion.empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
+		asignacion.puesto=Puesto.objects.get(id=2)
+		asignacion.proyecto=idproyecto
+		asignacion.salario=20000
+		asignacion.save()
+		pass
+	empleadosAsignados=AsignacionPuestoProyecto.objects.filter(proyecto=idproyecto)
+	maquinariaAsignada=''
+	herramientasAsignadas=''
+	contexto={'proyectos':pro,'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'EmAsignados':empleadosAsignados,'maquinariaAsignada':maquinariaAsignada,'herramientasAsignadas':herramientasAsignadas}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 
 def obtenerEjemplares(request):

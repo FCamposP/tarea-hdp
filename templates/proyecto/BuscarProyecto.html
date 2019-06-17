@@ -10,7 +10,7 @@
 
   </div>
 {%endblock%}  
-
+ 
 {% block contenido %}
 <div style="display:inline-block">
 
@@ -27,6 +27,9 @@
 </div>
 <br>
 <br>
+
+{% if proyectos %}
+
 <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -50,5 +53,12 @@
         {%endfor%}
     </tbody>
   </table>
+
+{%else%}
+<div class="alert alert-primary" role="alert">
+  ¡No se ha creado ningún proyecto!
+</div>
+{%endif%}
+
 
 {% endblock %}
