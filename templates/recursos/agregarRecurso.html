@@ -1,6 +1,18 @@
 {% extends 'base/base.html'%}
-{% block title %}Agregar Recurso{% endblock %}
-{% block Apartado%} <h4 style=" text-align: center;">Agregar Recurso</h4>{% endblock %}
+{% block title %}
+{% if form %}
+Agregar Recurso
+{% else %}
+Modificar Recurso
+{% endif %}
+{% endblock %}
+{% block Apartado%}
+{% if form %}
+<h4 style=" text-align: center;">Agregar Recurso</h4>
+{% else %}
+<h4 style=" text-align: center;">Modificar Recurso</h4>
+{% endif %}
+{% endblock %}
 {%block links%}
 <!-- -->
 <!-- 
@@ -17,17 +29,14 @@
 
 {% block contenido %}
 <div class="container">
-	<div class="row">
-		<div class="col">
-			<h2 style="text-align: center;">Agregar Recurso</h2>
-		</div>
-	</div>
+
 	<form method="post">
 	{% csrf_token %}
 	<div class="row">		
 		<div class="row">		
 			<div class="col">				
 				<div class="form-group"">
+					{% if form %}
 					{%for element in form %} 
 	                <div class="form-group"> 
 	                    <label class="col-md-12 control-label">
@@ -41,6 +50,21 @@
 	                    </div> 
 	                </div> 
 	                {% endfor %}
+	                {% else %}
+					{%for element in form1 %} 
+	                <div class="form-group"> 
+	                    <label class="col-md-12 control-label">
+	                        {{element.label}}            
+	                    </label> 
+	                    <div class="col-md-12"> 
+	                        {{element}} 
+	                        <div class="error">
+	                            {{element.errors}}
+	                        </div>
+	                    </div> 
+	                </div> 
+	                {% endfor %}
+					{% endif %}
 				</div>
 			</div>
 		</div>

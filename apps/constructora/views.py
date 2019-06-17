@@ -46,13 +46,13 @@ def recursoAgregar(request):
 def recursoModificar(request, codigoRecurso):
 	recurso = Recurso.objects.get(pk=codigoRecurso)
 	if request.method == 'GET':
-		form = RecursoForm(instance=recurso)
+		form1 = RecursoForm(instance=recurso)
 	else:
-		form = RecursoForm(request.POST, instance=recurso)
-		if form.is_valid():
-			form.save()
+		form1 = RecursoForm(request.POST, instance=recurso)
+		if form1.is_valid():
+			form1.save()
 		return redirect('constructora:recursoList')
-	return render(request, 'recursos/agregarRecurso.html', {'form':form})
+	return render(request, 'recursos/agregarRecurso.html', {'form1':form1})
 
 
 #FIN DE VISTAS MARCO
