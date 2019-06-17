@@ -48,7 +48,7 @@
           <td>{{p.idCliente.nombreCliente}}</td>
           <td>{{p.descripcionProyecto}}</td>
           <td>    <a href="{% url 'constructora:editarProyecto' p.id %}"  class="btn btn-warning">Editar</a></td>
-          <td>    <a class="btn btn-primary" href="{% url 'constructora:asignacionRecurso' %}" >Asignar</a></td>
+          <td>    <a class="btn btn-primary" href="{% url 'constructora:asignacionRecurso'  p.id  %}" >Asignar</a></td>
         </tr>
         {%endfor%}
     </tbody>

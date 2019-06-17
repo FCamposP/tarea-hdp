@@ -66,7 +66,8 @@ function habilitarPuesto(){
 
 
 function habilitarEjemplares(){
-    var btnRecurso=document.getElementById('btnRecurso');
+    var valor=document.getElementById('selectEjemplar').value;
+    alert(valor);
 }
 
 function HabilitarHerra(){
@@ -94,10 +95,10 @@ function habilitarRecurso(){
     }
     else{
     }
-    AsignarEmpleado();
+    cargarEjemplares();
 }
 
-function AsignarEmpleado(){
+function cargarEjemplares(){
 
     var id_re=document.getElementById('selectRecurso').value;
 
@@ -111,12 +112,56 @@ function AsignarEmpleado(){
             html+=" <option></option>";
             for (var i=0; i<data.length;i++){
                
-            html+="<option value="+"data[i].fields.codigoEjemplar"+">"+data[i].fields.nombreEjemplar+"</option>";
+            html+="<option value=\""+data[i].fields.codigoEjemplar+ \"">"+data[i].fields.nombreEjemplar+"</option>";
         } 
-        $('#ejemplaresT').html(html);      
+        $('#selectEjemplar').html(html);      
  
         }
     });
+}
+
+function empleadosAsignados(){
+    var id_emp=document.getElementById('selectEmpleado').value;
+    var id_pues=document.getElementById('selectPuesto').value;
+    var salario=document.getElementById('salario').value;
+    $.ajax({
+        data:{'id_pro':id_pro,'id_emp':id_emp,'id_pues':id_pues,'salario':salario},
+        url:'/constructora/agregarEmpleado/',
+        type:'GET',
+        success: function(data){
+            var html="";
+            html+=" <table class="+"table"+">"+
+            "<thead class="+"thead-dark"+">"+
+            "<tr>"+
+            "<th scope="+"col" +"style="+"width:%"+">#</th>"+
+            "<th scope="+"col" +"style="+"width:%"+">Tipo Recurso</th>"+
+            "<th scope="+"col" +"style="+"width:%"+">Nombre</th>"+
+            "<th scope="+"col" +"style="+"width:%"+">Asignación</th>"+
+            " <th scope="+"col" +"style="+"width:%"+">Salario</th>"+
+            "</tr>"+
+            " </thead>"+
+            "<tbody>";
+         
+            for (var i=0; i<data.a.length;i++){
+                
+               html+="<tr>"+
+               "<td>"+(i+1)+"</td>"+
+               "<td>Empleado</td>"+
+               "<td>"+ data.e[i]+"</td>"+
+               "<td>"+data.a[i]+"</td>"+
+               "<td>"+data.salario[i]+ "</td>"
+               "</tr>";
+            }
+            html+=" </tbody>"+
+            " </table>";
+            $('#tablaa ').html(html); 
+            
+        }
+        
+          
+        
+    });
+    alert('sii'); 
 }
 
 // fin de js FC

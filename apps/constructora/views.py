@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from apps.constructora.models import *
-import datetime
+import datetime,time
 from apps.constructora.forms import ProyectoForm
 from django.core import serializers
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+import json
 # Create your views here.
 
 class Vista(TemplateView):
@@ -60,29 +61,66 @@ def buscarProyecto(request):
 	contexto={'proyectos':proyectos}
 	return render(request,'proyecto/BuscarProyecto.html',contexto)
 
-def asignacionRecurso(request):
-	idUsuario=request.user.id
-	pro=Proyecto.objects.filter(finalizado=False)
+def asignacionRecurso(request,id_p):
+	empA= AsignacionPuestoProyecto.objects.filter(proyecto=id_p)
+	maqA=AsignacionoEjemplar.objects.filter(idProyecto=id_p)
+	herrA=AsignacionHerramienta.objects.filter(idProyecto=id_p)
 	pues=Puesto.objects.all()
 	recursos=Recurso.objects.all()
 	emp=Empleado.objects.filter(disponible=True)
 	herramientas=Herramienta.objects.all()
 
-	contexto={'proyectos':pro,'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas}
+	if 'btnEmpleado' in request.POST:
+		asignacionE=AsignacionPuestoProyecto()
+		asignacionE.empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
+		asignacionE.puesto=Puesto.objects.get(id=request.POST['selectPuesto'])
+		asignacionE.proyecto=Proyecto.objects.get(id=id_p)
+		asignacionE.salario=request.POST['inputSalario']
+		asignacionE.save()
+		pass
+	
+	if 'btnEjemplar' in request.POST:
+		asignacionM=AsignacionoEjemplar()
+		asignacionM.idProyecto=Proyecto.objects.get(id=id_p)
+		#asignacionM.ejemplar=Ejemplar.objects.get(codigoEjemplar=)
+		asignacionM.fechaAsignacion= time.strftime("%c")
+	
+	contexto={'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 
 
 
-def eliminarRecurso(request, id_p, tipo_rec):
+
+def eliminarRecurso(request,id_pro, id_p, tipo_rec):
 	contexto={}
-	if(tipo_rec==1):
+	if(tipo_rec=='1'):
 		dato=AsignacionPuestoProyecto.objects.get(id=id_p)
+		
 		contexto={'dato':dato}
 		if request.method=='POST':
 			dato.delete()
-			return redirect('constructora:asignacionRecurso')
+			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
 			pass
+
+	if(tipo_rec=='2'):
+
+		dato=AsignacionoEjemplar.objects.get(id=id_p)
 		
+		contexto={'dato':dato}
+		if request.method=='POST':
+			dato.delete()
+			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
+			pass
+
+	if(tipo_rec=='3'):
+
+		dato=AsignacionHerramienta.objects.get(id=id_p)
+		
+		contexto={'dato':dato}
+		if request.method=='POST':
+			dato.delete()
+			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
+			pass
 
 	return render(request,'proyecto/EliminarRecurso.html',contexto)
 
