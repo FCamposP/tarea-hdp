@@ -1,0 +1,55 @@
+{% extends 'base/base.html'%}
+{% block title %}Agregar Recurso{% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">Agregar Recurso</h4>{% endblock %}
+{%block links%}
+<!-- -->
+<!-- 
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">
+      Lista de enlaces
+    </a>
+    <a href="{% url 'constructora:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+
+  </div>
+-->
+{%endblock%}  
+
+{% block contenido %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h2 style="text-align: center;">Agregar Recurso</h2>
+		</div>
+	</div>
+	<form method="post">
+	{% csrf_token %}
+	<div class="row">		
+		<div class="row">		
+			<div class="col">				
+				<div class="form-group"">
+					{%for element in form %} 
+	                <div class="form-group"> 
+	                    <label class="col-md-12 control-label">
+	                        {{element.label}}            
+	                    </label> 
+	                    <div class="col-md-12"> 
+	                        {{element}} 
+	                        <div class="error">
+	                            {{element.errors}}
+	                        </div>
+	                    </div> 
+	                </div> 
+	                {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="offset-9 col-3">
+		<br>
+		<button type="submit" class="btn btn-primary">Guardar</button>
+		<a href="{% url 'constructora:agregarRecurso' %}" class="btn btn-warning">Volver a la lista</a> 
+		<br>
+	</div>
+</div>
+{% endblock %}

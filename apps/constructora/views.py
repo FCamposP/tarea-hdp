@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from apps.constructora.models import *
+from apps.constructora.forms import *
+from django.urls import reverse_lazy,reverse
 import datetime
 from apps.constructora.forms import ProyectoForm
 from django.core import serializers
@@ -12,7 +14,44 @@ class Vista(TemplateView):
 
 #INICIO DE VISTAS MARCO
 
+def recursoList(request):
 
+	if 'accion' in request.POST:
+		accion = request.POST['accion']
+		codigo_recurso = request.POST['recurso']
+		recurso = Recurso.objects.get(codigoRecurso = codigo_recurso)
+		if accion == 'Eliminar':	
+			recurso.delete()
+			pass
+		else:
+			pass
+		pass
+	recurso = Recurso.objects.all().order_by('codigoRecurso')
+	contexto = {'recursos':recurso}
+	return render(request, 'recursos/listaRecurso2.html', contexto)	
+
+def recursoAgregar(request):
+	if request.method == 'POST':
+		form = RecursoForm(request.POST)
+		if form.is_valid():
+			form.save()
+			pass
+		pass
+		return redirect('constructora:recursoList')
+	else:
+		form = RecursoForm()
+	return render(request, 'recursos/agregarRecurso.html', {'form':form})
+
+def recursoModificar(request, codigoRecurso):
+	recurso = Recurso.objects.get(pk=codigoRecurso)
+	if request.method == 'GET':
+		form = RecursoForm(instance=recurso)
+	else:
+		form = RecursoForm(request.POST, instance=recurso)
+		if form.is_valid():
+			form.save()
+		return redirect('constructora:recursoList')
+	return render(request, 'recursos/agregarRecurso.html', {'form':form})
 
 
 #FIN DE VISTAS MARCO

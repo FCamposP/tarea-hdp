@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+
+{% block contenido %}
+<div class="table-responsive">
+	<table class="table table-hover table-bordered">
+		<thead class="table table-hover table-bordered">
+			<tr class="table-success">
+				<td class="font-weight-bold">Codigo</td>
+				<td class="font-weight-bold">Nombre</td>
+				<td class="font-weight-bold">Tipo</td>
+				<td class="font-weight-bold">Descripcion</td>
+				<td class="font-weight-bold">Acciones</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% if recursos %}
+			{% for recurso in recursos %}
+			<tr class="text-justify">
+				<td>{{ recurso.codigoRecurso }}</td>
+				<td>{{ recurso.nombreRecurso }}</td>
+				<td>{{ recurso.tipoRecurso }}</td>
+				<td>{{ recurso.descripcionRecurso }}</td>
+				<td>
+					<a href="{% url 'constructora:modificarRecurso' recurso.pk %}">Modificar</a>
+					<div>
+						<form method="POST">
+			                {% csrf_token %} 
+			                <input type="hidden" name="recurso" value="{{ recurso.codigoRecurso }}">
+                			<a href="{% url 'constructora:modificarRecurso' recurso.pk %}" class="btn btn-success">Editar</a>     
+			                <input class="btn btn-danger" type="button" data-toggle="modal" data-target="{{ recurso.codigoRecurso }}" value="Eliminar">
+			                <!-- Modal -->
+			                <div class="modal fade" id="{{ recurso.codigoRecurso }}" aria-hidden="true" >
+			                  <div class="modal-dialog">
+			                    <div class="modal-content">
+			                      <div class="modal-header">
+			                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                        <h4 class="modal-title">Encabezado</h4>
+			                      </div>
+			                      <div class="modal-body">
+			                        ¿Esta seguro de eliminar el Recurso <b>{{ recurso.nombreRecurso }}?</b>
+			                      </div>
+			                      <div class="modal-footer">
+			                        <input class="btn btn-danger" type="submit" name="accion" value="Eliminar">
+			                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+			             </form>
+					</div>
+					<a href="">| Ejemplares</a>
+				</td>
+			</tr>
+			{% endfor %}
+
+			{% else %}
+			<h2>No hay registros de recursos</h2>
+			{% endif %}
+		</tbody>
+	</table>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+{% endblock %}
