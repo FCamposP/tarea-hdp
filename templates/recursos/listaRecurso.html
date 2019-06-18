@@ -1,0 +1,67 @@
+{% extends 'base/base.html'%}
+{% block title %}Recursos{% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">Recursos</h4>{% endblock %}
+{%block links%}
+<!-- -->
+<!-- 
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">
+      Lista de enlaces
+    </a>
+    <a href="{% url 'constructora:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+
+  </div>
+-->
+{%endblock%}  
+
+{% block contenido %}
+<div class="table-responsive">
+	<table class="table table-hover table-bordered">
+		<br>
+		<h2 class="text-center">Administrar Recursos</h2>
+		<a href="{% url 'constructora:agregarRecurso' %}" class="btn btn-success">
+	        <span class="fas fa-plus"></span> Agregar
+	    </a>
+	    <br>
+	    <br>
+	    		<div class="table-responsive"> 
+					<thead class="table table-hover table-bordered">
+						<tr class="table-success">
+							<td class="font-weight-bold">Código</td>
+							<td class="font-weight-bold">Nombre</td>
+							<td class="font-weight-bold">Tipo</td>
+							<td class="font-weight-bold">Descripción</td>
+							<td class="font-weight-bold">Acciones</td>
+						</tr>
+					</thead>
+					
+					{% if recursos %}
+					{% for recurso in recurss %}
+					<tbody><!-- 
+						<tr class="text-justify">
+							<td>{{ Recurso.codigoRecurso }}</td>
+							<td>{{ Recurso.nombreRecurso }}</td>
+							<td>{{ Recurso.tipoRecurso }}</td>
+							<td>{{ Recurso.descripcionRecurso }}</td>
+							<td>
+								<a class="btn" href="{% url 'constructora:agregarRecurso' Recurso.pk %}">
+									<span class="fas fa-pencil-alt"></span>
+								</a>
+								<a class="btn" href="{% url 'constructora:agregarRecurso' Recurso.pk %}">
+									<span class="fas fa-trash"></span>
+								</a>
+								<a href="{% url 'constructora:agregarRecurso' Recurso.pk %}" class="btn">
+									<span class="fas fa-th-large"></span>
+								</a>
+							</td>
+						</tr>-->
+					</tbody>
+					{% endfor %}
+				</div>
+				{% else %}
+				<h2>No hay registros de Recursos</h2>
+				{% endif %}
+	</table>
+</div>
+{% endblock %}

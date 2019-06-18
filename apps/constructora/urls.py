@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.urls import path
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url, include
 from apps.constructora.views import *
@@ -19,5 +20,14 @@ urlpatterns = [
 
     url(r'^empleado/$',login_required(ListaEmpleado),name="empleado"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
+
+
+
+    #INICIO URLS MARCO
+    #url(r'^recursolist/$',login_required(recursoList),name="recursoList"),
+    url(r'^recursoList/$',login_required(recursoList),name="recursoList"),
+    url(r'^agregarRecurso/$',login_required(recursoAgregar), name='agregarRecurso'),
+    path('modificarRecurso/<str:codigoRecurso>/',login_required(recursoModificar), name='modificarRecurso'),
+    #FIN URLS MARCO
 
 ] 
