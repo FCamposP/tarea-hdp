@@ -56,6 +56,7 @@ class AsignacionHerramienta(models.Model):
     Herramienta=models.ForeignKey(Herramienta,on_delete=models.CASCADE)
     fechaAsignacion=models.DateField(auto_now_add=True)
     fechaDisponible=models.DateField(auto_now_add=True)
+    cantidadAsignada=models.IntegerField(default=0)
 
 class AsignacionoEjemplar(models.Model):
     idProyecto=models.ForeignKey(Proyecto,on_delete=models.CASCADE)
