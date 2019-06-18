@@ -22,43 +22,44 @@
 	                        	<div>
 	                                <label>Nombre: </label>
 	                                <br/>
-	                                <input type="text" id="nombreEmpleado" name="nombreEmpleado" required minlength="1" maxlength="20" size="40" />		
+	                                {{formEmpleado.nombres}}
                             	</div>		                        
 			         			<br/>
 								<div>
 	                                <label>Apellidos: </label>
 	                                <br/>
-	                                <input type="text" id="apellidosEmpleado" name="apellidosEmpleado" required minlength="1" maxlength="20" size="40" />		
+	                                {{formEmpleado.apellidos}}
                             	</div>		                        
 			         			<br/>
 			         			<div>
 	                                <label>Direccion: </label>
 	                                <br/>
-	                                <input type="text" id="direccion" name="direccion" required minlength="1" maxlength="20" size="40" />		
+	                                {{formEmpleado.direccion}}
+
                             	</div>		                        
 			         			<br/>
 			         			<div>
 	                                <label>Numero de telefono: </label>
 	                                <br/>
-	                                <input type="text" id="telefono" name="telefono" required minlength="1" maxlength="20" size="40" />		
+	                                {{formEmpleado.numTelefono}}
                             	</div>		                        
 			         			<br/>
 			         			<div>
 	                                <label>Dui: </label>
 	                                <br/>
-	                                <input type="text" id="dui" name="dui" required minlength="1" maxlength="20" size="40" />		
+	                                {{formEmpleado.dui}}	
                             	</div>		                        
 			         			<br/>
 			         			<div>
 	                                <label>Nit: </label>
 	                                <br/>
-	                                <input type="text" id="nit" name="nit" required minlength="1" maxlength="20" size="40" />		
+	                                {{formEmpleado.nit}}	
                             	</div>		                        
 			         			<br/>	         
 			         			<div>
 	                                <label>Isss: </label>
 	                                <br/>
-	                                <input type="text" id="isss" name="isss" required minlength="1" maxlength="20" size="40" />		
+	                                {{formEmpleado.isss}}	
                             	</div>		                        
 			         			<br/>	  
 			         			
@@ -69,22 +70,18 @@
 		                        <div>
 	                                <label>Descripcion de contrato: </label>
 	                                <br/>
-	                                <textarea rows="10" cols="50">
+	                                {{formContrato.descripcion}}	
 
 									</textarea>
                             	</div>		                        
 			         			<br/>	  
 			         			<div>
-	                                <label>Fecha contrato: </label>
+	                                <label>Periodo contrato: </label>
 	                                <br/>
-	                                <input type="date" id="fecha" name="fecha" required />		
+	                                {{formContrato.periodoContrato}}	
                             	</div>		                        
 			         			<br/>	
-			         			<div>
-	                                <label>Fecha de finalizacion: </label>
-	                                <br/>
-	                                <input type="date" id="fechaF" name="fechaF" required  />		
-                            	</div>		                        
+			         			                  
 			         			<br/>	
 		                    </div>
 	        

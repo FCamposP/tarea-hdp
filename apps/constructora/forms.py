@@ -1,5 +1,5 @@
 from django import forms
-from apps.constructora.models import Proyecto, Recurso, Ejemplar, Herramienta
+from apps.constructora.models import *
 import datetime
 
 def validarFecha(date):
@@ -109,4 +109,59 @@ class HerramientaForm(forms.ModelForm):
             'nombreHerramienta' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Nombre de la Herramienta'}),
             'cantidadHerramienta' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el numero de Herramientas'}),
             'descripcionEjemplar' : forms.Textarea(attrs={'rows':3, 'class':'form-control','placeholder':'Escriba la descripción de la Herramienta'}),
+        }
+
+
+class EmpleadoForm(forms.ModelForm):
+    class Meta:
+        model=Empleado
+        fields=[
+            'nombres',
+            'apellidos',
+            'direccion',
+            'numTelefono',
+            'dui',
+            'nit',
+            'isss',
+        ]
+        labels={
+            'nombres':'Nombre: ',
+            'apellidos':'Apellido: ',
+            'direccion':'Direccion: ',
+            'numTelefono':'Telefono: ',
+            'dui':'Dui: ',            
+            'nit':'Nit: ',
+            'isss':'Isss: ',
+        }
+        widgets={
+            'nombres':forms.TextInput(attrs={'class':'form-control'}),
+            'apellidos':forms.TextInput(attrs={'class':'form-control'}),
+            'direccion':forms.TextInput(attrs={'class':'form-control'}),
+            'numTelefono':forms.TextInput(attrs={'class':'form-control'}),
+            'dui':forms.TextInput(attrs={'class':'form-control'}),
+            'nit':forms.TextInput(attrs={'class':'form-control'}),
+            'isss':forms.TextInput(attrs={'class':'form-control'}),
+            
+        }
+
+class ContratoForm(forms.ModelForm):
+    class Meta:
+        model=Contrato
+        fields=[
+            'descripcion',
+            
+            'periodoContrato',
+            ]
+      
+        labels={
+            'descripcion':'Descripción: ',
+            
+            'periodoContrato':'Periodo de contrato: ',
+            
+        }
+        widgets={
+            'descripcion':forms.Textarea(attrs={'class':'form-control','rows':2}),
+            
+            'periodoContrato':forms.TextInput(attrs={'class':'form-control'}),
+            
         }

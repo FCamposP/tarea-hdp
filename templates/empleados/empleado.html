@@ -38,15 +38,19 @@
       </tr>
     </thead>
     <tbody>
-      
+      {%for e in empleados %}
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td valign="middle">{{e.nombres}}</td>
+          <td valign="middle">{{e.apellidos}}</td>
+          <td valign="middle">{{e.direccion}}</td>
+          <td valign="middle">{{e.numTelefono}}</td>
+          <td valign="middle">{{e.dui}}</td>
+          <td valign="middle">{{e.nit}}</td>
+          <td valign="middle">{{e.isss}}</td>
+          
         </tr>
+        {%endfor%}
+        
       
     </tbody>
   </table>

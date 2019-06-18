@@ -18,10 +18,8 @@ urlpatterns = [
     url(r'^prueba/$',login_required(prueba),name="prueba"),
     url(r'^eliminarRecurso/(?P<id_pro>\d+)/(?P<id_p>\d+)/(?P<tipo_rec>\d+)/$',login_required(eliminarRecurso),name="eliminarRecurso"),
 
-    url(r'^empleado/$',login_required(ListaEmpleado),name="empleado"),
+    url(r'^empleado/$',login_required(verEmpleado),name="empleado"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
-
-
 
     #INICIO URLS MARCO
     #url(r'^recursolist/$',login_required(recursoList),name="recursoList"),

@@ -92,13 +92,44 @@ def ejemplarList(request, codigoRecurso):
 
 
 #INICIO DE VISTAS KILMER
-def ListaEmpleado(request):
+def verEmpleado(request):
+	empleados=Empleado.objects.all()
+	contexto={'empleados':empleados}
 	
-	return render(request,'empleados/empleado.html')
+	return render(request,'empleados/empleado.html',contexto)
 
 def crearEmpleado(request):
-	
-	return render(request,'empleados/crearEmpleado.html')
+	empleadoContrato = Empleado()
+	contratoFinal = Contrato()
+	if request.method=='POST':
+		form = EmpleadoForm(request.POST)
+		formC = ContratoForm(request.POST)
+		if form.is_valid():
+			
+			empleadoContrato.nombres = request.POST['nombres']
+			empleadoContrato.apellidos = request.POST['apellidos']
+			empleadoContrato.direccion	= request.POST['direccion']
+			empleadoContrato.numTelefono = request.POST['numTelefono']
+			empleadoContrato.dui =  request.POST['dui']
+			
+			empleadoContrato.nit= request.POST['nit']
+			empleadoContrato.isss = request.POST['isss']
+
+
+		if formC.is_valid():
+			empleadoContrato.save()
+			contratoFinal.empleado	= empleadoContrato
+			contratoFinal.descripcion	= request.POST['descripcion']
+			contratoFinal.periodoContrato	= request.POST['periodoContrato']
+			
+			contratoFinal.save()
+			return redirect('constructora:empleado')
+		
+	else:
+		form = EmpleadoForm()
+		formC = ContratoForm()
+	contexto={'formEmpleado':form,'formContrato':formC}
+	return render(request,'empleados/crearEmpleado.html', contexto)
 
 #FIN VISTAS KILMER
 
