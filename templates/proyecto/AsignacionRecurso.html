@@ -58,7 +58,6 @@
                     <select  class="form-control" class="ElejirRecurso" name="selectRecurso" id="selectRecurso" onchange="habilitarRecurso()">
                         <option></option>
                         {%for r in recursos%}
-                        
                         <option value="{{r.codigoRecurso}}">{{r.nombreRecurso}} </option>
                         {%endfor%}
                     </select>
@@ -66,8 +65,9 @@
                  <div style="width: 100%">
                         <label for="">Elija un Ejemplar</label><br>
                         <div >
-                        <select  id="selectEjemplar" class="form-control"onchange="habilitarEjemplares()">
-  
+                        <select  id="selectEjemplar" name="selectEjemplar" class="form-control"onchange="habilitarEjemplares()">
+                        <div id="ejemplaresT">
+                        </div>
                         </select>
                      </div> 
                     </div><br> <!--fin de div para ajax-->
@@ -84,19 +84,19 @@
                 <legend > Herramientas</legend>
                 <div style="width: 100%; ">
                         <label for="">Elija Herramienta</label><br>
-                        <select  class="form-control" name="selectHerramienta" id="selectHerra" onchange="HabilitarHerra()">
+                        <select  class="form-control" name="selectHerramienta" id="selectHerramienta" onchange="HabilitarHerra()">
                             <option></option>
                             {%for h in herramientas%}
-                            <option>{{h.nombreHerramienta}} </option>
+                            <option value="{{h.codigoHerramienta}}" >{{h.nombreHerramienta}} </option>
                             {%endfor%}
                         </select>
                      </div> <br>
                      <div style="width: 100%; ">
                             <label for="">Cantidad</label><br>
-                            <input  type="text" id="inputCantidad" name="cantidadHerramientas"  style="width: 100%">
+                            <input required  type="text" id="inputCantidad" name="inputCantidad"  style="width: 100%">
                          </div> <br>
                 <div class="btnAñadir">
-                    <button  type="button" id="btnHerra" class="btn btn-secondary">Añadir</button>
+                  <input class="btn btn-primary" name="btnHerramienta" style="margin-left:10%" type="submit" value="Asignar">
                 </div>
             </fieldset>
         </form>  
@@ -178,7 +178,7 @@
                                   <td>{{e.ejemplar.idRecurso.nombreRecurso}}  </td>
                                   <td>{{e.ejemplar.nombreEjemplar}}</td>
                                   <td> {{e.ejemplar.idRecurso.descripcionRecurso}} </td>
-                                  <td>    <a class="btn btn-danger"   href="{% url 'constructora:eliminarRecurso' e.proyecto.id e.id 1 %}"   >Eliminar</a></td>
+                                  <td>    <a class="btn btn-danger" href="{% url 'constructora:eliminarRecurso' e.idProyecto.id e.id 2 %}"   >Eliminar</a></td>
                                 </tr>
                                 {%endfor%}
                             </tbody>
@@ -202,8 +202,7 @@
                                     <th scope="col" style="width:" class="centrarCol">#</th>
                                     <th scope="col"style="width:" class="centrarCol">Tipo Recurso</th>
                                     <th scope="col"style="width:" class="centrarCol">Nombre</th>
-                                    <th scope="col" style="width:" class="centrarCol">Asignación</th>
-                                    <th scope="col" style="width:" class="centrarCol">Salario</th>
+                                    <th scope="col" style="width:" class="centrarCol">Cantidad Asignada</th>
                                     <th scope="col" style="widt:" class="centrarCol">Acción</th>
             
                                 </tr>
@@ -214,9 +213,8 @@
                                       <td>{{forloop.counter }}</td>
                                       <td>Herramienta</td>
                                       <td>{{e.Herramienta.nombreHerramienta}}</td>
-                                      <td>{{e.puesto.nombrePuesto}}</td>
-                                      <td>{{e.salario}}   </td>
-                                      <td>    <a class="btn btn-danger"  >Eliminar</a></td>
+                                      <td>{{e.cantidadAsignada}}</td>
+                                      <td>    <a class="btn btn-danger" href="{% url 'constructora:eliminarRecurso' e.idProyecto.id e.id 3 %}"   >Eliminar</a></td>
                                     </tr>
                                     {%endfor%}
                                 </tbody>

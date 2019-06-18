@@ -82,9 +82,24 @@ def asignacionRecurso(request,id_p):
 	if 'btnEjemplar' in request.POST:
 		asignacionM=AsignacionoEjemplar()
 		asignacionM.idProyecto=Proyecto.objects.get(id=id_p)
-		#asignacionM.ejemplar=Ejemplar.objects.get(codigoEjemplar=)
+		asignacionM.ejemplar=Ejemplar.objects.get(codigoEjemplar=request.POST['selectEjemplar'])
 		asignacionM.fechaAsignacion= time.strftime("%c")
-	
+		asignacionM.save()
+		pass
+
+	if 'btnHerramienta' in request.POST:
+		asignacionH=AsignacionHerramienta()
+		asignacionH.idProyecto=Proyecto.objects.get(id=id_p)
+		asignacionH.Herramienta=Herramienta.objects.get(codigoHerramienta=request.POST['selectHerramienta'])
+		asignacionH.fechaAsignacion=time.strftime("%c")
+		asignacionH.cantidadAsignada=request.POST['inputCantidad']
+		herramienta=Herramienta.objects.get(codigoHerramienta=request.POST['selectHerramienta'])
+		cantidad=herramienta.canatidadDisponibles
+		herramienta.canatidadDisponibles=int(cantidad)-int(asignacionH.cantidadAsignada)
+		herramienta.save()
+		asignacionH.save()
+
+
 	contexto={'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 

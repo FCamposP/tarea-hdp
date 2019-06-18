@@ -67,7 +67,8 @@ function habilitarPuesto(){
 
 function habilitarEjemplares(){
     var valor=document.getElementById('selectEjemplar').value;
-    alert(valor);
+    console.log(valor);
+
 }
 
 function HabilitarHerra(){
@@ -87,7 +88,6 @@ function HabilitarHerra(){
 }
 
 function habilitarRecurso(){
-    
     var selectRecurso=document.getElementById('selectRecurso');
     var btnRecurso=document.getElementById('btnRecurso');
     if(selectRecurso==""){
@@ -107,12 +107,12 @@ function cargarEjemplares(){
         url:'/constructora/prueba/',
         type:'GET',
         success: function(data){
-         
+            console.log(data);
             var html="";
             html+=" <option></option>";
             for (var i=0; i<data.length;i++){
                
-            html+="<option value=\""+data[i].fields.codigoEjemplar+ \"">"+data[i].fields.nombreEjemplar+"</option>";
+            html+="<option value=\""+data[i].pk+"\">"+data[i].fields.nombreEjemplar+"</option>";
         } 
         $('#selectEjemplar').html(html);      
  
