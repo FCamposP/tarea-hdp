@@ -54,7 +54,40 @@ def recursoModificar(request, codigoRecurso):
 		return redirect('constructora:recursoList')
 	return render(request, 'recursos/agregarRecurso.html', {'form1':form1})
 
+def ejemplarList(request, codigoRecurso):
+	recurso = Recurso.objects.get(pk=codigoRecurso)
+	ejemplar = Ejemplar.objects.all().order_by('codigoEjemplar')
+	if request.method == 'POST':
+		form=EjemplarForm(request.POST)
+		if form.is_valid():
+			if 'accion' in request.POST:
+				accion = request.POST['accion']
+				codigo_recurso = request.POST['recurso']
+				recurso = Recurso.objects.get(codigoRecurso = codigo_recurso)
+				if accion == 'Agregar':					
+					ejemplar=Ejemplar()
+					ejemplar.codigoEjemplar=request.POST['codigoEjemplar']
+					ejemplar.idRecurso=recurso
+					ejemplar.nombreEjemplar=request.POST['nombreEjemplar']
+					ejemplar.descripcionEjemplar=request.POST['descripcionEjemplar']
+					ejemplar.disponible='True'
+					ejemplar.save()
+					pass
+					return redirect('constructora:ejemplarList',recurso.pk)
+				if accion == 'Eliminar':
+					codigo_ejemplar = request.POST['ejemplar']
+					ejemplar = Ejemplar.objects.get(codigoEjemplar = codigo_ejemplar)	
+					ejemplar.delete()
+					pass
 
+				pass
+			pass
+		pass		
+	else:
+		form = EjemplarForm()
+	pass
+	contexto = {'recurso':recurso, 'ejemplares':ejemplar, 'form':form}
+	return render(request, 'ejemplares/listaEjemplar.html', contexto)
 #FIN DE VISTAS MARCO
 
 

@@ -25,7 +25,10 @@
 				<td>{{ recurso.tipoRecurso }}</td>
 				<td>{{ recurso.descripcionRecurso }}</td>
 				<td>
+					<a href="{% url 'constructora:ejemplarList' recurso.pk %}">Ejemplares</a>
+					<br>
 					<a href="{% url 'constructora:modificarRecurso' recurso.pk %}">Modificar</a>
+					<br>
 					<div>
 						<form method="POST">
 			                {% csrf_token %}
@@ -53,7 +56,6 @@
 			                </div>
 			             </form>
 					</div>
-					<a href="">Ejemplares</a>
 				</td>
 			</tr>
 			{% endfor %}
