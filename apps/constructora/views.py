@@ -104,7 +104,37 @@ def eliminarEmpleado(request, id_empleado):
 	return render(request, 'empleados/eliminarEmpleado.html',contexto )
 	
 	
+def verContrato(request):
+	contrato = Contrato.objects.all()
+	empleado = Empleado.objects.all()
+	contexto = {'contrato':contrato, 'empleado':empleado}
 
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			
+			if Contrato.objects.filter(descripcion__contains = palabraClave).exists():
+				contrato = Contrato.objects.filter(descripcion__contains = palabraClave)
+				empleado = Empleado.objects.all()
+				contexto={'empleado':empleado,'contrato':contrato}
+			else:
+				if Contrato.objects.filter(periodoContrato__contains = palabraClave).exists():
+					contrato = Contrato.objects.filter(periodoContrato__contains = palabraClave)
+					empleado = Empleado.objects.all()
+					contexto={'empleado':empleado,'contrato':contrato}
+				else:
+					if Contrato.objects.filter(fechaContratacion__contains = palabraClave).exists():
+						contrato = Contrato.objects.filter(fechaContratacion__contains = palabraClave)
+						empleado = Empleado.objects.all()
+						contexto={'empleado':empleado,'contrato':contrato}
+
+					
+
+	else:
+		empleado = Empleado.objects.all()
+		contrato = Contrato.objects.all()
+		contexto={'empleado':empleado,'contrato':contrato}
+	return render(request,'empleados/contrato.html', contexto)
 
 def verEmpleado(request):
 	empleados = Empleado.objects.all()

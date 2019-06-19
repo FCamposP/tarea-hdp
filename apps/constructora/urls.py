@@ -26,7 +26,7 @@ urlpatterns = [
 #fin URL Fc
 
 
-
+    url(r'^contrato/$',login_required(verContrato),name="contrato"),
     url(r'^empleado/$',login_required(verEmpleado),name="empleado"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
     
