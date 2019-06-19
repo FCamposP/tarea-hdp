@@ -138,8 +138,37 @@
                           <td>{{e.puesto.nombrePuesto}}</td>
                           <td></td>
                           <td>{{e.salario}}   </td>
-                          <td>    <a class="btn btn-danger"  href="{% url 'constructora:eliminarRecurso' e.proyecto.id e.id 1 %}" >Eliminar</a></td>
-                        </tr> 
+                      <!--<td>    <a class="btn btn-danger"  href="{% url 'constructora:eliminarRecurso' e.proyecto.id e.id 1 %}" >Eliminar</a></td>--> 
+                          <td>
+                            <div>
+                              <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="recurso" value="{{ e.id }}"> 
+                                        <a href="" data-toggle="modal" data-target="#{{ e.id }}">Eliminar</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Ventana de confirmación</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                ¿Esta seguro de eliminar el Empleado con codigo <b>{{e.empleado.nombres}} ?</b>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <input class="btn btn-danger" type="submit" name="accion" value="Eliminar">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                     </form>
+                            </div>
+                          </td>
+                    </tr> 
                         {%endfor%}
                     </tbody>
                   </table>
