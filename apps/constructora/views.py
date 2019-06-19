@@ -107,8 +107,30 @@ def eliminarEmpleado(request, id_empleado):
 
 
 def verEmpleado(request):
-	empleados=Empleado.objects.all()
+	empleados = Empleado.objects.all()
 	contexto={'empleados':empleados}
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			
+			if Empleado.objects.filter(nombres__contains = palabraClave).exists():
+				empleados = Empleado.objects.filter(nombres__contains = palabraClave)
+				contexto={'empleados':empleados}
+			else:
+				if Empleado.objects.filter(apellidos__contains = palabraClave).exists():
+					empleados = Empleado.objects.filter(apellidos__contains = palabraClave)
+					contexto={'empleados':empleados}
+				else:
+					if Empleado.objects.filter(direccion__contains = palabraClave).exists():
+						empleados = Empleado.objects.filter(direccion__contains = palabraClave)
+						contexto={'empleados':empleados}
+					
+
+	else:
+		empleados=Empleado.objects.all()
+		contexto={'empleados':empleados}
+		
+
 	
 	return render(request,'empleados/empleado.html',contexto)
 
