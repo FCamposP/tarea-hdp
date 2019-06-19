@@ -1,0 +1,90 @@
+{% extends 'base/base.html'%}
+{% block Apartado%} <h4 style=" text-align: center;">Empleados</h4>{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
+    <a href="{%url 'constructora:empleado'%}" class="list-group-item list-group-item-action">Empleados</a>
+    <a href="{%url 'constructora:nuevoEmpleado'%}" class="list-group-item list-group-item-action">Nuevo empleado</a>
+</div>
+{%endblock%}  
+
+{% block contenido %}
+<div class= "container">
+	<div class= "row">
+		<section class="col-md-12">
+			<div class= "container">
+				<form method="POST" name="form1">
+					{% csrf_token %}		
+					<fieldset class="groupbox">
+               		 	<legend >Nuevo Empleado</legend>
+	                    <div class="row">
+	                        <div class="col-md-6" ">
+	                        	<div>
+	                                <label>Nombre: </label>
+	                                <br/>
+	                                {{formEmpleado.nombres}}
+                            	</div>		                        
+			         			<br/>
+								<div>
+	                                <label>Apellidos: </label>
+	                                <br/>
+	                                {{formEmpleado.apellidos}}
+                            	</div>		                        
+			         			<br/>
+			         			<div>
+	                                <label>Direccion: </label>
+	                                <br/>
+	                                {{formEmpleado.direccion}}
+
+                            	</div>		                        
+			         			<br/>
+			         			<div>
+	                                <label>Numero de telefono: </label>
+	                                <br/>
+	                                {{formEmpleado.numTelefono}}
+                            	</div>		                        
+			         			<br/>
+			         					                        
+			         			<br/>	  
+			         			
+			         			<br/>	  
+	                        </div>
+	        
+		                    <div class="col-md-6">
+		                        <div>
+	                                <label>Dui: </label>
+	                                <br/>
+	                                {{formEmpleado.dui}}	
+                            	</div>		                        
+			         			<br/>
+			         			<div>
+	                                <label>Nit: </label>
+	                                <br/>
+	                                {{formEmpleado.nit}}	
+                            	</div>		                        
+			         			<br/>	         
+			         			<div>
+	                                <label>Isss: </label>
+	                                <br/>
+	                                {{formEmpleado.isss}}	
+                            	</div>                  
+			         			<br/>	
+		                    </div>
+	        
+	                	</div>
+	                 </fieldset>			                 			         			         				         	
+	                 <br/>		                    
+            
+            
+        
+                    <div class="btnAñadir">
+                        <input class="btn btn-success" style="margin-left:10%" type="submit" value="Guardar">
+                        
+                    </div>
+               	                
+		        </form>        
+			</div>		
+		</section>
+	</div>	
+	</div>
+{% endblock %}

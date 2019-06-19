@@ -13,7 +13,7 @@
 <div style="display:inline-block">
 
 </div>
-
+{% if empleados %}
 <div id="buscadorEmpleado" style="display:inline-block">
     <nav class="navbar navbar-light bg-light">
         <form class="form-inline">
@@ -28,28 +28,39 @@
 <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" style="width:10%" class="centrarCol">Nombre</th>
-        <th scope="col"style="width:15%" class="centrarCol">Apellido</th>
-        <th scope="col"style="width:15%" class="centrarCol">Direccion</th>
-        <th scope="col" style="width:40%" class="centrarCol">Numero telefono</th>
-        <th scope="col" colspan='2'style="width:25%" class="centrarCol">Dui</th>
-        <th scope="col" colspan='2'style="width:25%" class="centrarCol">Nit</th>
-        <th scope="col" colspan='2'style="width:25%" class="centrarCol">Isss</th>
+        <th scope="col" style="width:35%" class="centrarCol">Nombre completo</th>
+        
+        
+        <th scope="col" style="width:10%" class="centrarCol">telefono</th>
+        <th scope="col" style="width:10%" class="centrarCol">Dui</th>
+        <th scope="col" style="width:10%" class="centrarCol">Nit</th>
+        <th scope="col" style="width:10%" class="centrarCol">Isss</th>
+        <th scope="col" style="width:80%" class="centrarCol">Accion</th>
       </tr>
     </thead>
     <tbody>
+      
       {%for e in empleados %}
         <tr>
-          <td valign="middle">{{e.nombres}}</td>
-          <td valign="middle">{{e.apellidos}}</td>
-          <td valign="middle">{{e.direccion}}</td>
-          <td valign="middle">{{e.numTelefono}}</td>
-          <td valign="middle">{{e.dui}}</td>
-          <td valign="middle">{{e.nit}}</td>
-          <td valign="middle">{{e.isss}}</td>
+
+          <td class="centrarCol">{{e.nombres}}, {{e.apellidos}}</td>
+          
+          
+          <td class="centrarCol">{{e.numTelefono}}</td>
+          <td class="centrarCol">{{e.dui}}</td>
+          <td class="centrarCol">{{e.nit}}</td>
+          <td class="centrarCol">{{e.isss}}</td>
+          <td class="centrarCol">            
+
+          <a class="btn btn-primary" href="{% url 'constructora:editarEmpleado' e.id %} ">Editar</a>
+          <a class="btn btn-danger" href="{% url 'constructora:eliminarEmpleado' e.id %}" ">Eliminar</a>
+          </td>
           
         </tr>
         {%endfor%}
+        {% else %}
+        <h2>No hay registros de Empleados</h2>
+        {% endif %}
         
       
     </tbody>

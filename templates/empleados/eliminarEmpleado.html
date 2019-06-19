@@ -1,0 +1,16 @@
+{% extends 'base/base.html'%}
+{% block Apartado%} <h4 style=" text-align: center;">Empleados</h4>{% endblock %}
+
+
+{% block contenido %}
+
+
+
+
+<form method="post">
+	{% csrf_token %}
+	<h2>¿Desea eliminar el registro de {{ empleado.nombres }}?</h2>
+	<button type="submit" class="btn btn-danger">Sí, eliminar</button>
+	<a href="{% url 'constructora:empleado' %}" class="btn btn-warning">Cancelar</a> 
+</form>
+{% endblock %}

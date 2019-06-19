@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
-from django.views.generic import TemplateView
+
+from django.views.generic import TemplateView, ListView
 from apps.constructora.models import *
 import datetime,time
 from apps.constructora.forms import *
@@ -92,11 +93,43 @@ def ejemplarList(request, codigoRecurso):
 
 
 #INICIO DE VISTAS KILMER
+
+
+def eliminarEmpleado(request, id_empleado):
+	empleado = Empleado.objects.get(id=id_empleado)
+	if request.method == 'POST':
+		empleado.delete()
+		return redirect('http://127.0.0.1:8000/constructora/empleado/')
+	contexto= {'empleado' : empleado}
+	return render(request, 'empleados/eliminarEmpleado.html',contexto )
+	
+	
+
+
 def verEmpleado(request):
 	empleados=Empleado.objects.all()
 	contexto={'empleados':empleados}
 	
 	return render(request,'empleados/empleado.html',contexto)
+
+def editarEmpleado(request, id_empleado):
+	empleado = Empleado.objects.get(id = id_empleado)
+
+	if request.method == 'GET':
+		form = EmpleadoForm(instance=empleado)
+		
+	else:
+		
+		form = EmpleadoForm(request.POST, instance= empleado)
+		
+		
+		if form.is_valid():
+			form.save()
+			
+			
+		return redirect('http://127.0.0.1:8000/constructora/empleado/')
+	contexto={'formEmpleado':form}
+	return render(request ,'empleados/editarEmpleado.html', contexto)
 
 def crearEmpleado(request):
 	empleadoContrato = Empleado()
