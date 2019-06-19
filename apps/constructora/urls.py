@@ -8,6 +8,7 @@ from django.contrib.auth.views import login
 app_name="constructora" 
 urlpatterns = [
     url(r'^index/$',login_required(Vista.as_view()),name="index"),
+    #   URL Fc
     url(r'^busquedaProyecto/$',login_required(buscarProyecto),name="busquedaProyecto"),
     url(r'^nuevoProyecto/$',login_required(nuevoProyecto),name="nuevoProyecto"),
     url(r'^editarProyecto/(?P<id_p>\d+)/$',login_required(editarProyecto),name="editarProyecto"),
@@ -17,6 +18,9 @@ urlpatterns = [
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
     url(r'^prueba/$',login_required(prueba),name="prueba"),
     url(r'^eliminarRecurso/(?P<id_pro>\d+)/(?P<id_p>\d+)/(?P<tipo_rec>\d+)/$',login_required(eliminarRecurso),name="eliminarRecurso"),
+
+#fin URL Fc
+
 
     url(r'^empleado/$',login_required(verEmpleado),name="empleado"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
