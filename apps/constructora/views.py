@@ -221,6 +221,37 @@ def crearEmpleado(request):
 
 #INICIO VISTAS SEBASTIAN
 
+def listaRecursos(requets):	
+	
+	
+	usuario = request.user.id
+	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
+	proyecto = Asig2.proyecto_id
+	ejemplar = AsignacionHerramienta.objects.get(idProyecto= proyecto)
+	tool = AsignacionEjemplar.objects.get(idProyecto= proyecto)
+	contexto = {'ejemplares':ejemplar, 'tools': tool}
+	return render(request, 'proyecto/RecursosProyecto', contexto)
+
+def mostrarAsistencia(request):
+
+	usuario = request.user.id
+	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
+	proyecto = Asig2.proyecto_id
+	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)		
+	asistencia = Asistencia.objects.all()
+	contexto = {'asistencias': asistencia, 'proyecto': proyecto}
+	return render(request, 'proyecto/MostrarAsistencia.html' ,contexto)	
+
+def registroAsistencia(request):
+	
+	usuario = request.user.id
+	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
+	proyecto = Asig2.proyecto_id
+	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)
+	contexto = {'empleado', empleados}
 
 #FIN VISTAS SEBASTIAN 
 

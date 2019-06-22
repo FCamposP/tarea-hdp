@@ -13,5 +13,63 @@
 {%endblock%}  
 
 {% block contenido %}
+<table class = "table table-bordered">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Proyecto</td>
+			<td>Herramienta</td>
+			<td>Cantidad</td>
+			<td>Fecha de Asignacion</td>
+			<td>Fecha disponible</td>			
+		</tr>
+	</thead>
+	<tbody>
+		{% if ejemplares %}
+		{% for ejemplar in ejemplares  %}
+		<tr>
+			<td>{{ forloop.counter }}</td>
+			<td>{{ ejemplar.idProyecto}}</td>
+			<td>{{ ejemplar.Herramienta}}</td>
+			<td>{{ ejemplar.cantidadAsignada }}</td>
+			<td>{{ ejemplar.fechaAsignacion }}</td>
+			<td>{{ ejemplar.fechaDisponible }}</td>
+		
+		</tr>
+		 	{% endfor %}
+		 	{% else %}
+		 	<div class="alert alert-danger" role="alert">
+                ¡NO HAY RECURSOS ASIGNADOS!
+              </div>
+			{% endif %}	 	
+	</tbody>
 
+<br>	
+<table class = "table table-bordered">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Nombre</td>
+			<td>cantidad</td>
+			<td>Fecha de asignacion</td>
+			<td>Fecha disponible</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% if tools %}
+		{% for tool in tools  %}
+		<tr>
+			<td>{{ forloop.counter }}</td>
+			<td>{{ tool.ejemplar.nombreEjemplar }}</td>
+			<td>{{ tool.idProyecto.nombreProyecto }}</td>			
+			<td>{{ tool.fechaAsignacion }}</td>
+			<td>{{ tool.fechaDisponible }}</td>
+		</tr>
+		 	{% endfor %}
+		 	{% else %}
+		 	<div class="alert alert-danger" role="alert">
+                ¡NO HAY HERRAMIENTAS ASIGNADAS!
+              </div>
+	{% endif %}	 	
+	</tbody>
 {%endblock%}  

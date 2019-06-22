@@ -1,0 +1,44 @@
+{% extends 'base/base.html'%}
+ 
+{% block Apartado%} <h4 style=" text-align: center;">Recursos del Proyecto</h4>{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active">
+      Lista de enlaces
+    </a>
+    <a href="{% url 'constructora:verProyecto' %}"  class="list-group-item list-group-item-action">Datos del Proyecto</a>
+    <a href="{% url 'constructora:recursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
+    <a href="{% url 'constructora:solicitarRecursos' %}" class="list-group-item list-group-item-action">Solicitar Recursos</a>
+    <a href="{% url 'constructora:mostrarAsistencia' %}" class="list-group-item list-group-item-action">Asistencias</a>
+  </div>
+{%endblock%}  
+
+{% block contenido %}
+<table class= "table table-bordered">
+	<thead>
+		<tr>
+			<td>Nombre</td>
+			<td>apellidos</td>
+			<td>Puesto</td>
+			<td>Proyecto</td>
+			<td>Fecha</td>
+			<td>Asistencia</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% if asistencias %}
+		{% for asistencia in asistencias %}		
+		<tr>
+			<td>{{asistencia.Asignacion.empleado.nombres}}</td>
+			<td>{{asistencia.Asignacion.empleado.apellidos}}</td>
+			<td>{{asistencia.Asignacion.puesto}}</td>
+			<td>{{asistencia.Asignacion.proyecto}}</td>
+			<td>{{asistencia.fechaAsistencia}}</td>
+			<td><input type="checkbox" name="asistencia"></td>
+		</tr>
+	</tbody>
+	{% endfor %}
+	{% endif %}
+</table>
+
+{%endblock%}  
