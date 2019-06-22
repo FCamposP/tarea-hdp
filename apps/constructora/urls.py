@@ -18,11 +18,17 @@ urlpatterns = [
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
     url(r'^prueba/$',login_required(prueba),name="prueba"),
 
+
+    url(r'^editarEmpleado/(?P<id_empleado>\d+)/$',login_required(editarEmpleado),name="editarEmpleado"),
+    url(r'^eliminarEmpleado/(?P<id_empleado>\d+)/$',login_required(eliminarEmpleado),name="eliminarEmpleado"),
+
 #fin URL Fc
 
 
+    url(r'^contrato/$',login_required(verContrato),name="contrato"),
     url(r'^empleado/$',login_required(verEmpleado),name="empleado"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
+    
 
     #INICIO URLS MARCO
     #url(r'^recursolist/$',login_required(recursoList),name="recursoList"),
