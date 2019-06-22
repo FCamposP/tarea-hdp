@@ -124,6 +124,6 @@ class Contrato(models.Model):
     periodoContrato=models.CharField(max_length=10)
 
 class Asistencia(models.Model):
-    puesto=models.ForeignKey(Puesto,on_delete=models.CASCADE)
+    Asignacion=models.ForeignKey(AsignacionPuestoProyecto,on_delete=models.CASCADE, default= "", editable = False)
     fechaAsistencia=models.DateField(auto_now_add=True)
     asistencia=models.BooleanField(default=True)

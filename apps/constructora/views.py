@@ -221,6 +221,37 @@ def crearEmpleado(request):
 
 #INICIO VISTAS SEBASTIAN
 
+def listaRecursos(requets):	
+	
+	
+	usuario = request.user.id
+	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
+	proyecto = Asig2.proyecto_id
+	ejemplar = AsignacionHerramienta.objects.get(idProyecto= proyecto)
+	tool = AsignacionEjemplar.objects.get(idProyecto= proyecto)
+	contexto = {'ejemplares':ejemplar, 'tools': tool}
+	return render(request, 'proyecto/RecursosProyecto', contexto)
+
+def mostrarAsistencia(request):
+
+	usuario = request.user.id
+	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
+	proyecto = Asig2.proyecto_id
+	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)		
+	asistencia = Asistencia.objects.all()
+	contexto = {'asistencias': asistencia, 'proyecto': proyecto}
+	return render(request, 'proyecto/MostrarAsistencia.html' ,contexto)	
+
+def registroAsistencia(request):
+	
+	usuario = request.user.id
+	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
+	proyecto = Asig2.proyecto_id
+	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)
+	contexto = {'empleado', empleados}
 
 #FIN VISTAS SEBASTIAN 
 
@@ -383,16 +414,39 @@ class verProyecto(TemplateView):
 
 def ConseguirTipoRecurso(request):
 	opcion= request.GET['opcion']
-	empleados=Empleado.objects.filter(disponible=True)
 
 	if opcion=='1':
-		empleados=Empleado.objects.filter(disponible=True)
-
-		data=serializers.serialize('json',empleados)
+		puestos=Puesto.objects.all()
+		data=serializers.serialize('json',puestos)
 	if opcion=='2':
-		ejemplares=Ejemplar.objects.filter(disponible=True)
+		recursos=Recurso.objects.all()
+		data=serializers.serialize('json',recursos)
+	if opcion=='3':
+		herramientas=Herramienta.objects.all()
+		data=serializers.serialize('json',herramientas)
+
 
 	return HttpResponse(data,content_type='application/json')
 
+def conseguirElemento(request):
+	opcion= request.GET['opcion']
+	elemento=request.GET['elemento']
+
+	if opcion=='1':
+		puesto=Puesto.objects.get(id=elemento)
+	
+		data=serializers.serialize('json',[puesto])
+		print(data)
+
+	if opcion=='2':
+		recurso=Recurso.objects.get(codigoRecurso=elemento)
+		#data=serializers.serialize('json',recurso)
+		data=recurso
+	if opcion=='3':
+		herramienta=Herramienta.objects.get(codigoHerramienta=elemento)
+		#data=serializers.serialize('json',herramienta)
+		data=herramienta
+
+	return HttpResponse(data,content_type='application/json')
 
 #FIN VISTAS FC

@@ -21,7 +21,7 @@
                             <label for="">Tipo de Recurso</label>
                             <select required class="form-control" name="selectTipoRecurso" id="selectTipoRecurso" onchange="CambioTipoRecurso()">
                                 <option></option>
-                                <option value=1>Empleado</option>
+                                <option value=1>Puesto</option>
                                 <option value=2>Maquinaria</option>
                                 <option value=3>Herramienta</option>
                             </select>
@@ -29,21 +29,12 @@
                         </div>
                         <div>
                             <label for="">Recurso Disponibles</label>
-                            <select required class="form-control" name="selectRecDisponible" id="selectRecDisponible" onchange="CambioRecDisponible()">
+                            <select required class="form-control" name="selectRecDisponible" id="selectRecDisponible" >
                                     <option></option>  
-                                <option>fdf</option>
                             </select>
                             <br>
                         </div>
-                        <div style="display: none">
-                          <label for="">Ejemplares Disponibles</label>
-                          <select required class="form-control" name="selectRecDisponible" id="selectRecDisponible" onchange="CambioEjemplares()">
-                                <option></option>  
-                                <option></option>
-                          </select>
-                          <br>
-                        </div>
-                        <div style="display: none">
+                        <div id="cantidadHerramientaSolicitar" style="display: none">
                             <label for="">Cantidad</label>
                             <input required style="width: 100%" type="text">
                         </div>
@@ -53,49 +44,54 @@
             </div> <br>
 
             <div class="btnAñadir"><br>
-                <input class="btn btn-primary" name="btnSolicitar" style="margin-left:8%" type="submit" value="Solicitar" >
+                <a class="btn btn-success" onclick="SolicitarRecurso()" >Solicitar</a>                
                 <input class="btn btn-primary" style="margin-left:8%" type="reset" value="Resetear">
             </div>
         </fieldset>
     </form>
     </div> <!--fin cajas-->
 
-    <br><hr><h4 id="recursoAñadido">Recursos a solicitar</h4><hr>
+<div id="ejemplo"></div>
+    <div id="RecursosSolicitados" >
+        <hr><h4 id="elementoSolicitados">Recursos a solicitar</h4><hr>
 
+        <div class="alert alert-primary" role="alert">
+               Puestos Solicitados
+               </div>
+            <div id="tablaa">
+                <form method="POST">
+                        {%csrf_token%}
+                    <div id="Solicitar1" >
+                            <table class="table">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        <th scope="col" style="width:10%" class="centrarCol">Tipo</th>
+                                        <th scope="col"style="width:15%" class="centrarCol">Codigo Puesto</th>
+                                        <th scope="col"style="width:15%" class="centrarCol">Puesto</th>
+                                        <th scope="col" style="width:40%" class="centrarCol">Descripción</th>
+                                        <th scope="col" style="width:25%" class="centrarCol">Acción</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody >
+                                     
+                                        <tr id="tbodyPuesto">
+          
+                                        </tr>
+                                     
+                                    </tbody>
+                                  </table>
+                    </div>
 
-    <div class="recursosAsignar">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col" style="width:9%" class="centrarCol">#</th>
-                        <th scope="col" style="width:25%" class="centrarCol">Tipo de Recurso</th>
-                        <th scope="col" style="width:25%" class="centrarCol">Recurso</th>
-                        <th scope="col" style="width:30%" class="centrarCol">Tarea</th>
-                        <th scope="col" style="width:30%" class="centrarCol">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Empleado</td>
-                        <td>Soldador</td>
-                        <td>Soldar 100 vigas</td>
-                        <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
-        
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Maquina</td>
-                        <td>Tractor industrial</td>
-                        <td>Movilizar ripio</td>
-                        <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
-        
-                    </tr>
-                </tbody>
-            </table>
-            <div class="btnAñadir">
-                <button type="button" class="btn btn-success">Solicitar Recursos</button>
+                </form>
+    
+     <div class="alert alert-primary" role="alert"> Recursos Solicitados
+    </div>
+
+    <div class="alert alert-primary" role="alert"> Herramientas Solicitadas
+        </div>
+                    <div id="tablaa">
             </div>
-        </div>    
 
+    </div>
+             
 {%endblock%} 
