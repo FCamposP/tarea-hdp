@@ -26,6 +26,13 @@ padding: 20px;
 border-style:groove;
 }
 
+.groupboxSolicitar{
+  width: 50%;
+  border: solid darkblue;
+  padding: 20px;
+  border-style:groove;
+}
+
 .btnAñadir{
   text-align: center;
 }

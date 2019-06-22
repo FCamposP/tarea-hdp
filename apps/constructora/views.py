@@ -201,45 +201,42 @@ def asignacionRecurso(request,id_p):
 		herramienta.save()
 		asignacionH.save()
 
+	if 'accionE' in request.POST:
+		accion = request.POST['accionE']
+		id_asignacion = request.POST['elimEmpleado']
+		dato=AsignacionPuestoProyecto.objects.get(id=id_asignacion)
+		if accion == 'Eliminar':	
+			dato.delete()
+			pass
+		else:
+			pass
+		pass
 
+	if 'accionR' in request.POST:
+		accion = request.POST['accionR']
+		id_asignacion = request.POST['elimRec']
+		dato=AsignacionoEjemplar.objects.get(id=id_asignacion)
+		if accion == 'Eliminar':	
+			dato.delete()
+			pass
+		else:
+			pass
+		pass
+
+	if 'accionH' in request.POST:
+		accion = request.POST['accionH']
+		id_asignacion = request.POST['elimHerr']
+
+		dato=AsignacionHerramienta.objects.get(id=id_asignacion)
+		if accion == 'Eliminar':	
+			dato.delete()
+			pass
+		else:
+			pass
+		pass
 	contexto={'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 
-
-
-
-def eliminarRecurso(request,id_pro, id_p, tipo_rec):
-	contexto={}
-	if(tipo_rec=='1'):
-		dato=AsignacionPuestoProyecto.objects.get(id=id_p)
-		
-		contexto={'dato':dato}
-		if request.method=='POST':
-			dato.delete()
-			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
-			pass
-
-	if(tipo_rec=='2'):
-
-		dato=AsignacionoEjemplar.objects.get(id=id_p)
-		
-		contexto={'dato':dato}
-		if request.method=='POST':
-			dato.delete()
-			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
-			pass
-
-	if(tipo_rec=='3'):
-
-		dato=AsignacionHerramienta.objects.get(id=id_p)
-		
-		contexto={'dato':dato}
-		if request.method=='POST':
-			dato.delete()
-			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
-			pass
-
-	return render(request,'proyecto/EliminarRecurso.html',contexto)
 
 
 
@@ -276,8 +273,18 @@ def nuevoProyecto(request):
 class recursosProyecto(TemplateView):
 	template_name='proyecto/RecursosProyecto.html'
 
-class solicitarRecursos(TemplateView):
-	template_name='proyecto/SolicitarRecursos.html'
+def solicitarRecursos(request):
+	usuario=request.user
+	solicitante=AsignacionUsuario.objects.get(usuario=usuario).empleado_proyecto
+	solicitud=Solicitud()
+	solicitud.fechaSolicitud=time.strftime("%c")
+	solicitud.solicitante=solicitante
+	#solicitud.save()
+	if 'btnSolicitar' in request.POST:
+		print('holaaa')
+		sdfsdl
+	contexto={'j':'k'}
+	return render(request,'proyecto/SolicitarRecursos.html',contexto)
 
 class verProyecto(TemplateView):
 	template_name='proyecto/VerProyecto.html'

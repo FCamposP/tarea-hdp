@@ -14,10 +14,9 @@ urlpatterns = [
     url(r'^editarProyecto/(?P<id_p>\d+)/$',login_required(editarProyecto),name="editarProyecto"),
     url(r'^asignacionRecurso/(?P<id_p>\d+)/$',login_required(asignacionRecurso),name="asignacionRecurso"),
     url(r'^recursosProyecto/$',login_required(recursosProyecto.as_view()),name="recursosProyecto"),
-    url(r'^solicitarRecursos/$',login_required(solicitarRecursos.as_view()),name="solicitarRecursos"),
+    url(r'^solicitarRecursos/$',login_required(solicitarRecursos),name="solicitarRecursos"),
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
     url(r'^prueba/$',login_required(prueba),name="prueba"),
-    url(r'^eliminarRecurso/(?P<id_pro>\d+)/(?P<id_p>\d+)/(?P<tipo_rec>\d+)/$',login_required(eliminarRecurso),name="eliminarRecurso"),
 
 #fin URL Fc
 

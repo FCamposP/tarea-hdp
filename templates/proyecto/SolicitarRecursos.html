@@ -11,47 +11,50 @@
 
 {% block contenido %}
 <div class="col-md-12" class="cajas">
-    <form action="">
-    <fieldset class="groupbox">
+    <form action="POST">
+            {%csrf_token%}
+    <fieldset class="groupboxSolicitar" style="margin-left: 20%">
         <legend >Pedir nuevos recursos</legend>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Tipo de Recurso</label>
-                    <select class="selectSolicitar" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
-                        <option>Elija un valor</option>  
-                        <option></option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="">Recurso Disponibles</label>
-                    <select class="selectSolicitar" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
-                        <option>Elija un valor</option>  
-                        <option></option>
-                    </select>
-                </div>
+            <div class="row" id="divSolicitar">
+                <div class="col-md-12">
+                    <div>
+                            <label for="">Tipo de Recurso</label>
+                            <select required class="form-control" name="selectTipoRecurso" id="selectTipoRecurso" onchange="CambioTipoRecurso()">
+                                <option></option>
+                                <option>Empleado</option>
+                                <option>Maquinaria</option>
+                                <option>Herramienta</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="">Recurso Disponibles</label>
+                            <select required class="form-control" name="selectRecDisponible" id="selectRecDisponible" onchange="CambioRecDisponible()">
+                                    <option></option>  
+                                <option>fdf</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div style="display: none">
+                          <label for="">Ejemplares Disponibles</label>
+                          <select required class="form-control" name="selectRecDisponible" id="selectRecDisponible" onchange="CambioEjemplares()">
+                                <option></option>  
+                                <option></option>
+                          </select>
+                          <br>
+                        </div>
+                        <div style="display: none">
+                            <label for="">Cantidad</label>
+                            <input required style="width: 100%" type="text">
+                        </div>
+
+                </div><!--fin col 10-->
+
             </div> <br>
-        <div class="row">
-            <div class="col-md-6" >
-                <label for="">Cantidad deseada</label> 
-                <input type="text">
-            </div>
-            <div class="col-md-6">         
-                <label for="" >Periodo estimado a usar</label> 
-                <input type="text">
-            </div>
-        </div>
-            <br><br>
-            <div >
-                <label for="">Asignaciones</label> 
-                <select class="" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
-                    <option>Elija un valor</option>  
-                    <option></option>
-                </select>
-    
-            </div>
+
             <div class="btnAñadir"><br>
-            <button type="button" class="btn btn-secondary">Agregar</button>
-            <input class="btn btn-primary" style="margin-left:10%" type="reset" value="Resetear">
+                <input class="btn btn-primary" name="btnSolicitar" style="margin-left:8%" type="submit" value="Solicitar" >
+                <input class="btn btn-primary" style="margin-left:8%" type="reset" value="Resetear">
             </div>
         </fieldset>
     </form>
