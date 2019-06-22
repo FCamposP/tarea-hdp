@@ -259,7 +259,10 @@ def asignacionRecurso(request,id_p):
 
 	if 'btnEmpleado' in request.POST:
 		asignacionE=AsignacionPuestoProyecto()
-		asignacionE.empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
+		empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
+		asignacionE.empleado=empleado
+		empleado.disponible=False
+		empleado.save()
 		asignacionE.puesto=Puesto.objects.get(id=request.POST['selectPuesto'])
 		asignacionE.proyecto=Proyecto.objects.get(id=id_p)
 		asignacionE.salario=request.POST['inputSalario']
@@ -269,7 +272,9 @@ def asignacionRecurso(request,id_p):
 	if 'btnEjemplar' in request.POST:
 		asignacionM=AsignacionoEjemplar()
 		asignacionM.idProyecto=Proyecto.objects.get(id=id_p)
-		asignacionM.ejemplar=Ejemplar.objects.get(codigoEjemplar=request.POST['selectEjemplar'])
+		ejemplar=Ejemplar.objects.get(codigoEjemplar=request.POST['selectEjemplar'])
+		asignacionM.ejemplar=ejemplar
+		ejemplar.disponible=False
 		asignacionM.fechaAsignacion= time.strftime("%c")
 		asignacionM.save()
 		pass
@@ -360,11 +365,13 @@ class recursosProyecto(TemplateView):
 
 def solicitarRecursos(request):
 	usuario=request.user
-	solicitante=AsignacionUsuario.objects.get(usuario=usuario).empleado_proyecto
-	solicitud=Solicitud()
-	solicitud.fechaSolicitud=time.strftime("%c")
-	solicitud.solicitante=solicitante
-	#solicitud.save()
+	encontrado=True
+	try:
+		solicitante=AsignacionUsuario.objects.get(usuario=usuario).empleado_proyecto
+	except AsignacionUsuario.DoesNotExist:
+		solicitante=None
+		encontrado=False
+
 	if 'btnSolicitar' in request.POST:
 		print('holaaa')
 		sdfsdl
@@ -373,5 +380,19 @@ def solicitarRecursos(request):
 
 class verProyecto(TemplateView):
 	template_name='proyecto/VerProyecto.html'
+
+def ConseguirTipoRecurso(request):
+	opcion= request.GET['opcion']
+	empleados=Empleado.objects.filter(disponible=True)
+
+	if opcion=='1':
+		empleados=Empleado.objects.filter(disponible=True)
+
+		data=serializers.serialize('json',empleados)
+	if opcion=='2':
+		ejemplares=Ejemplar.objects.filter(disponible=True)
+
+	return HttpResponse(data,content_type='application/json')
+
 
 #FIN VISTAS FC

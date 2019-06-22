@@ -17,8 +17,7 @@ urlpatterns = [
     url(r'^solicitarRecursos/$',login_required(solicitarRecursos),name="solicitarRecursos"),
     url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
     url(r'^prueba/$',login_required(prueba),name="prueba"),
-
-
+        url(r'^ConseguirTipoRecurso/$',login_required(ConseguirTipoRecurso),name="pruConseguirTipoRecursoeba"),
     url(r'^editarEmpleado/(?P<id_empleado>\d+)/$',login_required(editarEmpleado),name="editarEmpleado"),
     url(r'^eliminarEmpleado/(?P<id_empleado>\d+)/$',login_required(eliminarEmpleado),name="eliminarEmpleado"),
 

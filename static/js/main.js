@@ -83,6 +83,22 @@ function empleadosAsignados(){
 
 function CambioTipoRecurso(){
 
+    var opcion=document.getElementById('selectTipoRecurso').value;
+
+    $.ajax({
+        data:{'opcion':opcion},
+        url:'/constructora/ConseguirTipoRecurso/',
+        type:'GET',
+        success: function(data){
+            var html="";
+
+            
+        }
+        
+          
+        
+    });
+
 }
 
 // fin de js FC
