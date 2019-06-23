@@ -15,6 +15,7 @@
 {% block contenido %}
 <table class = "table table-bordered">
 	<thead>
+		{% if ejemplar %}
 		<tr>
 			<td>#</td>
 			<td>Proyecto</td>
@@ -25,16 +26,14 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% if ejemplares %}
-		{% for ejemplar in ejemplares  %}
+		
+		{% for ejem in ejemplar  %}
 		<tr>
 			<td>{{ forloop.counter }}</td>
-			<td>{{ ejemplar.idProyecto}}</td>
-			<td>{{ ejemplar.Herramienta}}</td>
-			<td>{{ ejemplar.cantidadAsignada }}</td>
-			<td>{{ ejemplar.fechaAsignacion }}</td>
-			<td>{{ ejemplar.fechaDisponible }}</td>
-		
+			<td>{{ ejemp.AsigancionoEjemplar.ejemplar }}</td>
+			<td>{{ ejemp.idProyecto }}</td>			
+			<td>{{ ejemp.fechaAsignacion }}</td>
+			<td>{{ ejemp.fechaDisponible }}</td>
 		</tr>
 		 	{% endfor %}
 		 	{% else %}
@@ -60,8 +59,9 @@
 		{% for tool in tools  %}
 		<tr>
 			<td>{{ forloop.counter }}</td>
-			<td>{{ tool.ejemplar.nombreEjemplar }}</td>
-			<td>{{ tool.idProyecto.nombreProyecto }}</td>			
+			<td>{{ tool.idProyecto}}</td>
+			<td>{{ tool.Herramienta}}</td>
+			<td>{{ tool.cantidadAsignada }}</td>
 			<td>{{ tool.fechaAsignacion }}</td>
 			<td>{{ tool.fechaDisponible }}</td>
 		</tr>
@@ -73,3 +73,4 @@
 	{% endif %}	 	
 	</tbody>
 {%endblock%}  
+

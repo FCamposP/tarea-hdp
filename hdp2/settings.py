@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'mysql_cymysql',
         'NAME': 'tarea_hdp',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'admon',
         'HOST': 'localhost',
         'PORT': '3306',
     }

@@ -224,14 +224,14 @@ def crearEmpleado(request):
 def listaRecursos(requets):	
 	
 	
-	usuario = request.user.id
-	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
-	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
-	proyecto = Asig2.proyecto_id
-	ejemplar = AsignacionHerramienta.objects.get(idProyecto= proyecto)
-	tool = AsignacionEjemplar.objects.get(idProyecto= proyecto)
-	contexto = {'ejemplares':ejemplar, 'tools': tool}
-	return render(request, 'proyecto/RecursosProyecto', contexto)
+	usuario = request.user.Id
+	Asig = AsignacionUsuario.objects.get(usuario = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto)
+	proyecto = Asig2.proyecto
+	ejemplar = AsignacionoEjemplar.objects.get(idProyecto= proyecto)
+	tool = AsignacionHerramienta.objects.get(idProyecto= proyecto)
+	contexto = {'ejemplar':ejemplar, 'tool': tool}
+	return render(request, 'constructora/RecursosProyecto', contexto)
 
 def mostrarAsistencia(request):
 
