@@ -23,7 +23,7 @@
                         <div class="col-md-6">
                             <div>
                                 <label for="">Elija un cliente</label><br>
-                                <select class="form-control" name="selectCliente" id="exampleFormControlSelect1">
+                                <select required class="form-control" name="selectCliente" id="exampleFormControlSelect1">
                                         <option>{{proyecto.idCliente.nombreCliente}}</option>
                                         {%for c in clientes%}
                                         <option>{{c.nombreCliente}}</option>
@@ -32,27 +32,27 @@
                             </div>
                             <div > <br>
                                 <label for="">Código del Proyecto</label> 
-                                <input type="text" id="codPro" name="codPro" value="{{proyecto.codigoProyecto}}" style="width: 100%" disabled >
+                                <input required type="text" id="codPro" name="codPro" value="{{proyecto.codigoProyecto}}" style="width: 100%" disabled >
                             </div>
                             <div > <br>
                                 <label for="">Nombre del Proyecto</label> 
-                                <input type="text" id="nombrePro" name="nombrePro" value="{{proyecto.nombreProyecto}}" style="width: 100%">
+                                <input required type="text" id="nombrePro" name="nombrePro" value="{{proyecto.nombreProyecto}}" style="width: 100%">
                             </div>
                             <div><br>
                                 <label>Fecha de inicio</label>
-                                <input type="text" name="fechaInicio" value="{{proyecto.fechaInicioConstruccion}}" disabled style="width: 100%">
+                                <input  requiredtype="text" name="fechaInicio" value="{{proyecto.fechaInicioConstruccion}}" disabled style="width: 100%">
                             </div>                    
                         </div>
         
                         <div class="col-md-6">
                             <div>
                                 <label for="">Descripcion</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1"  name="descripcion" rows="3" placeholder="">{{proyecto.descripcionProyecto}} </textarea>
+                                <textarea required class="form-control" id="exampleFormControlTextarea1"  name="descripcion" rows="3" placeholder="">{{proyecto.descripcionProyecto}} </textarea>
 
                             </div>
                             <div >  <br>        
                                 <label for="" >Dirección</label> 
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ubicacion" placeholder="">{{proyecto.ubicacion}} </textarea>
+                                <textarea required class="form-control" id="exampleFormControlTextarea1" rows="3" name="ubicacion" placeholder="">{{proyecto.ubicacion}} </textarea>
 
                             </div>                    
                         </div>
@@ -62,7 +62,7 @@
                     </div> <br>
         
                     <div class="btnAñadir">
-                        <input class="btn btn-success" style="margin-left:10%" type="submit" href="{% url 'constructora:busquedaProyecto'%}" value="Guardar">
+                        <input required class="btn btn-success" style="margin-left:10%" type="submit" href="{% url 'constructora:busquedaProyecto'%}" value="Guardar">
                         <a class="btn btn-secondary" href="{% url 'constructora:busquedaProyecto'%}" role="button">Regresar</a>   
                     </div>
                 </fieldset>
