@@ -290,7 +290,10 @@ def asignacionRecurso(request,id_p):
 
 	if 'btnEmpleado' in request.POST:
 		asignacionE=AsignacionPuestoProyecto()
-		asignacionE.empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
+		empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
+		asignacionE.empleado=empleado
+		empleado.disponible=False
+		empleado.save()
 		asignacionE.puesto=Puesto.objects.get(id=request.POST['selectPuesto'])
 		asignacionE.proyecto=Proyecto.objects.get(id=id_p)
 		asignacionE.salario=request.POST['inputSalario']
@@ -300,7 +303,9 @@ def asignacionRecurso(request,id_p):
 	if 'btnEjemplar' in request.POST:
 		asignacionM=AsignacionoEjemplar()
 		asignacionM.idProyecto=Proyecto.objects.get(id=id_p)
-		asignacionM.ejemplar=Ejemplar.objects.get(codigoEjemplar=request.POST['selectEjemplar'])
+		ejemplar=Ejemplar.objects.get(codigoEjemplar=request.POST['selectEjemplar'])
+		asignacionM.ejemplar=ejemplar
+		ejemplar.disponible=False
 		asignacionM.fechaAsignacion= time.strftime("%c")
 		asignacionM.save()
 		pass
@@ -317,45 +322,42 @@ def asignacionRecurso(request,id_p):
 		herramienta.save()
 		asignacionH.save()
 
+	if 'accionE' in request.POST:
+		accion = request.POST['accionE']
+		id_asignacion = request.POST['elimEmpleado']
+		dato=AsignacionPuestoProyecto.objects.get(id=id_asignacion)
+		if accion == 'Eliminar':	
+			dato.delete()
+			pass
+		else:
+			pass
+		pass
 
+	if 'accionR' in request.POST:
+		accion = request.POST['accionR']
+		id_asignacion = request.POST['elimRec']
+		dato=AsignacionoEjemplar.objects.get(id=id_asignacion)
+		if accion == 'Eliminar':	
+			dato.delete()
+			pass
+		else:
+			pass
+		pass
+
+	if 'accionH' in request.POST:
+		accion = request.POST['accionH']
+		id_asignacion = request.POST['elimHerr']
+
+		dato=AsignacionHerramienta.objects.get(id=id_asignacion)
+		if accion == 'Eliminar':	
+			dato.delete()
+			pass
+		else:
+			pass
+		pass
 	contexto={'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 
-
-
-
-def eliminarRecurso(request,id_pro, id_p, tipo_rec):
-	contexto={}
-	if(tipo_rec=='1'):
-		dato=AsignacionPuestoProyecto.objects.get(id=id_p)
-		
-		contexto={'dato':dato}
-		if request.method=='POST':
-			dato.delete()
-			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
-			pass
-
-	if(tipo_rec=='2'):
-
-		dato=AsignacionoEjemplar.objects.get(id=id_p)
-		
-		contexto={'dato':dato}
-		if request.method=='POST':
-			dato.delete()
-			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
-			pass
-
-	if(tipo_rec=='3'):
-
-		dato=AsignacionHerramienta.objects.get(id=id_p)
-		
-		contexto={'dato':dato}
-		if request.method=='POST':
-			dato.delete()
-			return redirect('http://127.0.0.1:8000/constructora/asignacionRecurso/'+id_pro+'/')
-			pass
-
-	return render(request,'proyecto/EliminarRecurso.html',contexto)
 
 
 
@@ -392,10 +394,59 @@ def nuevoProyecto(request):
 class recursosProyecto(TemplateView):
 	template_name='proyecto/RecursosProyecto.html'
 
-class solicitarRecursos(TemplateView):
-	template_name='proyecto/SolicitarRecursos.html'
+def solicitarRecursos(request):
+	usuario=request.user
+	encontrado=True
+	try:
+		solicitante=AsignacionUsuario.objects.get(usuario=usuario).empleado_proyecto
+	except AsignacionUsuario.DoesNotExist:
+		solicitante=None
+		encontrado=False
+
+	if 'btnSolicitar' in request.POST:
+		print('holaaa')
+		sdfsdl
+	contexto={'j':'k'}
+	return render(request,'proyecto/SolicitarRecursos.html',contexto)
 
 class verProyecto(TemplateView):
 	template_name='proyecto/VerProyecto.html'
+
+def ConseguirTipoRecurso(request):
+	opcion= request.GET['opcion']
+
+	if opcion=='1':
+		puestos=Puesto.objects.all()
+		data=serializers.serialize('json',puestos)
+	if opcion=='2':
+		recursos=Recurso.objects.all()
+		data=serializers.serialize('json',recursos)
+	if opcion=='3':
+		herramientas=Herramienta.objects.all()
+		data=serializers.serialize('json',herramientas)
+
+
+	return HttpResponse(data,content_type='application/json')
+
+def conseguirElemento(request):
+	opcion= request.GET['opcion']
+	elemento=request.GET['elemento']
+
+	if opcion=='1':
+		puesto=Puesto.objects.get(id=elemento)
+	
+		data=serializers.serialize('json',[puesto])
+		print(data)
+
+	if opcion=='2':
+		recurso=Recurso.objects.get(codigoRecurso=elemento)
+		#data=serializers.serialize('json',recurso)
+		data=recurso
+	if opcion=='3':
+		herramienta=Herramienta.objects.get(codigoHerramienta=elemento)
+		#data=serializers.serialize('json',herramienta)
+		data=herramienta
+
+	return HttpResponse(data,content_type='application/json')
 
 #FIN VISTAS FC

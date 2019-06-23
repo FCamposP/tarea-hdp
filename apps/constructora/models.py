@@ -101,12 +101,13 @@ class Tarea(models.Model):
 
 class Solicitud(models.Model):
     fechaSolicitud=models.DateField(auto_now_add=True)
-    solicitante=models.OneToOneField(Puesto,on_delete=models.CASCADE)
+    solicitante=models.OneToOneField(AsignacionPuestoProyecto,on_delete=models.CASCADE)
 
 class DetalleSolicitud(models.Model):
     solicitud=models.ForeignKey(Solicitud,on_delete=models.CASCADE)
-    recurso=models.ForeignKey(Recurso,on_delete=models.CASCADE)
+    recurso=models.CharField(max_length=150)
     cantidad=models.IntegerField(default=0)
+    asignado=models.BooleanField(default=False)
 
 class AsignacionUsuario(models.Model):
     usuario = models.OneToOneField(User,on_delete=models.CASCADE)
