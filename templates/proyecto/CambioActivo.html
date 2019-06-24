@@ -14,7 +14,7 @@
 
 <form method="post">
 	{% csrf_token %}
-	<h2>¿Desea eliminar el registro de {{ asig.activo }}?</h2>
+	<h2>¿Desea cambiar el estado del Registro?</h2>
 	<button type="submit" class="btn btn-danger">Sí, cambiar</button>
 	<a href="{% url 'constructora:recursosEmpleado' %}" class="btn btn-warning">Cancelar</a> 
 </form>
