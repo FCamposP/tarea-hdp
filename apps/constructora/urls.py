@@ -23,9 +23,13 @@ urlpatterns = [
     url(r'^eliminarEmpleado/(?P<id_empleado>\d+)/$',login_required(eliminarEmpleado),name="eliminarEmpleado"),
 
      #vista Sebas
-    url(r'^recursosProyecto/$',login_required(recursosProyecto.as_view()),name="recursosProyecto"),
-    url(r'^MuestrAsistencias/$',login_required(mostrarAsistencia),name="MuestrAsistencias"),
-    url(r'^registroAsistencias/$',login_required(registroAsistencia),name="registroAsistencias"),
+    url(r'^RecursosProyecto/$',login_required(listaRecursos),name="RecursosProyecto"),
+    url(r'^Asistencia/$',login_required(mostrarAsistencia),name="Asistencia"),
+    url(r'^recursosEmpleado/$',login_required(listarEmpleadosProyecto),name="recursosEmpleado"),
+    url(r'^CambioActivo/(?P<id_asignacionPuestoProyecto>\d+)/$',login_required(activo), name="CambioActivo"),
+    url(r'^CambioActivo1(?P<id_ejemplar>\d+)/$',login_required(activo1), name="CambioActivo1"),
+    url(r'^CambioActivo2/(?P<id_herramienta>\d+)/$',login_required(activo2), name="CambioActivo2"),
+    url(r'^registroAsistencia/(?P<id_asistencia>\d+)/$',login_required(registroAsistencia), name="registroAsistencia"),
     #fin
 
 #fin URL Fc

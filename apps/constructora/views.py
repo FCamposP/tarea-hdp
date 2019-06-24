@@ -220,39 +220,109 @@ def crearEmpleado(request):
 
 
 #INICIO VISTAS SEBASTIAN
+def listarEmpleadosProyecto(request):
 
-def listaRecursos(requets):	
-	
-	
-	usuario = request.user.Id
+	# lineas para capturar el proyecto al que pertenece el usuario activo
+	usuario = request.user.id
 	Asig = AsignacionUsuario.objects.get(usuario = usuario)
-	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
 	proyecto = Asig2.proyecto
-	ejemplar = AsignacionoEjemplar.objects.get(idProyecto= proyecto)
-	tool = AsignacionHerramienta.objects.get(idProyecto= proyecto)
-	contexto = {'ejemplar':ejemplar, 'tool': tool}
-	return render(request, 'constructora/RecursosProyecto', contexto)
+	# fin
+	# extraccion de empleados
+	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)
+	contexto = {'empleados': empleados}
+	return render(request,'proyecto/recursosEmpleado.html', contexto)
+
+def activo(request,id_asignacionPuestoProyecto):
+	asig = AsignacionPuestoProyecto.objects.get(id = id_asignacionPuestoProyecto)
+	if request.method == 'POST':
+		if asig.activo == True:
+			asig.activo = False
+			asig.save()
+		else:
+			asig.activo = True
+			asig.save()				
+		return redirect('http://127.0.0.1:8000/constructora/recursosEmpleado/')
+	contexto = {'asig': asig}	
+	return render(request, 'proyecto/CambioActivo.html',contexto)
+
+def activo1(request,id_ejemplar):
+	asig = AsignacionoEjemplar.objects.get(id = id_ejemplar)
+	if request.method == 'POST':
+		if asig.activo == True:
+			asig.activo = False
+			asig.save()
+		else:
+			asig.activo = True
+			asig.save()				
+		return redirect('http://127.0.0.1:8000/constructora/RecursosProyecto/')
+	contexto = {'asig': asig}	
+	return render(request, 'proyecto/CambioActivo.html',contexto)	
+
+def activo2(request,id_herramienta):
+	asig = AsignacionHerramienta.objects.get(id = id_herramienta)
+	if request.method == 'POST':
+		if asig.activo == True:
+			asig.activo = False
+			asig.save()
+		else:
+			asig.activo = True
+			asig.save()				
+		return redirect('http://127.0.0.1:8000/constructora/RecursosProyecto/')
+	contexto = {'asig': asig}	
+	return render(request, 'proyecto/CambioActivo.html',contexto)		
+
+
+def listaRecursos(request):	
+	
+	# lineas para capturar el proyecto al que pertenece el usuario activo
+	usuario = request.user.id
+	Asig = AsignacionUsuario.objects.get(usuario = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
+	proyecto = Asig2.proyecto
+	example = AsignacionoEjemplar.objects.filter(idProyecto_id = proyecto)
+	herra = AsignacionHerramienta.objects.filter(idProyecto_id= proyecto)
+	contexto = {'ejemplar': example, 'tools': herra}
+	return render(request, 'proyecto/RecursosProyecto.html', contexto)
 
 def mostrarAsistencia(request):
-
+	# lineas para capturar el proyecto al que pertenece el usuario activo
 	usuario = request.user.id
-	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
-	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
-	proyecto = Asig2.proyecto_id
-	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)		
+	Asig = AsignacionUsuario.objects.get(usuario = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
+	proyecto = Asig2.proyecto
+	# fin 
+	# extraccion de empleados	
 	asistencia = Asistencia.objects.all()
-	contexto = {'asistencias': asistencia, 'proyecto': proyecto}
-	return render(request, 'proyecto/MostrarAsistencia.html' ,contexto)	
+	contexto = {'asistencias': asistencia}
+	return render(request, 'proyecto/Asistencia.html' ,contexto)	
 
-def registroAsistencia(request):
-	
+def registroAsistencia(request, id_asistencia):
+	# lineas para capturar el proyecto al que pertenece el usuario activo
 	usuario = request.user.id
-	Asig = AsignacionUsuario.objects.get(usuario_id = usuario)
-	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto_id)
-	proyecto = Asig2.proyecto_id
+	Asig = AsignacionUsuario.objects.get(usuario = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
+	proyecto = Asig2.proyecto
+	# fin 
 	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)
-	contexto = {'empleado', empleados}
+	asig = AsignacionPuestoProyecto.objects.get(id = id_asistencia)
+	asistencia = Asistencia()
+	asistencia.Asignacion_id = asig.id
+	asistencia.fechaAsistencia = "2019-06-24"
+	asistencia.asistencia = True
+	asistencia.save()
+	if request.method == 'POST':			
+		return redirect('http://127.0.0.1:8000/constructora/recursosEmpleado/')
+	contexto = { 'empleados': empleados}
+	return render(request, 'proyecto/recursosEmpleado.html', contexto)
 
+	
+
+
+
+
+
+	
 #FIN VISTAS SEBASTIAN 
 
 

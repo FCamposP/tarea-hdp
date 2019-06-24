@@ -1,15 +1,15 @@
 {% extends 'base/base.html'%}
  
-{% block Apartado%} <h4 style=" text-align: center;">Recursos del Proyecto</h4>{% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">Asistencias</h4>{% endblock %}
 {%block links%}
 <div class="list-group">
     <a href="#" class="list-group-item list-group-item-action active">
       Lista de enlaces
     </a>
     <a href="{% url 'constructora:verProyecto' %}"  class="list-group-item list-group-item-action">Datos del Proyecto</a>
-    <a href="{% url 'constructora:recursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
-    <a href="{% url 'constructora:solicitarRecursos' %}" class="list-group-item list-group-item-action">Solicitar Recursos</a>
-    <a href="{% url 'constructora:mostrarAsistencia' %}" class="list-group-item list-group-item-action">Asistencias</a>
+    <a href="{% url 'constructora:RecursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
+     <a href="{% url 'constructora:recursosEmpleado' %}" class="list-group-item list-group-item-action">Empleados del Proyecto</a>
+    <a href="{% url 'constructora:Asistencia' %}" class="list-group-item list-group-item-action">Asistencias</a>
   </div>
 {%endblock%}  
 
@@ -34,7 +34,7 @@
 			<td>{{asistencia.Asignacion.puesto}}</td>
 			<td>{{asistencia.Asignacion.proyecto}}</td>
 			<td>{{asistencia.fechaAsistencia}}</td>
-			<td><input type="checkbox" name="asistencia"></td>
+			<td>{{asistencia.asistencia}}</td>
 		</tr>
 	</tbody>
 	{% endfor %}

@@ -3,11 +3,12 @@
 {% block Apartado%} <h4 style=" text-align: center;">Recursos del Proyecto</h4>{% endblock %}
 {%block links%}
 <div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action active">
+    <a href="" class="list-group-item list-group-item-action active">
       Lista de enlaces
     </a>
     <a href="{% url 'constructora:verProyecto' %}"  class="list-group-item list-group-item-action">Datos del Proyecto</a>
-    <a href="{% url 'constructora:recursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
+    <a href="{% url 'constructora:RecursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
+    <a href="{% url 'constructora:recursosEmpleado' %}" class="list-group-item list-group-item-action">Empleados del Proyecto</a>
     <a href="{% url 'constructora:solicitarRecursos' %}" class="list-group-item list-group-item-action">Solicitar Recursos</a>
   </div>
 {%endblock%}  
@@ -18,11 +19,11 @@
 		{% if ejemplar %}
 		<tr>
 			<td>#</td>
+			<td>Nombre</td>
 			<td>Proyecto</td>
-			<td>Herramienta</td>
-			<td>Cantidad</td>
-			<td>Fecha de Asignacion</td>
-			<td>Fecha disponible</td>			
+			<td>Fecha de asignacion</td>
+			<td>Fecha disponible</td>
+			<td>activo</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,10 +31,12 @@
 		{% for ejem in ejemplar  %}
 		<tr>
 			<td>{{ forloop.counter }}</td>
-			<td>{{ ejemp.AsigancionoEjemplar.ejemplar }}</td>
-			<td>{{ ejemp.idProyecto }}</td>			
-			<td>{{ ejemp.fechaAsignacion }}</td>
-			<td>{{ ejemp.fechaDisponible }}</td>
+			<td>{{ ejem.ejemplar.idRecurso }}</td>
+			<td>{{ ejem.idProyecto_id }}</td>			
+			<td>{{ ejem.fechaAsignacion }}</td>
+			<td>{{ ejem.fechaDisponible }}</td>
+			<td>{{ ejem.activo}}</td>
+			<td><a class="btn btn-danger" href="{% url 'constructora:CambioActivo1' ejem.id %}">Cambiar Estado</a>
 		</tr>
 		 	{% endfor %}
 		 	{% else %}
@@ -43,15 +46,17 @@
 			{% endif %}	 	
 	</tbody>
 
-<br>	
+	
 <table class = "table table-bordered">
 	<thead>
 		<tr>
 			<td>#</td>
-			<td>Nombre</td>
-			<td>cantidad</td>
-			<td>Fecha de asignacion</td>
+			<td>Proyecto</td>
+			<td>Herramienta</td>
+			<td>Cantidad</td>
+			<td>Fecha de Asignacion</td>
 			<td>Fecha disponible</td>
+			<td>activo</td>	
 		</tr>
 	</thead>
 	<tbody>
@@ -64,6 +69,8 @@
 			<td>{{ tool.cantidadAsignada }}</td>
 			<td>{{ tool.fechaAsignacion }}</td>
 			<td>{{ tool.fechaDisponible }}</td>
+			<td>{{ tool.activo }}</td>
+			<td><a class="btn btn-danger" href="{% url 'constructora:CambioActivo2' tool.id %}">Cambiar Estado</a>
 		</tr>
 		 	{% endfor %}
 		 	{% else %}
@@ -74,3 +81,4 @@
 	</tbody>
 {%endblock%}  
 
+				

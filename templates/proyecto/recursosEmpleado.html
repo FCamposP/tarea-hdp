@@ -1,0 +1,50 @@
+{% extends 'base/base.html'%}
+ 
+{% block Apartado%} <h4 style=" text-align: center;">Recursos del Proyecto</h4>{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">
+      Lista de enlaces
+    </a>
+    <a href="{% url 'constructora:verProyecto' %}"  class="list-group-item list-group-item-action">Datos del Proyecto</a>
+    <a href="{% url 'constructora:RecursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
+    <a href="{% url 'constructora:recursosEmpleado' %}" class="list-group-item list-group-item-action">Empleados del Proyecto</a>
+    <a href="{% url 'constructora:solicitarRecursos' %}" class="list-group-item list-group-item-action">Solicitar Recursos</a>
+
+  </div>
+{%endblock%}  
+{% block contenido %}
+<table class="table table-bordered">
+	<thead>
+		{% if empleados %}
+		<tr>
+			<td>#</td>
+			<td>Nombre</td>
+			<td>Apellidos</td>
+			<td>Proyecto</td>
+			<td>Salario</td>
+			<td>activo</td>
+			<td></td>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% for employe in empleados %}
+		<tr>
+			<td>{{employe.id}}</td>
+			<td>{{employe.empleado.nombres}}</td>
+			<td>{{employe.empleado.apellidos}}</td>
+			<td>{{employe.proyecto.nombreProyecto}}</td>
+			<td>{{employe.salario}}</td>
+			<td>{{employe.activo}}</td>
+			<td><a class="btn btn-danger" href="{% url 'constructora:CambioActivo' employe.id %}">Cambiar Estado</a></td>
+			<td><a class="btn btn-danger" href="{% url 'constructora:registroAsistencia' employe.id %}">Registrar Asistencia</a></td>
+		</tr>
+		{% endfor %}
+		{% else %}
+		<div class="alert alert-danger" role="alert">
+                ¡NO HAY EMPLEADOS ASIGNADOS!
+	</tbody>
+		{% endif %}
+</table>
+{% endblock %}
