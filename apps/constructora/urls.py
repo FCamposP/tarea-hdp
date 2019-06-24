@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^agregarRecurso/$',login_required(recursoAgregar), name='agregarRecurso'),
     path('modificarRecurso/<str:codigoRecurso>/',login_required(recursoModificar), name='modificarRecurso'),
     path('ejemplarList/<str:codigoRecurso>/',login_required(ejemplarList), name='ejemplarList'),
+    url(r'^herramientaList/$',login_required(herramientaList),name="herramientaList"),
     #FIN URLS MARCO
 
 ] 
