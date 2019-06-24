@@ -144,6 +144,42 @@ class EmpleadoForm(forms.ModelForm):
             
         }
 
+class clienteForm(forms.ModelForm):
+    class Meta:
+        model=Cliente
+        fields=[
+            
+            'nombreCliente',
+            'direccion',
+            'email',
+            'nit',
+            'giro',
+            'numTelefono',
+        ]
+        labels={
+
+            
+            'nombreCliente':'Nombre completo',
+            'direccion':'Direccion',
+            'email': 'Email',
+            'nit': 'Nit',
+            'giro': 'Giro',
+            'numTelefono':'Telefono',
+
+            
+        }
+        widgets={
+            
+            'nombreCliente':forms.TextInput(attrs={'class':'form-control'}),
+            'direccion':forms.TextInput(attrs={'class':'form-control'}),
+            'email':forms.TextInput(attrs={'class':'form-control'}),
+            'nit':forms.TextInput(attrs={'class':'form-control'}),
+            'giro':forms.TextInput(attrs={'class':'form-control'}),
+            'numTelefono':forms.TextInput(attrs={'class':'form-control'}),
+            
+        }
+
+
 class ContratoForm(forms.ModelForm):
     class Meta:
         model=Contrato

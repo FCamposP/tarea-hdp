@@ -1,0 +1,89 @@
+{% extends 'base/base.html'%}
+{% block title %}Clientes{% endblock %}
+{% block Apartado%} 
+<div class="alert alert-secondary" role="alert">
+  <h4 style=" text-align: center;">Clientes</h4>
+</div>
+{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
+    <a href="{%url 'constructora:verCliente'%}" class="list-group-item list-group-item-action">Clientes</a>
+    <a href="{%url 'constructora:crearCliente'%}" class="list-group-item list-group-item-action">Nuevo cliente</a>
+    
+</div>
+{%endblock%}  
+
+
+{% block contenido %}
+<div class= "container">
+	<div class= "row">
+		<section class="col-md-12">
+			<div class= "container">
+				<form method="POST" name="form1">
+					{% csrf_token %}		
+					<fieldset class="groupbox">
+               		 	<legend >Nuevo Cliente</legend>
+	                    <div class="row">
+	                        <div class="col-md-6" ">
+	                        	
+								<div>
+	                                <label>Nombre: </label>
+	                                <br/>
+	                                {{form.nombreCliente}}
+                            	</div>		                        
+			         			<br/>
+			         			<div>
+	                                <label>Direccion: </label>
+	                                <br/>
+	                                {{form.direccion}}
+
+                            	</div>		                        
+			         			<br/>
+			         			<div>
+	                                <label>Email </label>
+	                                <br/>
+	                                {{form.email}}
+                            	</div>		                        
+			         			<br/>
+			         			
+			         			
+			         			
+	                        </div>
+	        				<div class="col-md-6" ">
+		                        <div>
+	                                <label>Nit: </label>
+	                                <br/>
+	                                {{form.nit}}	
+                            	</div>		                        
+			         			<br/>
+			         			       
+			         			<div>
+	                                <label>Giro: </label>
+	                                <br/>
+	                                {{form.giro}}	
+                            	</div>	
+                            	<br/>
+                            	<div>
+	                                <label>Numero de telefono: </label>
+	                                <br/>
+	                                {{form.numTelefono}}	
+                            	</div>		   	                        
+			         			<br/>	             
+			         			
+		                    </div>
+	        
+	                	</div>
+	                 </fieldset>			                 			         			         				         	
+	            		<br/>
+                    <div class="btnAñadir">
+                        <input class="btn btn-success" style="margin-left:10%" type="submit" value="Guardar">
+                        <input class="btn btn-primary" style="margin-left:10%" type="reset" value="Resetear">
+                    </div>
+
+		        </form>        
+			</div>		
+		</section>
+	</div>	
+	</div>
+{% endblock %}

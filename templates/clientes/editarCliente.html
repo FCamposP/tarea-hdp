@@ -1,8 +1,8 @@
 {% extends 'base/base.html'%}
-{% block title %}Empleados{% endblock %}
+{% block title %}Clientes{% endblock %}
 {% block Apartado%}
 <div class="alert alert-secondary" role="alert">
-  <h4 style=" text-align: center;">Editar datos de empleado</h4>
+  <h4 style=" text-align: center;">Editar datos de Cliente</h4>
 </div>
 {% endblock %}
 {%block links%}
@@ -22,59 +22,50 @@
 				<form method="POST" name="form1">
 					{% csrf_token %}		
 					<fieldset class="groupbox">
-               		 	<legend >Editar Empleado</legend>
+               		 	<legend >Editar Cliente</legend>
 	                    <div class="row">
 	                        <div class="col-md-6" ">
 	                        	<div>
 	                                <label>Nombre: </label>
 	                                <br/>
-	                                {{formEmpleado.nombres}}
+	                                {{form.nombreCliente}}
                             	</div>		                        
 			         			<br/>
 								<div>
-	                                <label>Apellidos: </label>
+	                                <label>Direccion: </label>
 	                                <br/>
-	                                {{formEmpleado.apellidos}}
+	                                {{form.direccion}}
                             	</div>		                        
 			         			<br/>
 			         			<div>
-	                                <label>Direccion: </label>
+	                                <label>Email: </label>
 	                                <br/>
-	                                {{formEmpleado.direccion}}
+	                                {{form.email}}
 
                             	</div>		                        
 			         			<br/>
-			         			<div>
-	                                <label>Numero de telefono: </label>
-	                                <br/>
-	                                {{formEmpleado.numTelefono}}
-                            	</div>		                        
-			         			<br/>
-			         					                        
-			         			<br/>	  
 			         			
-			         			<br/>	  
 	                        </div>
 	        
 		                    <div class="col-md-6">
 		                        <div>
-	                                <label>Dui: </label>
-	                                <br/>
-	                                {{formEmpleado.dui}}	
-                            	</div>		                        
-			         			<br/>
-			         			<div>
 	                                <label>Nit: </label>
 	                                <br/>
-	                                {{formEmpleado.nit}}	
+	                                {{form.nit}}
                             	</div>		                        
-			         			<br/>	         
-			         			<div>
-	                                <label>Isss: </label>
+			         			<br/>
+			         				<div>
+	                                <label>giro: </label>
 	                                <br/>
-	                                {{formEmpleado.isss}}	
-                            	</div>                  
-			         			<br/>	
+	                                {{form.giro}}
+                            	</div>		                        
+			         			<br/>	  
+			         			<div>
+	                                <label>Telefono: </label>
+	                                <br/>
+	                                {{form.numTelefono}}
+                            	</div>	
+			         			<br/>	  
 		                    </div>
 	        
 	                	</div>

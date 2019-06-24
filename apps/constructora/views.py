@@ -93,7 +93,43 @@ def ejemplarList(request, codigoRecurso):
 
 
 #INICIO DE VISTAS KILMER
+def verCliente(request):
+	clientes = Cliente.objects.all()
 
+	
+	contexto = {'cliente':clientes}
+
+	return render(request,'clientes/clientes.html', contexto)
+
+def nuevoCliente(request):
+	cliente = Cliente()
+	clientes = Cliente.objects.all()
+	codigo = ""
+	if clientes:
+		for c in clientes:
+			codigo =  (c.id) + 1 
+		codigo = "CL" + str(codigo)
+	else:
+		codigo = "CL" + str(1)
+	if request.method=='POST':
+		form = clienteForm(request.POST)
+		if form.is_valid():
+			cliente.codigoCliente = codigo
+			cliente.nombreCliente = request.POST['nombreCliente']
+			cliente.direccion = request.POST['direccion']
+			cliente.email = request.POST['email']
+			cliente.nit = request.POST['nit']
+			cliente.giro = request.POST['giro']
+			cliente.numTelefono = request.POST['numTelefono']
+			cliente.save()
+			return redirect('constructora:verCliente')
+		
+		
+	else:
+		form = clienteForm()
+		
+	contexto={'form':form}
+	return render(request,'clientes/crearCliente.html', contexto)
 
 def eliminarEmpleado(request, id_empleado):
 	empleado = Empleado.objects.get(id=id_empleado)
@@ -103,7 +139,14 @@ def eliminarEmpleado(request, id_empleado):
 	contexto= {'empleado' : empleado}
 	return render(request, 'empleados/eliminarEmpleado.html',contexto )
 	
-	
+def eliminarCliente(request, id_cliente):
+	cliente = Cliente.objects.get(id=id_cliente)
+	if request.method == 'POST':
+		cliente.delete()
+		return redirect('http://127.0.0.1:8000/constructora/verCliente/')
+	contexto= {'cliente' : cliente}
+	return render(request, 'clientes/eliminarCliente.html',contexto )
+
 def verContrato(request):
 	contrato = Contrato.objects.all()
 	empleado = Empleado.objects.all()
@@ -183,6 +226,25 @@ def editarEmpleado(request, id_empleado):
 	contexto={'formEmpleado':form}
 	return render(request ,'empleados/editarEmpleado.html', contexto)
 
+def editarCliente(request, id_cliente):
+	cliente = Cliente.objects.get(id = id_cliente)
+
+	if request.method == 'GET':
+		form = clienteForm(instance=cliente)
+		
+	else:
+		
+		form = clienteForm(request.POST, instance= cliente)
+		
+		
+		if form.is_valid():
+			form.save()
+			
+			
+		return redirect('http://127.0.0.1:8000/constructora/verCliente/')
+	contexto={'form':form}
+	return render(request ,'clientes/editarCliente.html', contexto)
+
 def crearEmpleado(request):
 	empleadoContrato = Empleado()
 	contratoFinal = Contrato()
@@ -215,6 +277,7 @@ def crearEmpleado(request):
 		formC = ContratoForm()
 	contexto={'formEmpleado':form,'formContrato':formC}
 	return render(request,'empleados/crearEmpleado.html', contexto)
+
 
 #FIN VISTAS KILMER
 
