@@ -47,9 +47,9 @@ def recursoAgregar(request):
 def recursoModificar(request, codigoRecurso):
 	recurso = Recurso.objects.get(pk=codigoRecurso)
 	if request.method == 'GET':
-		form1 = RecursoForm(instance=recurso)
+		form1 = RecursoForm_2(instance=recurso)
 	else:
-		form1 = RecursoForm(request.POST, instance=recurso)
+		form1 = RecursoForm_2(request.POST, instance=recurso)
 		if form1.is_valid():
 			form1.save()
 		return redirect('constructora:recursoList')
@@ -57,15 +57,12 @@ def recursoModificar(request, codigoRecurso):
 
 def ejemplarList(request, codigoRecurso):
 	recurso = Recurso.objects.get(pk=codigoRecurso)
-	ejemplar = Ejemplar.objects.all().order_by('codigoEjemplar')
 	if request.method == 'POST':
-		form=EjemplarForm(request.POST)
-		if form.is_valid():
-			if 'accion' in request.POST:
-				accion = request.POST['accion']
-				codigo_recurso = request.POST['recurso']
-				recurso = Recurso.objects.get(codigoRecurso = codigo_recurso)
-				if accion == 'Agregar':					
+		if 'accion' in request.POST:
+			accion = request.POST['accion']
+			if accion == 'Agregar':	
+				form=EjemplarForm(request.POST)
+				if form.is_valid():
 					ejemplar=Ejemplar()
 					ejemplar.codigoEjemplar=request.POST['codigoEjemplar']
 					ejemplar.idRecurso=recurso
@@ -73,27 +70,118 @@ def ejemplarList(request, codigoRecurso):
 					ejemplar.descripcionEjemplar=request.POST['descripcionEjemplar']
 					ejemplar.disponible='True'
 					ejemplar.save()
-					pass
-					return redirect('constructora:ejemplarList',recurso.pk)
-				if accion == 'Eliminar':
-					codigo_ejemplar = request.POST['ejemplar']
-					ejemplar = Ejemplar.objects.get(codigoEjemplar = codigo_ejemplar)	
-					ejemplar.delete()
-					pass
-
+					pass				
 				pass
+				return redirect('constructora:ejemplarList',recurso.pk)
+			if accion == 'Eliminar':
+				codigo_ejemplar = request.POST['ejemplar']
+				ejemplar = Ejemplar.objects.get(codigoEjemplar = codigo_ejemplar)	
+				ejemplar.delete()
+				pass
+				return redirect('constructora:ejemplarList',recurso.pk)
 			pass
+			if accion == 'Modificar':
+				codigo_ejemplar = request.POST['ejemplar']
+				ejemplar = Ejemplar.objects.get(codigoEjemplar = codigo_ejemplar)
+				form1 = EjemplarForm(request.POST, instance=ejemplar)
+				if form1.is_valid():
+					form1.save()
+					return redirect('constructora:ejemplarList',recurso.pk)
+					pass
+				pass
 		pass		
 	else:
 		form = EjemplarForm()
 	pass
+	ejemplar = Ejemplar.objects.filter(idRecurso=recurso.codigoRecurso).order_by('codigoEjemplar')
 	contexto = {'recurso':recurso, 'ejemplares':ejemplar, 'form':form}
 	return render(request, 'ejemplares/listaEjemplar.html', contexto)
+
+def herramientaList(request):
+	if request.method == 'POST':
+		if 'accion' in request.POST:
+			accion = request.POST['accion']
+			if accion == 'Agregar':	
+				form=HerramientaForm(request.POST)
+				if form.is_valid():
+					herramienta=Herramienta()
+					herramienta.codigoHerramienta=request.POST['codigoHerramienta']
+					herramienta.nombreHerramienta=request.POST['nombreHerramienta']
+					herramienta.cantidadHerramienta=request.POST['cantidadHerramienta']
+					herramienta.canatidadDisponibles=request.POST['cantidadHerramienta']
+					herramienta.descripcionHerramienta=request.POST['descripcionHerramienta']
+					herramienta.save()
+					pass				
+				pass
+				return redirect('constructora:herramientaList')
+			if accion == 'Eliminar':
+				codigo_herramienta = request.POST['herramienta']
+				herramienta = Herramienta.objects.get(codigoHerramienta = codigo_herramienta)	
+				herramienta.delete()
+				pass
+				return redirect('constructora:herramientaList')
+			pass
+			if accion == 'Modificar':
+				codigo_herramienta = request.POST['herramienta']
+				herramienta = Herramienta.objects.get(codigoHerramienta = codigo_herramienta)
+				cant_n = request.POST['cantidadHerramienta']
+				resta_cant = int(cant_n) - herramienta.cantidadHerramienta
+				disp = herramienta.canatidadDisponibles + (resta_cant)
+				herramienta.canatidadDisponibles = disp
+				form1 = HerramientaForm(request.POST, instance=herramienta)
+				if form1.is_valid():
+					form1.save()
+					return redirect('constructora:herramientaList')
+					pass
+				pass
+		pass		
+	else:
+		form = HerramientaForm()
+	pass	
+	herramienta = Herramienta.objects.all().order_by('codigoHerramienta')
+	contexto = {'herramientas':herramienta, 'form':form}
+	return render(request, 'herramientas/listaHerramientas.html', contexto)
 #FIN DE VISTAS MARCO
 
 
 #INICIO DE VISTAS KILMER
+def verCliente(request):
+	clientes = Cliente.objects.all()
 
+	
+	contexto = {'cliente':clientes}
+
+	return render(request,'clientes/clientes.html', contexto)
+
+def nuevoCliente(request):
+	cliente = Cliente()
+	clientes = Cliente.objects.all()
+	codigo = ""
+	if clientes:
+		for c in clientes:
+			codigo =  (c.id) + 1 
+		codigo = "CL" + str(codigo)
+	else:
+		codigo = "CL" + str(1)
+	if request.method=='POST':
+		form = clienteForm(request.POST)
+		if form.is_valid():
+			cliente.codigoCliente = codigo
+			cliente.nombreCliente = request.POST['nombreCliente']
+			cliente.direccion = request.POST['direccion']
+			cliente.email = request.POST['email']
+			cliente.nit = request.POST['nit']
+			cliente.giro = request.POST['giro']
+			cliente.numTelefono = request.POST['numTelefono']
+			cliente.save()
+			return redirect('constructora:verCliente')
+		
+		
+	else:
+		form = clienteForm()
+		
+	contexto={'form':form}
+	return render(request,'clientes/crearCliente.html', contexto)
 
 def eliminarEmpleado(request, id_empleado):
 	empleado = Empleado.objects.get(id=id_empleado)
@@ -103,7 +191,14 @@ def eliminarEmpleado(request, id_empleado):
 	contexto= {'empleado' : empleado}
 	return render(request, 'empleados/eliminarEmpleado.html',contexto )
 	
-	
+def eliminarCliente(request, id_cliente):
+	cliente = Cliente.objects.get(id=id_cliente)
+	if request.method == 'POST':
+		cliente.delete()
+		return redirect('http://127.0.0.1:8000/constructora/verCliente/')
+	contexto= {'cliente' : cliente}
+	return render(request, 'clientes/eliminarCliente.html',contexto )
+
 def verContrato(request):
 	contrato = Contrato.objects.all()
 	empleado = Empleado.objects.all()
@@ -183,6 +278,25 @@ def editarEmpleado(request, id_empleado):
 	contexto={'formEmpleado':form}
 	return render(request ,'empleados/editarEmpleado.html', contexto)
 
+def editarCliente(request, id_cliente):
+	cliente = Cliente.objects.get(id = id_cliente)
+
+	if request.method == 'GET':
+		form = clienteForm(instance=cliente)
+		
+	else:
+		
+		form = clienteForm(request.POST, instance= cliente)
+		
+		
+		if form.is_valid():
+			form.save()
+			
+			
+		return redirect('http://127.0.0.1:8000/constructora/verCliente/')
+	contexto={'form':form}
+	return render(request ,'clientes/editarCliente.html', contexto)
+
 def crearEmpleado(request):
 	empleadoContrato = Empleado()
 	contratoFinal = Contrato()
@@ -215,6 +329,7 @@ def crearEmpleado(request):
 		formC = ContratoForm()
 	contexto={'formEmpleado':form,'formContrato':formC}
 	return render(request,'empleados/crearEmpleado.html', contexto)
+
 
 #FIN VISTAS KILMER
 
@@ -473,10 +588,42 @@ def solicitarRecursos(request):
 		solicitante=None
 		encontrado=False
 
-	if 'btnSolicitar' in request.POST:
-		print('holaaa')
-		sdfsdl
 	contexto={'j':'k'}
+	puestos =Puesto.objects.all()
+	recursos=Recurso.objects.all()
+	herramientas=Herramienta.objects.all()
+
+	if 'btnSolicitar' in request.POST:
+		soli=Solicitud()
+		soli.solicitante=solicitante
+		soli.fechaSolicitud=time.strftime("%c")
+		soli.save()
+		for x in puestos:
+			if str(x.codigoPuesto) in request.POST:
+				detalle=DetalleSolicitud()
+				detalle.solicitud=Solicitud.objects.latest('id')
+				detalle.recurso='Puesto'
+				detalle.cantidad=request.POST[x.codigoPuesto]
+				detalle.save()
+		for x in recursos:
+			if str(x.codigoRecurso) in request.POST:
+				print('no sale')
+				detalle=DetalleSolicitud()
+				detalle.solicitud=Solicitud.objects.latest('id')
+				detalle.recurso='Maquinaria'
+				detalle.cantidad=request.POST[x.codigoRecurso]
+				detalle.save()
+		for x in herramientas:
+			if str(x.codigoHerramienta) in request.POST:
+				detalle=DetalleSolicitud()
+				detalle.solicitud=Solicitud.objects.latest('id')
+				detalle.recurso='Herramienta'
+				detalle.cantidad=request.POST[x.codigoHerramienta]
+				detalle.save()
+		return redirect('constructora:recursosProyecto')
+		# verificar para puestos
+		
+
 	return render(request,'proyecto/SolicitarRecursos.html',contexto)
 
 class verProyecto(TemplateView):
@@ -506,16 +653,16 @@ def conseguirElemento(request):
 		puesto=Puesto.objects.get(id=elemento)
 	
 		data=serializers.serialize('json',[puesto])
-		print(data)
+
 
 	if opcion=='2':
 		recurso=Recurso.objects.get(codigoRecurso=elemento)
-		#data=serializers.serialize('json',recurso)
-		data=recurso
+		data=serializers.serialize('json',[recurso])
+		print(data)
+
 	if opcion=='3':
 		herramienta=Herramienta.objects.get(codigoHerramienta=elemento)
-		#data=serializers.serialize('json',herramienta)
-		data=herramienta
+		data=serializers.serialize('json',[herramienta])
 
 	return HttpResponse(data,content_type='application/json')
 

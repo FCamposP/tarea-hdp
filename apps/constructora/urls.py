@@ -20,7 +20,9 @@ urlpatterns = [
     url(r'^ConseguirTipoRecurso/$',login_required(ConseguirTipoRecurso),name="ConseguirTipoRecurso"),
     url(r'^conseguirElemento/$',login_required(conseguirElemento),name="conseguirElemento"),
     url(r'^editarEmpleado/(?P<id_empleado>\d+)/$',login_required(editarEmpleado),name="editarEmpleado"),
+    url(r'^editarCliente/(?P<id_cliente>\d+)/$',login_required(editarCliente),name="editarCliente"),
     url(r'^eliminarEmpleado/(?P<id_empleado>\d+)/$',login_required(eliminarEmpleado),name="eliminarEmpleado"),
+    url(r'^eliminarCliente/(?P<id_cliente>\d+)/$',login_required(eliminarCliente),name="eliminarCliente"),
 
      #vista Sebas
     url(r'^RecursosProyecto/$',login_required(listaRecursos),name="RecursosProyecto"),
@@ -37,7 +39,9 @@ urlpatterns = [
 
     url(r'^contrato/$',login_required(verContrato),name="contrato"),
     url(r'^empleado/$',login_required(verEmpleado),name="empleado"),
+    url(r'^verCliente/$',login_required(verCliente),name="verCliente"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
+    url(r'^crearCliente/$',login_required(nuevoCliente),name="crearCliente"),
     
 
     #INICIO URLS MARCO
@@ -46,6 +50,7 @@ urlpatterns = [
     url(r'^agregarRecurso/$',login_required(recursoAgregar), name='agregarRecurso'),
     path('modificarRecurso/<str:codigoRecurso>/',login_required(recursoModificar), name='modificarRecurso'),
     path('ejemplarList/<str:codigoRecurso>/',login_required(ejemplarList), name='ejemplarList'),
+    url(r'^herramientaList/$',login_required(herramientaList),name="herramientaList"),
     #FIN URLS MARCO
 
 ] 

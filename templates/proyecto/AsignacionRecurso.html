@@ -140,8 +140,13 @@
                             <div>
                               <form method="POST">
                                         {% csrf_token %}
+
+                                        <input type="hidden" name="recurso" value="{{ e.id }}"> 
+                                        <a href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+
                                         <input type="hidden" name="elimEmpleado" value="{{ e.id }}"> 
                                         <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+
                                         <!-- Modal -->
                                         <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">

@@ -1,8 +1,8 @@
 {% extends 'base/base.html'%}
-{% block title %}Empleados{% endblock %}
+{% block title %}Clientes{% endblock %}
 {% block Apartado%}
 <div class="alert alert-secondary" role="alert">
-  <h4 style=" text-align: center;">Agregar registro de un empleado</h4>
+  <h4 style=" text-align: center;">Editar datos de Cliente</h4>
 </div>
 {% endblock %}
 {%block links%}
@@ -22,73 +22,50 @@
 				<form method="POST" name="form1">
 					{% csrf_token %}		
 					<fieldset class="groupbox">
-               		 	<legend >Nuevo Empleado</legend>
+               		 	<legend >Editar Cliente</legend>
 	                    <div class="row">
 	                        <div class="col-md-6" ">
 	                        	<div>
 	                                <label>Nombre: </label>
 	                                <br/>
-	                                {{formEmpleado.nombres}}
+	                                {{form.nombreCliente}}
                             	</div>		                        
 			         			<br/>
 								<div>
-	                                <label>Apellidos: </label>
+	                                <label>Direccion: </label>
 	                                <br/>
-	                                {{formEmpleado.apellidos}}
+	                                {{form.direccion}}
                             	</div>		                        
 			         			<br/>
 			         			<div>
-	                                <label>Direccion: </label>
+	                                <label>Email: </label>
 	                                <br/>
-	                                {{formEmpleado.direccion}}
+	                                {{form.email}}
 
                             	</div>		                        
 			         			<br/>
-			         			<div>
-	                                <label>Numero de telefono: </label>
-	                                <br/>
-	                                {{formEmpleado.numTelefono}}
-                            	</div>		                        
-			         			<br/>
-			         			<div>
-	                                <label>Dui: </label>
-	                                <br/>
-	                                {{formEmpleado.dui}}	
-                            	</div>		                        
-			         			<br/>
-			         			<div>
-	                                <label>Nit: </label>
-	                                <br/>
-	                                {{formEmpleado.nit}}	
-                            	</div>		                        
-			         			<br/>	         
-			         			<div>
-	                                <label>Isss: </label>
-	                                <br/>
-	                                {{formEmpleado.isss}}	
-                            	</div>		                        
-			         			<br/>	  
 			         			
-			         			<br/>	  
 	                        </div>
 	        
 		                    <div class="col-md-6">
 		                        <div>
-	                                <label>Descripcion de contrato: </label>
+	                                <label>Nit: </label>
 	                                <br/>
-	                                {{formContrato.descripcion}}	
-
-									</textarea>
+	                                {{form.nit}}
+                            	</div>		                        
+			         			<br/>
+			         				<div>
+	                                <label>giro: </label>
+	                                <br/>
+	                                {{form.giro}}
                             	</div>		                        
 			         			<br/>	  
 			         			<div>
-	                                <label>Periodo contrato: </label>
+	                                <label>Telefono: </label>
 	                                <br/>
-	                                {{formContrato.periodoContrato}}	
-                            	</div>		                        
-			         			<br/>	
-			         			                  
-			         			<br/>	
+	                                {{form.numTelefono}}
+                            	</div>	
+			         			<br/>	  
 		                    </div>
 	        
 	                	</div>

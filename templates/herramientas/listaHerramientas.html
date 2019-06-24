@@ -1,28 +1,24 @@
 {% extends 'base/base.html' %}
-{% block title %}Ejemplares {% endblock %}
+{% block title %}Herramientas {% endblock %}
 {% block cuerpo %}
-<div>
-	<div class="row">
-		<div class="col">
-			<h6>Codigo del Recurso: {{ recurso.codigoRecurso }}</h6>
-	    	<h6>Nombre: {{ recurso.nombreRecurso }}</h6>
-	    	<h6>Tipo: {{ recurso.tipoRecurso }}</h6>
-		</div>
-		<div class="col" align="right">
+<div class="table-responsive">
+	<div>
+		<div align="right">
 			<br>
 			<div class="container">
 				<form method="post">
 					{% csrf_token %}
-					<input type="hidden" name="recurso" value="{{ recurso.codigoRecurso }}"> 
-					<a href="" class="btn btn-success" data-toggle="modal" data-target="#Agregar_{{ recurso.codigoRecurso }}">
+					<input type="hidden" name="herramienta" value=""> 
+					<a href="" class="btn btn-success" data-toggle="modal" data-target="#modal_herramienta">
 						<span class="fas fa-plus"></span>Agregar
 					</a>
+
 					<!--Modal -->
-					<div class="modal fade" id="Agregar_{{ recurso.codigoRecurso }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal fade" id="modal_herramienta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog" role="document">
 					    <div class="modal-content">
 					      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">Agregar Ejemplar</h5>
+					        <h5 class="modal-title" id="exampleModalLabel">Agregar Herramienta</h5>
 					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					          <span aria-hidden="true">&times;</span>
 					        </button>
@@ -65,6 +61,7 @@
 				</form>
 			</div>
 		</div>
+		<br>
 
 	</div>
 	<table class="table table-hover table-bordered">
@@ -72,29 +69,33 @@
 			<tr class="table-success">
 				<td class="font-weight-bold">Codigo</td>
 				<td class="font-weight-bold">Nombre</td>
+				<td class="font-weight-bold">Cantidad</td>
+				<td class="font-weight-bold">Disponibles</td>
 				<td class="font-weight-bold">Descripcion</td>
 				<td class="font-weight-bold">Acciones</td>
 			</tr>
 		</thead>
 		<tbody>
-			{% if ejemplares %}
-			{% for ejemplar in ejemplares %}
+			{% if herramientas %}
+			{% for herramienta in herramientas %}
 			<tr class="text-justify">
-				<td>{{ ejemplar.codigoEjemplar }}</td>
-				<td>{{ ejemplar.nombreEjemplar }}</td>
-				<td>{{ ejemplar.descripcionEjemplar }}</td>
+				<td>{{ herramienta.codigoHerramienta }}</td>
+				<td>{{ herramienta.nombreHerramienta }}</td>
+				<td>{{ herramienta.cantidadHerramienta }}</td>
+				<td>{{ herramienta.canatidadDisponibles }}</td>
+				<td>{{ herramienta.descripcionHerramienta }}</td>
 				<td>
 					<div>
-						<form method="post">
+						<form method="post" id="{{ herramienta.codigoHerramienta }}">
 							{% csrf_token %}
-							<input type="hidden" name="ejemplar" value="{{ ejemplar.codigoEjemplar }}"> 
-			                <a href="" data-toggle="modal" data-target="#Modificar_{{ ejemplar.codigoEjemplar }}">Modificar</a>
+							<input type="hidden" name="herramienta" value="{{ herramienta.codigoHerramienta }}"> 
+			                <a href="" data-toggle="modal" data-target="#Modificar_{{ herramienta.codigoHerramienta }}">Modificar</a>
 							<!--Modal -->
-							<div class="modal fade" id="Modificar_{{ ejemplar.codigoEjemplar }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal fade" id="Modificar_{{ herramienta.codigoHerramienta }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
 							    <div class="modal-content">
 							      <div class="modal-header">
-							        <h5 class="modal-title" id="exampleModalLabel">Modificar Ejemplar</h5>
+							        <h5 class="modal-title" id="exampleModalLabel">Modificar Herramienta</h5>
 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							          <span aria-hidden="true">&times;</span>
 							        </button>
@@ -105,36 +106,49 @@
 										<div class="row">		
 											<div class="col">				
 												<div class="form-group"">
-													<div class="form-group"> 
+									                 
+									                 <div class="form-group"> 
 									                    <label class="col-md-12 control-label">
 									                        Código            
 									                    </label> 
 									                    <div class="col-md-12"> 
-									                        <input type="text" readonly="readonly" name="codigoEjemplar" value="{{ ejemplar.codigoEjemplar }}" class="form-control" id="id_codigoEjemplar" maxlength="10" placeholder="Escriba el Código del Ejemplar" required=""> 
+									                        <input type="text" readonly="readonly" name="codigoHerramienta" value="{{ herramienta.codigoHerramienta }}" class="form-control" id="id_codigoEjemplar" maxlength="10" placeholder="Escriba el Código de la Herramienta" required=""> 
 									                        <div class="error">
 									                            
 									                        </div>
 									                    </div> 
-									                </div> 
-						                 
+									                </div>
+
 									                <div class="form-group"> 
 									                    <label class="col-md-12 control-label">
 									                        Nombre            
 									                    </label> 
 									                    <div class="col-md-12"> 
-									                        <input type="text" name="nombreEjemplar" value="{{ ejemplar.nombreEjemplar }}" class="form-control" id="id_nombreEjemplar" maxlength="25" placeholder="Escriba el Nombre del Ejemplar" required=""> 
+									                        <input type="text" name="nombreHerramienta" value="{{ herramienta.nombreHerramienta }}" required="" class="form-control" id="id_nombreHerramienta" maxlength="15" placeholder="Escriba el Nombre de la Herramienta"> 
 									                        <div class="error">
 									                            
 									                        </div>
 									                    </div> 
 									                </div> 
-						                 
+									                 
+									                <div class="form-group"> 
+									                    <label class="col-md-12 control-label">
+									                        Cantidad de herramientas            
+									                    </label> 
+									                    <div class="col-md-12"> 
+									                        <input type="number" name="cantidadHerramienta" value="{{ herramienta.cantidadHerramienta }}" required="" class="form-control" onfocus="restar('{{ herramienta.cantidadHerramienta }}','{{ herramienta.canatidadDisponibles }}','{{ herramienta.codigoHerramienta }}')" min="0" id="id_cantidadHerramienta" placeholder="Escriba el numero de Herramientas"> 
+									                        <div class="error">
+									                            
+									                        </div>
+									                    </div> 
+									                </div> 
+									                 
 									                <div class="form-group"> 
 									                    <label class="col-md-12 control-label">
 									                        Descripcion            
 									                    </label> 
 									                    <div class="col-md-12"> 
-									                        <textarea name="descripcionEjemplar" cols="40" id="id_descripcionEjemplar" required="" class="form-control" maxlength="100" rows="3" placeholder="Escriba la descripción del Ejemplar">{{ ejemplar.descripcionEjemplar }}</textarea> 
+									                        <textarea name="descripcionHerramienta" placeholder="Escriba la descripción de la Herramienta" required="" class="form-control" rows="3" id="id_descripcionHerramienta" cols="40" maxlength="100">{{ herramienta.descripcionHerramienta }}</textarea> 
 									                        <div class="error">
 									                            
 									                        </div>
@@ -158,10 +172,10 @@
 					<div>
 						<form method="POST">
 			                {% csrf_token %}
-			                <input type="hidden" name="ejemplar" value="{{ ejemplar.codigoEjemplar }}"> 
-			                <a href="" data-toggle="modal" data-target="#Eliminar_{{ ejemplar.codigoEjemplar }}">Eliminar</a>
+			                <input type="hidden" name="herramienta" value="{{ herramienta.codigoHerramienta }}"> 
+			                <a href="" data-toggle="modal" data-target="#Eliminar_{{ herramienta.codigoHerramienta }}">Eliminar</a>
 			                <!-- Modal -->
-			                <div class="modal fade" id="Eliminar_{{ ejemplar.codigoEjemplar }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			                <div class="modal fade" id="Eliminar_{{ herramienta.codigoHerramienta }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			                  <div class="modal-dialog" role="document">
 			                    <div class="modal-content">
 			                      <div class="modal-header">
@@ -171,7 +185,7 @@
 			                        </button>
 			                      </div>
 			                      <div class="modal-body">
-			                        ¿Esta seguro de eliminar el Ejemplar con codigo <b>{{ ejemplar.codigoEjemplar }}?</b>
+			                        ¿Esta seguro de eliminar la Herramienta con codigo <b>{{ herramienta.codigoHerramienta }}?</b>
 			                      </div>
 			                      <div class="modal-footer">
 			                        <input class="btn btn-danger" type="submit" name="accion" value="Eliminar">
@@ -187,11 +201,19 @@
 			{% endfor %}
 
 			{% else %}
-			<h2>No hay registros de ejemplares</h2>
+			<h2>No hay registros de Herramientas</h2>
 			{% endif %}
 		</tbody>
 	</table>
 
 </div>
-
+<script type="text/javascript">
+	function restar(num_1,num_2,cod_her){
+		var num_1=parseInt(num_1);
+		var num_2=parseInt(num_2);
+		var cod = cod_her;
+		var min=num_1 - num_2;
+		document.getElementById(cod).cantidadHerramienta.min=min;
+	}
+</script>
 {% endblock %}
