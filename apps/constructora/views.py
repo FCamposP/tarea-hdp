@@ -403,10 +403,42 @@ def solicitarRecursos(request):
 		solicitante=None
 		encontrado=False
 
-	if 'btnSolicitar' in request.POST:
-		print('holaaa')
-		sdfsdl
 	contexto={'j':'k'}
+	puestos =Puesto.objects.all()
+	recursos=Recurso.objects.all()
+	herramientas=Herramienta.objects.all()
+
+	if 'btnSolicitar' in request.POST:
+		soli=Solicitud()
+		soli.solicitante=solicitante
+		soli.fechaSolicitud=time.strftime("%c")
+		soli.save()
+		for x in puestos:
+			if str(x.codigoPuesto) in request.POST:
+				detalle=DetalleSolicitud()
+				detalle.solicitud=Solicitud.objects.latest('id')
+				detalle.recurso='Puesto'
+				detalle.cantidad=request.POST[x.codigoPuesto]
+				detalle.save()
+		for x in recursos:
+			if str(x.codigoRecurso) in request.POST:
+				print('no sale')
+				detalle=DetalleSolicitud()
+				detalle.solicitud=Solicitud.objects.latest('id')
+				detalle.recurso='Maquinaria'
+				detalle.cantidad=request.POST[x.codigoRecurso]
+				detalle.save()
+		for x in herramientas:
+			if str(x.codigoHerramienta) in request.POST:
+				detalle=DetalleSolicitud()
+				detalle.solicitud=Solicitud.objects.latest('id')
+				detalle.recurso='Herramienta'
+				detalle.cantidad=request.POST[x.codigoHerramienta]
+				detalle.save()
+		return redirect('constructora:recursosProyecto')
+		# verificar para puestos
+		
+
 	return render(request,'proyecto/SolicitarRecursos.html',contexto)
 
 class verProyecto(TemplateView):
@@ -436,16 +468,16 @@ def conseguirElemento(request):
 		puesto=Puesto.objects.get(id=elemento)
 	
 		data=serializers.serialize('json',[puesto])
-		print(data)
+
 
 	if opcion=='2':
 		recurso=Recurso.objects.get(codigoRecurso=elemento)
-		#data=serializers.serialize('json',recurso)
-		data=recurso
+		data=serializers.serialize('json',[recurso])
+		print(data)
+
 	if opcion=='3':
 		herramienta=Herramienta.objects.get(codigoHerramienta=elemento)
-		#data=serializers.serialize('json',herramienta)
-		data=herramienta
+		data=serializers.serialize('json',[herramienta])
 
 	return HttpResponse(data,content_type='application/json')
 
