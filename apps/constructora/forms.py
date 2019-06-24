@@ -59,7 +59,33 @@ class RecursoForm(forms.ModelForm):
             'codigoRecurso' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Código del Recurso'}),
             'nombreRecurso' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Nombre del Recurso'}),
             'tipoRecurso' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Tipo de Recurso'}),
-            'descripcionRecurso' : forms.Textarea(attrs={'rows':3, 'class':'form-control','placeholder':'Escriba la descripción del Recurso'}),
+            'descripcionRecurso' : forms.Textarea(attrs={'rows':5, 'class':'form-control','placeholder':'Escriba la descripción del Recurso'}),
+        }
+
+class RecursoForm_2(forms.ModelForm):
+
+    class Meta:
+        model = Recurso
+
+        fields = [
+            'codigoRecurso',
+            'nombreRecurso',
+            'tipoRecurso',
+            'descripcionRecurso',
+
+        ]
+        labels = {
+            'codigoRecurso' : 'Código',
+            'nombreRecurso' : 'Nombre',
+            'tipoRecurso' : 'Tipo de Recurso',
+            'descripcionRecurso': 'Descripcion',
+        }
+
+        widgets = {
+            'codigoRecurso' : forms.TextInput(attrs={'class':'form-control','readonly':'readonly','placeholder':'Escriba el Código del Recurso'}),
+            'nombreRecurso' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Nombre del Recurso'}),
+            'tipoRecurso' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Tipo de Recurso'}),
+            'descripcionRecurso' : forms.Textarea(attrs={'rows':5, 'class':'form-control','placeholder':'Escriba la descripción del Recurso'}),
         }
 
 class EjemplarForm(forms.ModelForm):
@@ -107,8 +133,8 @@ class HerramientaForm(forms.ModelForm):
         widgets = {
             'codigoHerramienta' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Código de la Herramienta'}),
             'nombreHerramienta' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Nombre de la Herramienta'}),
-            'cantidadHerramienta' : forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el numero de Herramientas'}),
-            'descripcionEjemplar' : forms.Textarea(attrs={'rows':3, 'class':'form-control','placeholder':'Escriba la descripción de la Herramienta'}),
+            'cantidadHerramienta' : forms.NumberInput(attrs={'class':'form-control','placeholder':'Escriba el numero de Herramientas','min':'0'}),
+            'descripcionHerramienta' : forms.Textarea(attrs={'rows':3, 'class':'form-control','placeholder':'Escriba la descripción de la Herramienta'}),
         }
 
 

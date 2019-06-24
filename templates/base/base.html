@@ -66,7 +66,16 @@
                       {%endif%}
                       {%if user.is_superuser == True%}
                       <li class = "nav-item"> <!--administrador-->
+                         <a class="nav-link" href="{%url 'constructora:herramientaList'%}" style="color:white"> Herramientas </a>
+                      </li>
+                      {%endif%}
+                      {%if user.is_superuser == True%}
+                      <li class = "nav-item"> <!--administrador-->
+
                         <a class="nav-link" href="{%url 'constructora:verCliente'%}" style="color:white"> Clientes </a>
+
+                       
+
                       </li>
                       {%endif%}
                     </ul>

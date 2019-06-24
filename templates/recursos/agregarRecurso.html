@@ -33,47 +33,48 @@ Modificar Recurso
 	<form method="post">
 	{% csrf_token %}
 	<div class="row">		
-		<div class="row">		
-			<div class="col">				
-				<div class="form-group"">
-					{% if form %}
-					{%for element in form %} 
-	                <div class="form-group"> 
-	                    <label class="col-md-12 control-label">
-	                        {{element.label}}            
-	                    </label> 
-	                    <div class="col-md-12"> 
-	                        {{element}} 
-	                        <div class="error">
-	                            {{element.errors}}
-	                        </div>
-	                    </div> 
-	                </div> 
-	                {% endfor %}
-	                {% else %}
-					{%for element in form1 %} 
-	                <div class="form-group"> 
-	                    <label class="col-md-12 control-label">
-	                        {{element.label}}            
-	                    </label> 
-	                    <div class="col-md-12"> 
-	                        {{element}} 
-	                        <div class="error">
-	                            {{element.errors}}
-	                        </div>
-	                    </div> 
-	                </div> 
-	                {% endfor %}
-					{% endif %}
-				</div>
+	
+		<div class="col">				
+			<div class="form-group">
+				{% if form %}
+				{%for element in form %} 
+                <div class="form-group"> 
+                    <label class="col-md-8 control-label">
+                        {{element.label}}            
+                    </label> 
+                    <div class="col-md-8"> 
+                        {{element}} 
+                        <div class="error">
+                            {{element.errors}}
+                        </div>
+                    </div> 
+                </div> 
+                {% endfor %}
+                {% else %}
+				{%for element in form1 %} 
+                <div class="form-group"> 
+                    <label class="col-md-8 control-label">
+                        {{element.label}}            
+                    </label> 
+                    <div class="col-md-8"> 
+                        {{element}} 
+                        <div class="error">
+                            {{element.errors}}
+                        </div>
+                    </div> 
+                </div> 
+                {% endfor %}
+				{% endif %}
 			</div>
 		</div>
+
 	</div>
-	<div class="offset-9 col-3">
+	<div class="">
 		<br>
 		<button type="submit" class="btn btn-primary">Guardar</button>
-		<a href="{% url 'constructora:agregarRecurso' %}" class="btn btn-warning">Volver a la lista</a> 
+		<a href="{% url 'constructora:recursoList' %}" class="btn btn-warning">Volver a la lista</a> 
 		<br>
 	</div>
+	</form>
 </div>
 {% endblock %}

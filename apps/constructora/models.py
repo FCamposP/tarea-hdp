@@ -101,7 +101,8 @@ class Tarea(models.Model):
 
 class Solicitud(models.Model):
     fechaSolicitud=models.DateField(auto_now_add=True)
-    solicitante=models.OneToOneField(AsignacionPuestoProyecto,on_delete=models.CASCADE)
+    solicitante=models.ForeignKey(AsignacionPuestoProyecto,on_delete=models.CASCADE)
+    aprobado=models.BooleanField(default=False)
 
 class DetalleSolicitud(models.Model):
     solicitud=models.ForeignKey(Solicitud,on_delete=models.CASCADE)

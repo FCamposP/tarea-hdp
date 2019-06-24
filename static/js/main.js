@@ -84,12 +84,7 @@ function empleadosAsignados(){
 function CambioTipoRecurso(){
 
     var opcion=document.getElementById('selectTipoRecurso').value;
-    if(opcion=='3'){
-        document.getElementById("cantidadHerramientaSolicitar").style.display = "inline";
-    }
-    else{
-        document.getElementById("cantidadHerramientaSolicitar").style.display = "none";
-    }
+
     $.ajax({
         data:{'opcion':opcion},
         url:'/constructora/ConseguirTipoRecurso/',
@@ -135,11 +130,11 @@ function CambioTipoRecurso(){
     });
 
 }
-
 function SolicitarRecurso(){
-   
+
     var opcion=document.getElementById('selectTipoRecurso').value;
     var elemento=document.getElementById('selectRecDisponible').value;
+    var cantidad=document.getElementById('cantidadSolicitar').value;
     
   //  var cantidad=document.getElementById('cantidadHerramientaSolicitar').value;
    // alert(cantidad);
@@ -148,18 +143,20 @@ function SolicitarRecurso(){
         url:'/constructora/conseguirElemento/',
         type:'GET',
         success: function(data){
-            console.log(data[0].pk);
+            console.log(data);
        
             var html="";
 
             if(opcion=='1'){
               
-                html+="<tr style=  \"text-align: center\">"+
-                "<td>  Puesto </td>"+
+                html+="<tr  id=\""+ data[0].fields.codigoPuesto  +"\" style=  \"text-align: center\">"+
+
+                "<td>  Puesto</td>"+
                 "<td>"+ data[0].fields.codigoPuesto  +"</td>"+
                 "<td>"+ data[0].fields.nombrePuesto +"</td>"+
                 "<td>"+ data[0].fields.descripcionPuesto +"</td>"+
-                "<td> <input class=\"btn btn-danger\" type=\"submit\" name=\"accionH\" value=\"Eliminar\"> </td>"+
+                "<td><input style=\"display:none;\" name=\""+ data[0].fields.codigoPuesto  +"\" value="+cantidad+"  > "+ cantidad +"</td>"+
+                "<td>   <a class=\"btn btn-danger\"name=\""+ data[0].fields.codigoPuesto  +"\" onclick=\"eliminarRecurso(this.name)\" >Eliminar</a>   </td>"+
 
                 "</tr>";
 
@@ -167,13 +164,31 @@ function SolicitarRecurso(){
             }
 
             if(opcion=='2'){
+                html+="<tr  id=\""+ data[0].pk   +"\" style=  \"text-align: center\">"+
 
+                "<td>  Maquinaria </td>"+
+                "<td>"+ data[0].pk  +"</td>"+
+                "<td>"+ data[0].fields.nombreRecurso +"</td>"+
+                "<td>"+ data[0].fields.descripcionRecurso +"</td>"+
+                "<td><input style=\"display:none;\" name=\""+ data[0].pk   +"\" value="+cantidad+"  > "+ cantidad +"</td>"+
+                "<td>   <a class=\"btn btn-danger\"name=\""+ data[0].pk  +"\" onclick=\"eliminarRecurso(this.name)\" >Eliminar</a>   </td>"+
+
+                "</tr>";
+                $('#tbodyPuesto2').after(html);
             }
 
             if(opcion=='3'){
+                html+="<tr  id=\""+ data[0].pk   +"\" style=  \"text-align: center\">"+
 
-                $('#selectRecDisponible ').html(html); 
-              
+                "<td>  Herramienta </td>"+
+                "<td>"+ data[0].pk   +"</td>"+
+                "<td>"+ data[0].fields.nombreHerramienta +"</td>"+
+                "<td>"+ data[0].fields.descripcionHerramienta +"</td>"+
+                "<td><input style=\"display:none;\" name=\""+ data[0].pk   +"\" value="+cantidad+"  > "+ cantidad +"</td>"+
+                "<td>   <a class=\"btn btn-danger\"name=\""+ data[0].pk   +"\" onclick=\"eliminarRecurso(this.name)\" >Eliminar</a>   </td>"+
+
+                "</tr>";
+                $('#tbodyPuesto3').after(html);
             } //fin if 3
   
         }
@@ -181,5 +196,10 @@ function SolicitarRecurso(){
   
 }
 
+function eliminarRecurso(name){
+  console.log(name);
+  document.getElementById(name).remove();
+
+}
 
 // fin de js FC
