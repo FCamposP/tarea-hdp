@@ -1,10 +1,10 @@
 {% extends 'base/base.html'%}
-{% block title %}Empleados{% endblock %}
-{% block Apartado%} 
+{% block title %}Contratos{% endblock %}
+{% block Apartado%}
 <div class="alert alert-secondary" role="alert">
-  <h4 style=" text-align: center;">Empleados</h4>
+  <h4 style=" text-align: center;">Contratos</h4>
 </div>
-{% endblock %}
+ {%endblock%} 
 {%block links%}
 <div class="list-group">
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
@@ -19,7 +19,7 @@
 <div style="display:inline-block">
 
 </div>
-{% if empleados %}
+{% if contrato %}
 <form method="GET" name="form1">
 {% csrf_token %}
 <div id="buscadorEmpleado" style="display:inline-block">
@@ -37,47 +37,42 @@
 <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" style="width:35%" class="centrarCol">Nombre completo</th>
         
         
-        <th scope="col" style="width:10%" class="centrarCol">telefono</th>
-        <th scope="col" style="width:10%" class="centrarCol">Dui</th>
-        <th scope="col" style="width:15%" class="centrarCol">Nit</th>
-        <th scope="col" style="width:10%" class="centrarCol">Isss</th>
-        <th scope="col" style="width:80%" class="centrarCol">Accion</th>
+        
+        <th scope="col" style="width:10%" class="centrarCol">Nombre de empleado</th>
+        <th scope="col" style="width:10%" class="centrarCol">Descripcion</th>
+        <th scope="col" style="width:15%" class="centrarCol">Fecha de contratacion</th>
+        <th scope="col" style="width:10%" class="centrarCol">Periodo de contratacion</th>
+        
       </tr>
     </thead>
     <tbody>
       
-      {%for e in empleados %}
+      {%for e in contrato %}
+      {%for c in empleado %}
+      {% if c.id == e.empleado_id %}
+      
+      
+      
         <tr>
 
-          <td class="centrarCol">{{e.nombres}}, {{e.apellidos}}</td>
           
           
-          <td class="centrarCol">{{e.numTelefono}}</td>
-          <td class="centrarCol">{{e.dui}}</td>
-          <td class="centrarCol">{{e.nit}}</td>
-          <td class="centrarCol">{{e.isss}}</td>
-          <td class="centrarCol">            
-
-          <a class="btn btn-primary" href="{% url 'constructora:editarEmpleado' e.id %} ">Editar</a>
-          <a class="btn btn-danger" href="{% url 'constructora:eliminarEmpleado' e.id %}" ">Eliminar</a>
-          </td>
+          <td class="centrarCol">{{c.nombres}},{{c.apellidos}}</td>
+          <td class="centrarCol">{{e.descripcion}}</td>
+          <td class="centrarCol">{{e.fechaContratacion}}</td>
+          <td class="centrarCol">{{e.periodoContrato}}</td>
+          
           
         </tr>
+        {% endif %}
+        {%endfor%}
         {%endfor%}
         {% else %}
-        
           <div class="alert alert-primary" role="alert">
-            
-            <h4 style=" text-align: center;">¡No existen registros de empleados!</h4>
+            <h4 style=" text-align: center;">¡No existen registros de Contratos!</h4>
           </div>
-          
-          
-        
-        
-        
         {% endif %}
         
       

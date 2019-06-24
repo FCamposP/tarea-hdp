@@ -1,91 +1,6 @@
 //  inicio de js FC
 
-function resetearpaginaAsignacion(){
-    var selEmpl=document.getElementById('selectEmpleado');
-    var selPues=document.getElementById('selectPuesto');
-    var btnEmpl=document.getElementById('btnEmpleado');
 
-
-    selEmpl.disabled=true
-    selPues.disabled=true
-    btnEmpl.disabled=true
-}
-
-function habilitarProyecto(){
-   var sel=document.getElementById('selectProyecto').value;
-   var emple=document.getElementById('selectEmpleado');
-   var pues=document.getElementById('selectPuesto');
-   var btnEmpleado=document.getElementById('btnEmpleado');
-   var selectRecurso=document.getElementById('selectRecurso');
-   var btnRecurso=document.getElementById('btnRecurso');
-   var selectHerra=document.getElementById('selectHerra');
-   var inputCantidad=document.getElementById('inputCantidad');
-   var btnHerra=document.getElementById('btnHerra');
-    if(sel==""){
-        selectRecurso.disabled=true
-        btnRecurso.disabled=true
-        selectHerra.disabled=true
-        inputCantidad.disabled=true
-        btnHerra.disabled=true
-
-        emple.disabled=true
-        btnEmpleado.disabled=true
-        pues.disabled=true
-    }
-    else{
-        emple.disabled=false;
-        selectRecurso.disabled=false
-        selectHerra.disabled=false
-    }
-}
-
-function   habilitarEmpleado(){
-    var opcion=document.getElementById('selectEmpleado').value;
-    var pues=document.getElementById('selectPuesto');
-    var btnEmpleado=document.getElementById('btnEmpleado');
-    if(opcion==""){
-        btnEmpleado.disabled=true
-        pues.disabled=true
-    }
-    else{
-        pues.disabled=false  
-    }
-}
-
-function habilitarPuesto(){
-    var pues=document.getElementById('selectPuesto').value;
-    var btnEmpleado=document.getElementById('btnEmpleado');
-    if(pues==""){
-        btnEmpleado.disabled=true
-    }
-    else{
-        btnEmpleado.disabled=false
-    }
-}
-
-
-
-function habilitarEjemplares(){
-    var valor=document.getElementById('selectEjemplar').value;
-    console.log(valor);
-
-}
-
-function HabilitarHerra(){
-    var selectHerra=document.getElementById('selectHerra');
-    var inputCantidad=document.getElementById('inputCantidad');
-    var btnHerra=document.getElementById('btnHerra');    
-
-    if(selectHerra==""){
-        inputCantidad.disabled=true;
-        btnHerra.disabled=true
-    }
-    else{
-        inputCantidad.disabled=false;
-        btnHerra.disabled=false;
-    }
-
-}
 
 function habilitarRecurso(){
     var selectRecurso=document.getElementById('selectRecurso');
@@ -162,6 +77,129 @@ function empleadosAsignados(){
         
     });
     alert('sii'); 
+}
+
+    //Pagina Solicitar Recursos
+
+function CambioTipoRecurso(){
+
+    var opcion=document.getElementById('selectTipoRecurso').value;
+
+    $.ajax({
+        data:{'opcion':opcion},
+        url:'/constructora/ConseguirTipoRecurso/',
+        type:'GET',
+        success: function(data){
+          
+            var html="";
+            html+=" <option></option>";
+
+            if(opcion=='1'){
+                for (var i=0; i<data.length;i++){
+               if(data[i].fields.nombrePuesto!='Encargado')
+               {
+                html+="<option value=\""+data[i].pk+"\">"+data[i].fields.nombrePuesto+"</option>";
+
+               }
+                } 
+                $('#selectRecDisponible ').html(html); 
+              
+            }
+
+            if(opcion=='2'){
+                for (var i=0; i<data.length;i++){
+ 
+                html+="<option value=\""+data[i].pk+"\">"+data[i].fields.nombreRecurso+"</option>";
+
+                } 
+                $('#selectRecDisponible ').html(html); 
+              
+            }
+
+            if(opcion=='3'){
+                for (var i=0; i<data.length;i++){
+
+                html+="<option value=\""+data[i].pk+"\">"+data[i].fields.nombreHerramienta+"</option>";
+
+                } 
+                $('#selectRecDisponible ').html(html); 
+              
+            } //fin if 3
+  
+        }
+    });
+
+}
+function SolicitarRecurso(){
+
+    var opcion=document.getElementById('selectTipoRecurso').value;
+    var elemento=document.getElementById('selectRecDisponible').value;
+    var cantidad=document.getElementById('cantidadSolicitar').value;
+    
+  //  var cantidad=document.getElementById('cantidadHerramientaSolicitar').value;
+   // alert(cantidad);
+    $.ajax({
+        data:{'elemento':elemento,'opcion':opcion},
+        url:'/constructora/conseguirElemento/',
+        type:'GET',
+        success: function(data){
+            console.log(data);
+       
+            var html="";
+
+            if(opcion=='1'){
+              
+                html+="<tr  id=\""+ data[0].fields.codigoPuesto  +"\" style=  \"text-align: center\">"+
+
+                "<td>  Puesto</td>"+
+                "<td>"+ data[0].fields.codigoPuesto  +"</td>"+
+                "<td>"+ data[0].fields.nombrePuesto +"</td>"+
+                "<td>"+ data[0].fields.descripcionPuesto +"</td>"+
+                "<td><input style=\"display:none;\" name=\""+ data[0].fields.codigoPuesto  +"\" value="+cantidad+"  > "+ cantidad +"</td>"+
+                "<td>   <a class=\"btn btn-danger\"name=\""+ data[0].fields.codigoPuesto  +"\" onclick=\"eliminarRecurso(this.name)\" >Eliminar</a>   </td>"+
+
+                "</tr>";
+
+                $('#tbodyPuesto').after(html);
+            }
+
+            if(opcion=='2'){
+                html+="<tr  id=\""+ data[0].pk   +"\" style=  \"text-align: center\">"+
+
+                "<td>  Maquinaria </td>"+
+                "<td>"+ data[0].pk  +"</td>"+
+                "<td>"+ data[0].fields.nombreRecurso +"</td>"+
+                "<td>"+ data[0].fields.descripcionRecurso +"</td>"+
+                "<td><input style=\"display:none;\" name=\""+ data[0].pk   +"\" value="+cantidad+"  > "+ cantidad +"</td>"+
+                "<td>   <a class=\"btn btn-danger\"name=\""+ data[0].pk  +"\" onclick=\"eliminarRecurso(this.name)\" >Eliminar</a>   </td>"+
+
+                "</tr>";
+                $('#tbodyPuesto2').after(html);
+            }
+
+            if(opcion=='3'){
+                html+="<tr  id=\""+ data[0].pk   +"\" style=  \"text-align: center\">"+
+
+                "<td>  Herramienta </td>"+
+                "<td>"+ data[0].pk   +"</td>"+
+                "<td>"+ data[0].fields.nombreHerramienta +"</td>"+
+                "<td>"+ data[0].fields.descripcionHerramienta +"</td>"+
+                "<td><input style=\"display:none;\" name=\""+ data[0].pk   +"\" value="+cantidad+"  > "+ cantidad +"</td>"+
+                "<td>   <a class=\"btn btn-danger\"name=\""+ data[0].pk   +"\" onclick=\"eliminarRecurso(this.name)\" >Eliminar</a>   </td>"+
+
+                "</tr>";
+                $('#tbodyPuesto3').after(html);
+            } //fin if 3
+  
+        }
+    });
+  
+}
+
+function eliminarRecurso(name){
+  console.log(name);
+  document.getElementById(name).remove();
+
 }
 
 // fin de js FC

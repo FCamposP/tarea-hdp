@@ -2,7 +2,7 @@
 {% block title %}Empleados{% endblock %}
 {% block Apartado%}
 <div class="alert alert-secondary" role="alert">
-  <h4 style=" text-align: center;">Agregar registro de un empleado</h4>
+  <h4 style=" text-align: center;">Editar datos de empleado</h4>
 </div>
 {% endblock %}
 {%block links%}
@@ -50,7 +50,14 @@
 	                                {{formEmpleado.numTelefono}}
                             	</div>		                        
 			         			<br/>
-			         			<div>
+			         					                        
+			         			<br/>	  
+			         			
+			         			<br/>	  
+	                        </div>
+	        
+		                    <div class="col-md-6">
+		                        <div>
 	                                <label>Dui: </label>
 	                                <br/>
 	                                {{formEmpleado.dui}}	
@@ -66,28 +73,7 @@
 	                                <label>Isss: </label>
 	                                <br/>
 	                                {{formEmpleado.isss}}	
-                            	</div>		                        
-			         			<br/>	  
-			         			
-			         			<br/>	  
-	                        </div>
-	        
-		                    <div class="col-md-6">
-		                        <div>
-	                                <label>Descripcion de contrato: </label>
-	                                <br/>
-	                                {{formContrato.descripcion}}	
-
-									</textarea>
-                            	</div>		                        
-			         			<br/>	  
-			         			<div>
-	                                <label>Periodo contrato: </label>
-	                                <br/>
-	                                {{formContrato.periodoContrato}}	
-                            	</div>		                        
-			         			<br/>	
-			         			                  
+                            	</div>                  
 			         			<br/>	
 		                    </div>
 	        
@@ -99,7 +85,7 @@
         
                     <div class="btnAñadir">
                         <input class="btn btn-success" style="margin-left:10%" type="submit" value="Guardar">
-                        <input class="btn btn-primary" style="margin-left:10%" type="reset" value="Resetear">
+                        
                     </div>
                	                
 		        </form>        

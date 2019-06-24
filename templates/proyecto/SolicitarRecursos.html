@@ -11,88 +11,139 @@
 
 {% block contenido %}
 <div class="col-md-12" class="cajas">
-    <form action="">
-    <fieldset class="groupbox">
+    <form action="POST">
+            {%csrf_token%}
+    <fieldset class="groupboxSolicitar" style="margin-left: 20%">
         <legend >Pedir nuevos recursos</legend>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Tipo de Recurso</label>
-                    <select class="selectSolicitar" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
-                        <option>Elija un valor</option>  
-                        <option></option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="">Recurso Disponibles</label>
-                    <select class="selectSolicitar" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
-                        <option>Elija un valor</option>  
-                        <option></option>
-                    </select>
-                </div>
+            <div class="row" id="divSolicitar">
+                <div class="col-md-12">
+                    <div>
+                            <label for="">Tipo de Recurso</label>
+                            <select required class="form-control" name="selectTipoRecurso" id="selectTipoRecurso" onchange="CambioTipoRecurso()">
+                                <option></option>
+                                <option value=1>Puesto</option>
+                                <option value=2>Maquinaria</option>
+                                <option value=3>Herramienta</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="">Recurso Disponibles</label>
+                            <select required class="form-control" name="selectRecDisponible" id="selectRecDisponible" >
+                                    <option></option>  
+                            </select>
+                            <br>
+                        </div>
+                        <div id="divcantidadSolicitar" >
+                            <label for="">Cantidad</label>
+                            <input required id="cantidadSolicitar" style="width: 100%" type="text">
+                        </div>
+
+                </div><!--fin col 10-->
+
             </div> <br>
-        <div class="row">
-            <div class="col-md-6" >
-                <label for="">Cantidad deseada</label> 
-                <input type="text">
-            </div>
-            <div class="col-md-6">         
-                <label for="" >Periodo estimado a usar</label> 
-                <input type="text">
-            </div>
-        </div>
-            <br><br>
-            <div >
-                <label for="">Asignaciones</label> 
-                <select class="" style="display: " name="" id="" style="background-color: #d9d9d9" onchange="">
-                    <option>Elija un valor</option>  
-                    <option></option>
-                </select>
-    
-            </div>
+
             <div class="btnAñadir"><br>
-            <button type="button" class="btn btn-secondary">Agregar</button>
-            <input class="btn btn-primary" style="margin-left:10%" type="reset" value="Resetear">
+                <a class="btn btn-success" onclick="SolicitarRecurso()" >Agregar</a>                
+                <input class="btn btn-primary" style="margin-left:8%" type="reset" value="Resetear">
             </div>
         </fieldset>
     </form>
     </div> <!--fin cajas-->
 
-    <br><hr><h4 id="recursoAñadido">Recursos a solicitar</h4><hr>
 
 
-    <div class="recursosAsignar">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col" style="width:9%" class="centrarCol">#</th>
-                        <th scope="col" style="width:25%" class="centrarCol">Tipo de Recurso</th>
-                        <th scope="col" style="width:25%" class="centrarCol">Recurso</th>
-                        <th scope="col" style="width:30%" class="centrarCol">Tarea</th>
-                        <th scope="col" style="width:30%" class="centrarCol">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Empleado</td>
-                        <td>Soldador</td>
-                        <td>Soldar 100 vigas</td>
-                        <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
-        
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Maquina</td>
-                        <td>Tractor industrial</td>
-                        <td>Movilizar ripio</td>
-                        <td> <input class="btn btn-danger" type="button" data-toggle="modal" data-target="" value="Eliminar"></td>
-        
-                    </tr>
-                </tbody>
-            </table>
-            <div class="btnAñadir">
-                <button type="button" class="btn btn-success">Solicitar Recursos</button>
+    <div id="RecursosSolicitados" >
+        <hr><h4 id="elementoSolicitados">Recursos a solicitar</h4><hr>
+
+        <form action="" method="POST">
+                {%csrf_token%}
+    
+
+        <div class="alert alert-primary" role="alert" style="text-align: center;"><h4>
+               Puestos Solicitados</h4>
+        </div>
+            <div id="tablaa">
+
+                    <div id="Solicitar1" >
+                            <table class="table">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        <th scope="col" style="width:10%" class="centrarCol">Tipo</th>
+                                        <th scope="col"style="width:15%" class="centrarCol">Codigo </th>
+                                        <th scope="col"style="width:15%" class="centrarCol">Nombre</th>
+                                        <th scope="col" style="width:30%" class="centrarCol">Descripción</th>
+                                        <th scope="col" style="width:10%" class="centrarCol">Cantidad</th>
+                                        <th scope="col" style="width:25%" class="centrarCol">Acción</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody >
+                                        <tr id="tbodyPuesto">
+          
+                                        </tr>
+                                     
+                                    </tbody>
+                                  </table>
+                    </div>
             </div>
-        </div>    
 
+     <div class="alert alert-primary" role="alert" style="text-align: center;"><h4> Recursos Solicitados</h4>
+    </div>
+
+    <div id="tablaa">
+            <div id="Solicitar2" >
+                    <table class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col" style="width:10%" class="centrarCol">Tipo</th>
+                                <th scope="col"style="width:15%" class="centrarCol">Codigo </th>
+                                <th scope="col"style="width:15%" class="centrarCol">Nombre </th>
+                                <th scope="col" style="width:30%" class="centrarCol">Descripción</th>
+                                <th scope="col" style="width:10%" class="centrarCol">Cantidad</th>
+                                <th scope="col" style="width:25%" class="centrarCol">Acción</th>
+                              </tr>
+                            </thead>
+                            <tbody >
+                             
+                                <tr id="tbodyPuesto2">
+  
+                                </tr>
+                             
+                            </tbody>
+                          </table>
+            </div>
+    </div>
+    <div class="alert alert-primary" role="alert" style="text-align: center;"> <h4> Herramientas Solicitadas</h4> 
+        </div>
+        <div id="tablaa">
+                <div id="Solicitar3" >
+                        <table class="table">
+                                <thead class="thead-dark">
+                                  <tr>
+                                    <th scope="col" style="width:10%" class="centrarCol">Tipo</th>
+                                    <th scope="col"style="width:15%" class="centrarCol">Codigo </th>
+                                    <th scope="col"style="width:15%" class="centrarCol">Nombre </th>
+                                    <th scope="col" style="width:30%" class="centrarCol">Descripción</th>
+                                    <th scope="col" style="width:10%" class="centrarCol">Cantidad Solicitada</th>
+                                    <th scope="col" style="width:25%" class="centrarCol">Acción</th>
+                                  </tr>
+                                </thead>
+                                <tbody >
+                                 
+                                    <tr id="tbodyPuesto3">
+      
+                                    </tr>
+                                 
+                                </tbody>
+                              </table>
+                </div>
+
+        </div>
+
+        <div class="btnAñadir"><br>
+            <input class="btn btn-primary" name="btnSolicitar"  type="submit" value="Solicitar">
+        </div>    
+    </form>
+    </div><!--fin de recursos solicitados-->
+             
 {%endblock%} 
