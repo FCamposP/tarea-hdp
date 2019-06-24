@@ -19,10 +19,6 @@ urlpatterns = [
     url(r'^prueba/$',login_required(prueba),name="prueba"),
     url(r'^ConseguirTipoRecurso/$',login_required(ConseguirTipoRecurso),name="ConseguirTipoRecurso"),
     url(r'^conseguirElemento/$',login_required(conseguirElemento),name="conseguirElemento"),
-    url(r'^editarEmpleado/(?P<id_empleado>\d+)/$',login_required(editarEmpleado),name="editarEmpleado"),
-    url(r'^editarCliente/(?P<id_cliente>\d+)/$',login_required(editarCliente),name="editarCliente"),
-    url(r'^eliminarEmpleado/(?P<id_empleado>\d+)/$',login_required(eliminarEmpleado),name="eliminarEmpleado"),
-    url(r'^eliminarCliente/(?P<id_cliente>\d+)/$',login_required(eliminarCliente),name="eliminarCliente"),
 
      #vista Sebas
     url(r'^RecursosProyecto/$',login_required(listaRecursos),name="RecursosProyecto"),
@@ -42,6 +38,11 @@ urlpatterns = [
     url(r'^verCliente/$',login_required(verCliente),name="verCliente"),
     url(r'^nuevoEmpleado/$',login_required(crearEmpleado),name="nuevoEmpleado"),
     url(r'^crearCliente/$',login_required(nuevoCliente),name="crearCliente"),
+    url(r'^editarEmpleado/(?P<id_empleado>\d+)/$',login_required(editarEmpleado),name="editarEmpleado"),
+    url(r'^editarCliente/(?P<id_cliente>\d+)/$',login_required(editarCliente),name="editarCliente"),
+    url(r'^eliminarEmpleado/(?P<id_empleado>\d+)/$',login_required(eliminarEmpleado),name="eliminarEmpleado"),
+    url(r'^eliminarCliente/(?P<id_cliente>\d+)/$',login_required(eliminarCliente),name="eliminarCliente"),
+
     
 
     #INICIO URLS MARCO
