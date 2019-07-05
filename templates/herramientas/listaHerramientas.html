@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block title %}Herramientas {% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">HERRAMIENTAS</h4>{% endblock %}
 {% block cuerpo %}
 <div class="table-responsive">
 	<div>
@@ -201,7 +202,9 @@
 			{% endfor %}
 
 			{% else %}
-			<h2>No hay registros de Herramientas</h2>
+			<div class="alert alert-danger" role="alert">
+			  ¡No se ha creado ningúna Herramienta!
+			</div>
 			{% endif %}
 		</tbody>
 	</table>

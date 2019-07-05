@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block title %}Ejemplares {% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">EJEMPLARES</h4>{% endblock %}
 {% block cuerpo %}
 <div>
 	<div class="row">
@@ -187,7 +188,9 @@
 			{% endfor %}
 
 			{% else %}
-			<h2>No hay registros de ejemplares</h2>
+			<div class="alert alert-danger" role="alert">
+			  ¡No se ha Agregado ningún Ejemplar!
+			</div>
 			{% endif %}
 		</tbody>
 	</table>

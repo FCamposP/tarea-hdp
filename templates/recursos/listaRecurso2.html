@@ -1,15 +1,27 @@
 {% extends 'base/base.html' %}
 {% block title %}Recursos {% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">RECURSOS</h4>{% endblock %}
 {% block cuerpo %}
 <section class="col-md-12">
 	<div class="table-responsive">
-		<div align="right">
-			<a href="{% url 'constructora:agregarRecurso' %}" class="btn btn-success">
-	        <span class="fas fa-plus"></span> Agregar
-		    </a>
-		    <br><br>
+		<div class="row">
+			<div class="col" id="buscadorEmpleado" style="display:inline-block">
+			    <nav class="navbar navbar-light bg-light" style="width: 57%">
+			        <form class="form-inline">
+			            <input style="width: 70%" id="buscarInput" name="buscarInput" class="form-control mr-sm-2" type="search" placeholder="Atributo" aria-label="Search">
+			            
+			                <button id="buscar" name="buscar" class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+			        </form> 
+			    </nav>
+			    <br>           
+			</div>
+			<div class="col" align="right">
+				<a href="{% url 'constructora:agregarRecurso' %}" class="btn btn-success">
+		        <span class="fas fa-plus"></span> Agregar
+			    </a>
+			</div>
+			
 		</div>
-		
 		<table class="table table-hover table-bordered">
 			<thead class="table table-hover table-bordered">
 				<tr class="table-success">
@@ -65,7 +77,9 @@
 				{% endfor %}
 
 				{% else %}
-				<h2>No hay registros de recursos</h2>
+				<div class="alert alert-danger" role="alert">
+				  ¡No se ha creado ningún Recurso!
+				</div>
 				{% endif %}
 			</tbody>
 		</table>

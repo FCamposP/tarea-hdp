@@ -17,7 +17,30 @@ class Vista(TemplateView):
 #INICIO DE VISTAS MARCO
 
 def recursoList(request):
-
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			
+			if Recurso.objects.filter(codigoRecurso__contains = palabraClave).exists():
+				recurso = Recurso.objects.filter(codigoRecurso__contains = palabraClave)
+				contexto={'recursos':recurso}
+				return render(request, 'recursos/listaRecurso2.html', contexto)
+			else:
+				if Recurso.objects.filter(nombreRecurso = palabraClave).exists():
+					recurso = Recurso.objects.filter(nombreRecurso = palabraClave)
+					contexto={'recursos':recurso}
+					return render(request, 'recursos/listaRecurso2.html', contexto)
+				else:
+					if Recurso.objects.filter(tipoRecurso__contains = palabraClave).exists():
+						recurso = Recurso.objects.filter(tipoRecurso__contains = palabraClave)
+						contexto={'recursos':recurso}
+						return render(request, 'recursos/listaRecurso2.html', contexto)
+					else:
+						if Recurso.objects.filter(descripcionRecurso__contains = palabraClave).exists():
+							recurso = Recurso.objects.filter(descripcionRecurso__contains = palabraClave)
+							contexto={'recursos':recurso}
+							return render(request, 'recursos/listaRecurso2.html', contexto)
+		pass
 	if 'accion' in request.POST:
 		accion = request.POST['accion']
 		codigo_recurso = request.POST['recurso']
@@ -25,6 +48,7 @@ def recursoList(request):
 		if accion == 'Eliminar':	
 			recurso.delete()
 			pass
+						
 		else:
 			pass
 		pass
