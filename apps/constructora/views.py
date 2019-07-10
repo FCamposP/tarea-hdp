@@ -26,8 +26,8 @@ def recursoList(request):
 				contexto={'recursos':recurso}
 				return render(request, 'recursos/listaRecurso2.html', contexto)
 			else:
-				if Recurso.objects.filter(nombreRecurso = palabraClave).exists():
-					recurso = Recurso.objects.filter(nombreRecurso = palabraClave)
+				if Recurso.objects.filter(nombreRecurso__contains = palabraClave).exists():
+					recurso = Recurso.objects.filter(nombreRecurso__contains = palabraClave)
 					contexto={'recursos':recurso}
 					return render(request, 'recursos/listaRecurso2.html', contexto)
 				else:
@@ -81,6 +81,26 @@ def recursoModificar(request, codigoRecurso):
 
 def ejemplarList(request, codigoRecurso):
 	recurso = Recurso.objects.get(pk=codigoRecurso)
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			
+			if Ejemplar.objects.filter(codigoEjemplar__contains = palabraClave, idRecurso=recurso).exists():
+				ejemplar = Ejemplar.objects.filter(codigoEjemplar__contains = palabraClave, idRecurso=recurso)
+				contexto={'recurso':recurso, 'ejemplares':ejemplar}
+				return render(request, 'ejemplares/listaEjemplar.html', contexto)
+			else:
+				if Ejemplar.objects.filter(nombreEjemplar__contains = palabraClave, idRecurso=recurso).exists():
+					ejemplar = Ejemplar.objects.filter(nombreEjemplar__contains = palabraClave, idRecurso=recurso)
+					contexto={'recurso':recurso, 'ejemplares':ejemplar}
+					return render(request, 'ejemplares/listaEjemplar.html', contexto)
+				else:
+					if Ejemplar.objects.filter(descripcionEjemplar__contains = palabraClave, idRecurso=recurso).exists():
+						ejemplar = Ejemplar.objects.filter(descripcionEjemplar__contains = palabraClave, idRecurso=recurso)
+						contexto={'recurso':recurso, 'ejemplares':ejemplar}
+						return render(request, 'ejemplares/listaEjemplar.html', contexto)
+		pass
+
 	if request.method == 'POST':
 		if 'accion' in request.POST:
 			accion = request.POST['accion']
@@ -122,6 +142,26 @@ def ejemplarList(request, codigoRecurso):
 	return render(request, 'ejemplares/listaEjemplar.html', contexto)
 
 def herramientaList(request):
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			
+			if Herramienta.objects.filter(codigoHerramienta__contains = palabraClave).exists():
+				herramienta = Herramienta.objects.filter(codigoHerramienta__contains = palabraClave)
+				contexto={'herramientas':herramienta}
+				return render(request, 'herramientas/listaHerramientas.html', contexto)
+			else:
+				if Herramienta.objects.filter(nombreHerramienta__contains = palabraClave).exists():
+					herramienta = Herramienta.objects.filter(nombreHerramienta__contains = palabraClave)
+					contexto={'herramientas':herramienta}
+					return render(request, 'herramientas/listaHerramientas.html', contexto)
+				else:
+					if Herramienta.objects.filter(descripcionHerramienta__contains = palabraClave).exists():
+						herramienta = Herramienta.objects.filter(descripcionHerramienta__contains = palabraClave)
+						contexto={'herramientas':herramienta}
+						return render(request, 'herramientas/listaHerramientas.html', contexto)
+		pass
+
 	if request.method == 'POST':
 		if 'accion' in request.POST:
 			accion = request.POST['accion']

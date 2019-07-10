@@ -2,69 +2,80 @@
 {% block title %}Herramientas {% endblock %}
 {% block Apartado%} <h4 style=" text-align: center;">HERRAMIENTAS</h4>{% endblock %}
 {% block cuerpo %}
-<div class="table-responsive">
-	<div>
-		<div align="right">
-			<br>
-			<div class="container">
-				<form method="post">
-					{% csrf_token %}
-					<input type="hidden" name="herramienta" value=""> 
-					<a href="" class="btn btn-success" data-toggle="modal" data-target="#modal_herramienta">
-						<span class="fas fa-plus"></span>Agregar
-					</a>
 
-					<!--Modal -->
-					<div class="modal fade" id="modal_herramienta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					  <div class="modal-dialog" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">Agregar Herramienta</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					      <div class="modal-body">
-					        
-						
+<div class="row">
+	<div class="col" id="buscadorHerramienta" style="display:inline-block">
+	    <nav class="navbar navbar-light bg-light" style="width: 57%">
+	        <form class="form-inline">
+	            <input style="width: 70%" id="buscarInput" name="buscarInput" class="form-control mr-sm-2" type="search" placeholder="Atributo" aria-label="Search">
+	            
+	                <button id="buscar" name="buscar" class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+	        </form> 
+	    </nav>
+	    <br>           
+	</div>
+	<div class="col" align="right">
+		<br>
+		<div class="container">
+			<form method="post">
+				{% csrf_token %}
+				<input type="hidden" name="herramienta" value=""> 
+				<a href="" class="btn btn-success" data-toggle="modal" data-target="#modal_herramienta">
+					<span class="fas fa-plus"></span>Agregar
+				</a>
+
+				<!--Modal -->
+				<div class="modal fade" id="modal_herramienta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Agregar Herramienta</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        
+					
+					<div class="row">		
 						<div class="row">		
-							<div class="row">		
-								<div class="col">				
-									<div class="form-group"">
-										{% if form %}
-										{%for element in form %} 
-						                <div class="form-group"> 
-						                    <label class="col-md-12 control-label">
-						                        {{element.label}}            
-						                    </label> 
-						                    <div class="col-md-12"> 
-						                        {{element}} 
-						                        <div class="error">
-						                            {{element.errors}}
-						                        </div>
-						                    </div> 
-						                </div> 
-						                {% endfor %}
-										{% endif %}
-									</div>
+							<div class="col">				
+								<div class="form-group"">
+									{% if form %}
+									{%for element in form %} 
+					                <div class="form-group"> 
+					                    <label class="col-md-12 control-label">
+					                        {{element.label}}            
+					                    </label> 
+					                    <div class="col-md-12"> 
+					                        {{element}} 
+					                        <div class="error">
+					                            {{element.errors}}
+					                        </div>
+					                    </div> 
+					                </div> 
+					                {% endfor %}
+									{% endif %}
 								</div>
 							</div>
 						</div>
-					
-					      </div>
-					      <div class="modal-footer">
-					        <input class="btn btn-primary" type="submit" name="accion" value="Agregar">
-					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					      </div>
-					    </div>
-					  </div>
 					</div>
-				</form>
-			</div>
+				
+				      </div>
+				      <div class="modal-footer">
+				        <input class="btn btn-primary" type="submit" name="accion" value="Agregar">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</form>
 		</div>
-		<br>
-
 	</div>
+	<br>
+
+</div>
+<div class="table-responsive">
 	<table class="table table-hover table-bordered">
 		<thead class="table table-hover table-bordered">
 			<tr class="table-success">

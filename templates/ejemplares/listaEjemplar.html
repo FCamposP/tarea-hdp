@@ -3,11 +3,22 @@
 {% block Apartado%} <h4 style=" text-align: center;">EJEMPLARES</h4>{% endblock %}
 {% block cuerpo %}
 <div>
+	<div class="col">
+			<h5>Codigo del Recurso: {{ recurso.codigoRecurso }}</h6>
+	    	<h5>Nombre: {{ recurso.nombreRecurso }}</h6>
+	    	<h5>Tipo: {{ recurso.tipoRecurso }}</h6>
+	    	<br>
+		</div>
 	<div class="row">
-		<div class="col">
-			<h6>Codigo del Recurso: {{ recurso.codigoRecurso }}</h6>
-	    	<h6>Nombre: {{ recurso.nombreRecurso }}</h6>
-	    	<h6>Tipo: {{ recurso.tipoRecurso }}</h6>
+		<div class="col" id="buscadorEjemplar" style="display:inline-block">
+		    <nav class="navbar navbar-light bg-light" style="width: 57%">
+		        <form class="form-inline">
+		            <input style="width: 70%" id="buscarInput" name="buscarInput" class="form-control mr-sm-2" type="search" placeholder="Atributo" aria-label="Search">
+		            
+		                <button id="buscar" name="buscar" class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+		        </form> 
+		    </nav>
+		    <br>           
 		</div>
 		<div class="col" align="right">
 			<br>
