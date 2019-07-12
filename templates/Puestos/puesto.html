@@ -38,9 +38,9 @@
 <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" style="width:10%" class="centrarCol">Codigo</th>
-        <th scope="col" style="width:15%" class="centrarCol">Nombre</th>
-        <th scope="col" style="width:100%" class="centrarCol">Descripcion</th>        
+        <th scope="col" style="width:5%" class="centrarCol">Codigo</th>
+        <th scope="col" style="width:10%" class="centrarCol">Nombre</th>
+        <th scope="col" style="width:60%" class="centrarCol">Descripcion</th>        
         <th scope="col" style="width:100%" class="centrarCol">Acciones</th>        
       </tr>
     </thead>
@@ -57,8 +57,8 @@
           
           <td class="centrarCol">            
 
-          <a class="btn btn-primary" href="">Editar</a>
-          <a class="btn btn-danger" href="">Eliminar</a>
+          <a class="btn btn-primary" href="{% url 'constructora:editarPuesto' e.id %}">Editar</a>
+          <a class="btn btn-danger" href="{% url 'constructora:eliminarPuesto' e.id %}">Eliminar</a>
           </td>
           
         </tr>
