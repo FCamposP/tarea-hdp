@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^prueba/$',login_required(prueba),name="prueba"),
     url(r'^ConseguirTipoRecurso/$',login_required(ConseguirTipoRecurso),name="ConseguirTipoRecurso"),
     url(r'^conseguirElemento/$',login_required(conseguirElemento),name="conseguirElemento"),
+    url(r'^solicitud/$',login_required(aprobarSolicitud),name="solicitud"),
+    url(r'^verDetalleSolicitud/$',login_required(verDetalleSolicitud),name="verDetalleSolicitud"),
 
      #vista Sebas
     url(r'^RecursosProyecto/$',login_required(listaRecursos),name="RecursosProyecto"),

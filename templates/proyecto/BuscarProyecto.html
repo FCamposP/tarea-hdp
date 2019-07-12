@@ -7,9 +7,10 @@
     </a>
     <a href="{% url 'constructora:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
     <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+    <a href="{% url 'constructora:solicitud' %}"  class="list-group-item list-group-item-action">Solicitudes Pendientes</a>
 
   </div>
-{%endblock%}  
+{%endblock%}   
  
 {% block contenido %}
 <div style="display:inline-block">
@@ -18,10 +19,10 @@
 
 <div id="buscadorProyecto" style="display:inline-block">
     <nav class="navbar navbar-light bg-light">
-        <form class="form-inline"  >
-            <input class="form-control mr-sm-2" style="width: 70%" type="search" placeholder="Proyecto" aria-label="Search">
-                <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
-        </form> 
+        <form class="form-inline"   >
+            <input class="form-control mr-sm-2" style="width: 70%" id="buscarInput" name="buscarInput" type="search" placeholder="Proyecto" aria-label="Search">
+            <button id="buscar" name="buscar" class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+       </form> 
     </nav>
             
 </div>
@@ -29,6 +30,8 @@
 <br>
 
 {% if proyectos %}
+<div style="text-align: center;">
+
 
 <table class="table">
     <thead class="thead-dark">
@@ -57,6 +60,8 @@
 {%else%}
 <div class="alert alert-danger" role="alert">
   ¡No se ha creado ningún proyecto!
+</div>
+
 </div>
 {%endif%}
 

@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block Apartado%} <h4 style=" text-align: center;">Solicitar Recursos</h4>{% endblock %}
+{% block Apartado%} <h4 style=" text-align: center;">Solicitar Recursos - {{proyecto.nombreProyecto}} </h4>{% endblock %}
 {%block links%}
 <div class="list-group">
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
@@ -67,7 +67,7 @@
         </div>
             <div id="tablaa">
 
-                    <div id="Solicitar1" >
+                    <div id="Solicitar1" style="text-align: center;" >
                             <table class="table">
                                     <thead class="thead-dark">
                                       <tr>
@@ -93,7 +93,7 @@
     </div>
 
     <div id="tablaa">
-            <div id="Solicitar2" >
+            <div id="Solicitar2" style="text-align: center;">
                     <table class="table">
                             <thead class="thead-dark">
                               <tr>
@@ -118,7 +118,7 @@
     <div class="alert alert-primary" role="alert" style="text-align: center;"> <h4> Herramientas Solicitadas</h4> 
         </div>
         <div id="tablaa">
-                <div id="Solicitar3" >
+                <div id="Solicitar3" style="text-align: center;" >
                         <table class="table">
                                 <thead class="thead-dark">
                                   <tr>
