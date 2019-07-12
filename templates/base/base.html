@@ -78,6 +78,15 @@
 
                       </li>
                       {%endif%}
+                      {%if user.is_superuser == True%}
+                      <li class = "nav-item"> <!--administrador-->
+
+                        <a class="nav-link" href="{%url 'constructora:verPuesto'%}" style="color:white"> Puestos </a>
+
+                       
+
+                      </li>
+                      {%endif%}
                     </ul>
                     
                     <form class = "form-inline my-2 my-lg-0">
@@ -100,20 +109,7 @@
     <div class= "row">
       <aside class="col-md-2">
         {%block links%}
-          <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-action active">
-                Lista de enlaces
-              </a>
-
-              <a href="#" class="list-group-item list-group-item-action">Enlace 1</a>
-              <a href="#" class="list-group-item list-group-item-action">Enlace2</a>
-              <a href="#" class="list-group-item list-group-item-action">Enlace3</a>
-              <a href="#" class="list-group-item list-group-item-action">Enlace4</a>
-
-              <a href="" class="list-group-item list-group-item-action">Registro de Asistencias</a>
-              
-
-            </div>
+          
         {%endblock%}    <!--fin de block links-->
       </aside>
       <section class="col-md-10">
