@@ -38,6 +38,19 @@
 		</tr>
 	</tbody>
 	{% endfor %}
+	{% else %}
+		{% if asistencias == 'None'%}
+		<div class="alert alert-primary" role="alert">
+            
+            <h4 style=" text-align: center;">¡_Usted no esta asignado en ningun proyecto !</h4>
+          </div>
+        {% else %}
+          <div class="alert alert-primary" role="alert">
+            
+            <h4 style=" text-align: center;">¡No existen registros de asistencias!</h4>
+          </div>
+          {% endif %}
+		}
 	{% endif %}
 </table>
 
