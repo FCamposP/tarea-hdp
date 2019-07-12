@@ -74,9 +74,15 @@
 		</tr>
 		 	{% endfor %}
 		 	{% else %}
+		 		{% if tools == 'None'%}
+		 		<div class="alert alert-danger" role="alert">
+                ¡Usted no esta asignado a ningun proyecto!
+              </div>
+              {% else %}
 		 	<div class="alert alert-danger" role="alert">
                 ¡NO HAY HERRAMIENTAS ASIGNADAS!
               </div>
+             {% endif %}
 	{% endif %}	 	
 	</tbody>
 {%endblock%}  
