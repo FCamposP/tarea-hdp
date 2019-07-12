@@ -810,7 +810,7 @@ def solicitarRecursos(request):
 				detalle=DetalleSolicitud()
 				detalle.solicitud=Solicitud.objects.latest('id')
 				detalle.tiporecurso='Puesto'
-				detalle.recurso=str(x.codigoPuesto)
+				detalle.recurso=str(x.nombrePuesto)
 				detalle.cantidad=request.POST[x.codigoPuesto]
 				detalle.save()
 		for x in recursos:
@@ -819,7 +819,7 @@ def solicitarRecursos(request):
 				detalle=DetalleSolicitud()
 				detalle.solicitud=Solicitud.objects.latest('id')
 				detalle.tiporecurso='Maquinaria'
-				detalle.recurso=str(x.codigoRecurso)
+				detalle.recurso=str(x.nombreRecurso)
 				detalle.cantidad=request.POST[x.codigoRecurso]
 				detalle.save()
 		for x in herramientas:
@@ -827,7 +827,7 @@ def solicitarRecursos(request):
 				detalle=DetalleSolicitud()
 				detalle.solicitud=Solicitud.objects.latest('id')
 				detalle.tiporecurso='Herramienta'
-				detalle.recurso=str(x.codigoHerramienta)
+				detalle.recurso=str(x.nombreHerramienta)
 				detalle.cantidad=request.POST[x.codigoHerramienta]
 				detalle.save()
 		return redirect('constructora:recursosProyecto')
@@ -878,20 +878,52 @@ def conseguirElemento(request):
 
 
 def aprobarSolicitud(request): 
+	aprobados=[]
 	solicitudes=Solicitud.objects.filter(aprobado=False)
-
-	contexto={'solicitudes':solicitudes}
+	verificacion=False
+	for x in solicitudes:
+		detalleSoli=DetalleSolicitud.objects.filter(solicitud=x,asignado=False)
+		if detalleSoli.count()>0:
+			aprobados.append(x)
+	
+	contexto={'solicitudes':aprobados}
 	return render(request,'proyecto/AprobarSolicitud.html',contexto)
 
 def verDetalleSolicitud(request,id_p):
 	soli=Solicitud.objects.get(id=id_p)
 	proyecto=Proyecto.objects.get(id=soli.solicitante.proyecto.id)
-	print(proyecto)
-	puestos=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Puesto')
-	maquinas=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Maquinaria')
-	herramientas=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Herramienta')
-	contexto={'puestos':puestos,'maquinas':maquinas,'herramientas':herramientas,'proyecto':proyecto}
+	empleados=Empleado.objects.filter(disponible=True)
+	ejemplares=Ejemplar.objects.filter(disponible=True)
+	herramientasDisponibles=[]
+	herramientasTodas=Herramienta.objects.all()
+	for h in herramientasTodas:
+		if(h.canatidadDisponibles>0):
+			herramientasDisponibles.append(h)
 
+	puestos=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Puesto',asignado=False)
+	maquinas=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Maquinaria',asignado=False)
+	herramientas=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Herramienta',asignado=False)
+	contexto={'puestos':puestos,'maquinas':maquinas,'herramientas':herramientas,'proyecto':proyecto,'empleados':empleados,'ejemplares':ejemplares,'herramientasD':herramientasDisponibles}
+
+	if 'btnEmpleado' in request.POST:
+		asignacionP=AsignacionPuestoProyecto()
+		detalleSoli=DetalleSolicitud.objects.get(id=request.POST['recurso'])
+		print(detalleSoli.recurso)
+		puest=Puesto.objects.get(nombrePuesto=str(detalleSoli.recurso))
+		empleado=Empleado.objects.get(id=request.POST['selectEmpleado1'])
+		asignacionP.empleado=empleado
+		empleado.disponible=False
+		empleado.save()
+		asignacionP.puesto=puest
+		asignacionP.proyecto=proyecto
+		asignacionP.salario=request.POST['inputSalario']
+		asignacionP.save()
+		detalleSoli.cantidad=detalleSoli.cantidad-1
+		detalleSoli.save()
+		print(detalleSoli.cantidad)
+		if detalleSoli.cantidad==0:
+			detalleSoli.asignado=True
+			detalleSoli.save()
 	return render(request,'proyecto/DetalleSolicitud.html',contexto)
 
 #FIN VISTAS FC

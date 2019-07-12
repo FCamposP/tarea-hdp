@@ -48,8 +48,8 @@
   
                                           <input type="hidden" name="recurso" value="{{ e.id }}"> 
   
-                                          <input type="hidden" name="elimEmpleado" value="{{ e.id }}"> 
-                                          <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+                                       
+                                          <a class="btn btn-primary" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Asignar</a>
   
                                           <!-- Modal -->
                                           <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,10 +62,30 @@
                                                   </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                  ¿Esta seguro de eliminar al Empleado: <b>{{e.empleado.nombres}} {{e.empleado.apellidos}} ?</b>
-                                                </div>
+                                                  <div style="width: 70%; " class="cajasAñadir">
+                                                    <fieldset class="groupbox">
+                                                        <legend > Empleado</legend>
+                                                        <div style="width: 100%; ">
+                                                                <label for="">Elija un Empleado</label><br>
+                                                                <select required class="form-control" name="selectEmpleado1" id="selectEmpleado">
+                                                                    <option></option>
+                                                                    {%for e in empleados%}
+                                                                    <option value="{{e.id}}" >{{e.nombres}}  {{e.apellidos}}</option>
+                                                                    {%endfor%}
+                                                                </select>
+                                                             </div> <br>
+                                                             <div style="width: 100%; ">
+
+                                                                    <label  required>Ingrese un salario</label>
+                                                                    <input required type="text" id="inputSalario" name="inputSalario"  style="width: 100%">
+                                            
+                                                                 </div> <br>
+                                                        <div class="btnAñadir">
+                                                            <input class="btn btn-primary" name="btnEmpleado" style="margin-left:10%" type="submit" value="Asignar">
+                                                        </div>
+                                                    </fieldset>
+                                                </div>                                                 </div>
                                                 <div class="modal-footer">
-                                                  <input class="btn btn-danger" type="submit" name="accionE" value="Eliminar">
                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                                 </div>
                                               </div>
@@ -87,7 +107,7 @@
   
           {%endif%}
   
-          {%if maquinarias %}
+          {%if maquinas %}
               
                     <div class="alert alert-primary" role="alert">
                           Maquinarias Solicitadas
@@ -104,7 +124,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                                {%for e in maquinarias %}
+                                {%for e in maquinas %}
                                   <tr>
                                     <td>{{forloop.counter }}</td>
                                     <td>{{e.recurso}}</td>
@@ -114,7 +134,7 @@
                                             <form method="POST">
                                                       {% csrf_token %}
                                                       <input type="hidden" name="elimRec" value="{{ e.id }}"> 
-                                                      <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+                                                      <a class="btn btn-primary" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Asignar</a>
                                                       <!-- Modal -->
                                                       <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
@@ -175,7 +195,7 @@
                                                 <form method="POST">
                                                           {% csrf_token %}
                                                           <input type="hidden" name="elimHerr" value="{{ e.id }}"> 
-                                                          <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+                                                          <a class="btn btn-primary" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Asignar</a>
                                                           <!-- Modal -->
                                                           <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -187,7 +207,8 @@
                                                                   </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                  ¿Esta seguro de eliminar a la herramienta con código: <b>{{e.Herramienta.codigoHerramienta}} ?</b>
+
+
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                   <input class="btn btn-danger" type="submit" name="accionH" value="Eliminar">
