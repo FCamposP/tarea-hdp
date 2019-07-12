@@ -1,0 +1,46 @@
+{% extends 'base/base.html'%}
+{% block Apartado%} <h5 style=" text-align: center;">Solicitudes de Recursos </h5>{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">
+      Lista de enlaces
+    </a>
+    <a href="{% url 'constructora:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+
+  </div>
+{%endblock%}   
+ 
+{% block contenido %}
+{% if solicitudes %}
+
+<div style="text-align: center;">
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width:10%" class="centrarCol">N°</th>
+        <th scope="col"style="width:15%" class="centrarCol">Proyecto</th>
+        <th scope="col"style="width:15%" class="centrarCol">Solicitante</th>
+        <th scope="col" style="width:40%" class="centrarCol">Fecha</th>
+        <th scope="col"style="width:25%" class="centrarCol">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for sol in solicitudes%}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{sol.solicitante.proyecto.nombreProyecto}}</td>
+          <td>{{sol.solicitante}}</td>
+          <td>{{sol.fecha}}</td>
+          <td>    <a href="{% url 'constructora:verDetalleSolicitud' sol.id %}"  class="btn btn-warning">ver Detalles</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+</div>
+  {%else%}
+  <div class="alert alert-danger" role="alert">
+    ¡No hay solicitudes pendientes!
+  </div>
+  {%endif%}
+{%endblock%} 

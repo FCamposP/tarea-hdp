@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
-
+import hashlib
 from django.views.generic import TemplateView, ListView
 from apps.constructora.models import *
 import datetime,time
-from apps.constructora.forms import *
+from apps.constructora.forms import * 
 from django.urls import reverse_lazy,reverse
 from django.core import serializers
 from django.http import HttpResponse
@@ -637,6 +637,25 @@ def editarProyecto(request,id_p):
 def buscarProyecto(request):
 	proyectos=Proyecto.objects.all()
 	contexto={'proyectos':proyectos}
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			if	Proyecto.objects.filter(codigoProyecto__contains=palabraClave).exists():
+				proyecto=Proyecto.objects.filter(codigoProyecto__contains=palabraClave)
+				contexto={'proyectos':proyecto}
+			else:
+				if	Proyecto.objects.filter(nombreProyecto__contains=palabraClave).exists():
+					proyecto=Proyecto.objects.filter(nombreProyecto__contains=palabraClave)
+					contexto={'proyectos':proyecto}
+				else:
+					if	Proyecto.objects.filter(descripcionProyecto__contains=palabraClave).exists():
+						proyecto=Proyecto.objects.filter(descripcionProyecto__contains=palabraClave)
+						contexto={'proyectos':proyecto}
+					else:
+						if	Proyecto.objects.filter(ubicacion__contains=palabraClave).exists():
+							proyecto=Proyecto.objects.filter(ubicacion__contains=palabraClave)
+							contexto={'proyectos':proyecto}
+
 	return render(request,'proyecto/BuscarProyecto.html',contexto)
 
 def asignacionRecurso(request,id_p):
@@ -658,6 +677,17 @@ def asignacionRecurso(request,id_p):
 		asignacionE.proyecto=Proyecto.objects.get(id=id_p)
 		asignacionE.salario=request.POST['inputSalario']
 		asignacionE.save()
+		if asignacionE.puesto.nombrePuesto=="Encargado":
+			proy=Proyecto.objects.get(id=id_p)
+			asigUsuario=AsignacionUsuario()
+			usuario= User.objects.create_user("Encargado"+proy.codigoProyecto, 'myemail@crazymail.com', proy.codigoProyecto)
+			usuario.save()
+			asigUsuario.usuario=usuario
+			asigUsuario.empleado_proyecto=asignacionE
+			asigUsuario.tipo_usuario="Encargado"
+			asigUsuario.descripcion="Es el responsable de la gestion del proyecto a su cargo"
+			asigUsuario.save()
+
 		pass
 	
 	if 'btnEjemplar' in request.POST:
@@ -762,8 +792,10 @@ def solicitarRecursos(request):
 	except AsignacionUsuario.DoesNotExist:
 		solicitante=None
 		encontrado=False
-
-	contexto={'j':'k'}
+	print(solicitante)
+	asigPuesPro=AsignacionPuestoProyecto.objects.get(id=solicitante.id)
+	proyecto=Proyecto.objects.get(id=asigPuesPro.proyecto.id)
+	contexto={'j':'k','proyecto':proyecto}
 	puestos =Puesto.objects.all()
 	recursos=Recurso.objects.all()
 	herramientas=Herramienta.objects.all()
@@ -840,5 +872,16 @@ def conseguirElemento(request):
 		data=serializers.serialize('json',[herramienta])
 
 	return HttpResponse(data,content_type='application/json')
+
+
+def aprobarSolicitud(request):
+	solicitudes=Solicitud.objects.filter(aprobado=False)
+
+	contexto={'solicitudes':solicitudes}
+	return render(request,'proyecto/AprobarSolicitud.html',contexto)
+
+def verDetalleSolicitud(request):
+
+	return render(request,'proyecto/AprobarSolicitud.html')
 
 #FIN VISTAS FC
