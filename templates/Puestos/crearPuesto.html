@@ -1,0 +1,59 @@
+{% extends 'base/base.html'%}
+{% block title %}Empleados{% endblock %}
+{% block Apartado%}
+<div class="alert alert-secondary" role="alert">
+  <h4 style=" text-align: center;">Agregar registro de un empleado</h4>
+</div>
+{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
+    <a href="{%url 'constructora:verPuesto'%}" class="list-group-item list-group-item-action">Puestos</a>
+    <a href="{%url 'constructora:crearPuesto'%}" class="list-group-item list-group-item-action">Nuevo Puesto</a>    
+</div>
+{%endblock%}  
+
+{% block contenido %}
+<div class= "container">
+	<div class= "row">
+		<section class="col-md-12">
+			<div class= "container">
+				<form method="POST" name="form1">
+					{% csrf_token %}		
+					<fieldset class="groupbox">
+               		 	<legend >Nuevo Puesto</legend>
+	                    <div class="row">
+	                        <div class="col-md-6" ">
+	                        	<div>
+	                                <label>Nombre de puesto: </label>
+	                                <br/>
+	                                {{form.nombrePuesto}}
+                            	</div>		                        
+			         			<br/>
+								<div>
+	                                <label>Descripcion de puesto: </label>
+	                                <br/>
+	                                {{form.descripcionPuesto}}
+                            	</div>		                        
+			         			<br/>
+			         			
+	                        </div>
+	        
+	        
+	                	</div>
+	                 </fieldset>			                 			         			         				         	
+	                 <br/>		                    
+            
+            
+        
+                    <div class="btnAñadir">
+                        <input class="btn btn-success" style="margin-left:10%" type="submit" value="Guardar">
+                        
+                    </div>
+               	                
+		        </form>        
+			</div>		
+		</section>
+	</div>	
+	</div>
+{% endblock %}

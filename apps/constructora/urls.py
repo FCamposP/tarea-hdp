@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^eliminarEmpleado/(?P<id_empleado>\d+)/$',login_required(eliminarEmpleado),name="eliminarEmpleado"),
     url(r'^eliminarCliente/(?P<id_cliente>\d+)/$',login_required(eliminarCliente),name="eliminarCliente"),
     url(r'^verPuesto/$',login_required(verPuesto),name="verPuesto"),    
+     url(r'^crearPuesto/$',login_required(crearPuesto),name="crearPuesto"),
 
     #INICIO URLS MARCO
     #url(r'^recursolist/$',login_required(recursoList),name="recursoList"),

@@ -210,9 +210,39 @@ def herramientaList(request):
 
 #INICIO DE VISTAS KILMER
 def verPuesto(request):
-	
+	puesto = Puesto.objects.all()
 
-	return render(request,'Puestos/puesto.html' )
+	
+	contexto = {'puesto':puesto}
+
+	return render(request,'Puestos/puesto.html' ,contexto)
+
+def crearPuesto(request):
+	puesto = Puesto()
+	puestos = Puesto.objects.all()
+	codigo = ""
+	if puestos:
+		for c in puestos:
+			codigo =  (c.id) + 1 
+		codigo = "P" + str(codigo)
+	else:
+		codigo = "P" + str(1)
+	if request.method=='POST':
+		form = puestoForm(request.POST)
+		if form.is_valid():
+			puesto.codigoPuesto = codigo
+			puesto.nombrePuesto = request.POST['nombrePuesto']
+			puesto.descripcionPuesto = request.POST['descripcionPuesto']
+			
+			puesto.save()
+			return redirect('constructora:verPuesto')
+		
+		
+	else:
+		form = puestoForm()
+		
+	contexto={'form':form}
+	return render(request,'Puestos/crearPuesto.html', contexto)
 
 
 def verCliente(request):

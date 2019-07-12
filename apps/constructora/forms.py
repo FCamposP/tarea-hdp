@@ -227,3 +227,24 @@ class ContratoForm(forms.ModelForm):
             'periodoContrato':forms.TextInput(attrs={'class':'form-control'}),
             
         }
+class puestoForm(forms.ModelForm):
+    class Meta:
+        model=Puesto
+        fields=[
+            'nombrePuesto',
+            
+            'descripcionPuesto',
+            ]
+      
+        labels={
+            'nombrePuesto':'Nombre de puesto: ',
+            
+            'descripcionPuesto':'Descripcion de puesto: ',
+            
+        }
+        widgets={
+            'nombrePuesto':forms.TextInput(attrs={'class':'form-control'}),
+            
+            'descripcionPuesto':forms.Textarea(attrs={'class':'form-control','rows':2}),
+            
+        }

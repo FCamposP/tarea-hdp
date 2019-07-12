@@ -8,12 +8,78 @@
 {%block links%}
 <div class="list-group">
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
-    <a href="" class="list-group-item list-group-item-action">Puestos</a>
-    <a href="" class="list-group-item list-group-item-action">Nuevo Puesto</a>    
+    <a href="{%url 'constructora:verPuesto'%}" class="list-group-item list-group-item-action">Puestos</a>
+    <a href="{%url 'constructora:crearPuesto'%}" class="list-group-item list-group-item-action">Nuevo Puesto</a>    
 </div>
 {%endblock%}  
 
 {% block contenido %}
+<div style="display:inline-block">
+
+</div>
+{% if puesto %}
+<form method="GET" name="form1">
+{% csrf_token %}
+<div id="buscadorEmpleado" style="display:inline-block">
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <input style="width: 70%" id="buscarInput" name="buscarInput" class="form-control mr-sm-2" type="search" placeholder="Atributo" aria-label="Search">
+            
+                <button id="buscar" name="buscar" class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form> 
+    </nav>
+            
+</div>
+
+
+</form>
+<br>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width:10%" class="centrarCol">Codigo</th>
+        <th scope="col" style="width:15%" class="centrarCol">Nombre</th>
+        <th scope="col" style="width:100%" class="centrarCol">Descripcion</th>        
+        <th scope="col" style="width:100%" class="centrarCol">Acciones</th>        
+      </tr>
+    </thead>
+    <tbody>
+      
+      {%for e in puesto %}
+        <tr>
+
+          <td class="centrarCol">{{e.codigoPuesto}}</td>
+          
+          
+          <td class="centrarCol">{{e.nombrePuesto}}</td>
+          <td class="centrarCol">{{e.descripcionPuesto}}</td>
+          
+          <td class="centrarCol">            
+
+          <a class="btn btn-primary" href="">Editar</a>
+          <a class="btn btn-danger" href="">Eliminar</a>
+          </td>
+          
+        </tr>
+        {%endfor%}
+        {% else %}
+        
+          <div class="alert alert-primary" role="alert">
+            
+            <h4 style=" text-align: center;">¡No existen registros de Puestos!</h4>
+          </div>
+          
+          
+        
+        
+        
+        {% endif %}
+        
+      
+    </tbody>
+  </table>
+
 
 
 {% endblock %}
