@@ -78,6 +78,15 @@
 
                       </li>
                       {%endif%}
+                      {%if user.is_superuser == True%}
+                      <li class = "nav-item"> <!--administrador-->
+
+                        <a class="nav-link" href="{%url 'constructora:verPuesto'%}" style="color:white"> Puestos </a>
+
+                       
+
+                      </li>
+                      {%endif%}
                     </ul>
                     
                     <form class = "form-inline my-2 my-lg-0">

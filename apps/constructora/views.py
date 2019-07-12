@@ -209,6 +209,12 @@ def herramientaList(request):
 
 
 #INICIO DE VISTAS KILMER
+def verPuesto(request):
+	
+
+	return render(request,'Puestos/puesto.html' )
+
+
 def verCliente(request):
 	clientes = Cliente.objects.all()
 
