@@ -1,8 +1,8 @@
 {% extends 'base/base.html'%}
-{% block title %}Puesto{% endblock %}
+{% block title %}Puestos{% endblock %}
 {% block Apartado%}
 <div class="alert alert-secondary" role="alert">
-  <h4 style=" text-align: center;">Agregar registro de un puesto</h4>
+  <h4 style=" text-align: center;">Editar datos de puesto</h4>
 </div>
 {% endblock %}
 {%block links%}
@@ -10,6 +10,7 @@
     <a href="" class="list-group-item list-group-item-action active">Lista de enlaces</a>
     <a href="{%url 'constructora:verPuesto'%}" class="list-group-item list-group-item-action">Puestos</a>
     <a href="{%url 'constructora:crearPuesto'%}" class="list-group-item list-group-item-action">Nuevo Puesto</a>    
+
 </div>
 {%endblock%}  
 
@@ -21,24 +22,23 @@
 				<form method="POST" name="form1">
 					{% csrf_token %}		
 					<fieldset class="groupbox">
-               		 	<legend >Nuevo Puesto</legend>
+               		 	<legend >Editar Puesto</legend>
 	                    <div class="row">
 	                        <div class="col-md-6" ">
 	                        	<div>
-	                                <label>Nombre de puesto: </label>
+	                                <label>Nombre: </label>
 	                                <br/>
 	                                {{form.nombrePuesto}}
                             	</div>		                        
 			         			<br/>
 								<div>
-	                                <label>Descripcion de puesto: </label>
+	                                <label>Descripcion</label>
 	                                <br/>
 	                                {{form.descripcionPuesto}}
                             	</div>		                        
 			         			<br/>
-			         			
-	                        </div>
-	        
+			         				
+		                    </div>
 	        
 	                	</div>
 	                 </fieldset>			                 			         			         				         	

@@ -1,0 +1,21 @@
+{% extends 'base/base.html'%}
+{% block title %}Puestos{% endblock %}
+{% block Apartado%} 
+<div class="alert alert-secondary" role="alert">
+  <h4 style=" text-align: center;">Eliminar puesto</h4>
+</div>
+{% endblock %}
+
+
+{% block contenido %}
+
+
+
+
+<form method="post">
+	{% csrf_token %}
+	<h2>¿Desea eliminar el registro de {{ puesto.nombrePuesto }}?</h2>
+	<button type="submit" class="btn btn-danger">Sí, eliminar</button>
+	<a href="{% url 'constructora:verPuesto' %}" class="btn btn-warning">Cancelar</a> 
+</form>
+{% endblock %}

@@ -211,9 +211,31 @@ def herramientaList(request):
 #INICIO DE VISTAS KILMER
 def verPuesto(request):
 	puesto = Puesto.objects.all()
+	contexto = {'puesto':puesto}
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			
+			if Puesto.objects.filter(nombrePuesto__contains = palabraClave).exists():
+				puesto = Puesto.objects.filter(nombrePuesto__contains = palabraClave)
+				contexto = {'puesto':puesto}
+			else:
+				if Puesto.objects.filter(descripcionPuesto__contains = palabraClave).exists():
+					puesto = Puesto.objects.filter(descripcionPuesto__contains = palabraClave)
+					contexto = {'puesto':puesto}
+				
+					
+
+	else:
+		puesto= Puesto.objects.all()
+		contexto = {'puesto':puesto}
+
+
 
 	
-	contexto = {'puesto':puesto}
+
+	
+	
 
 	return render(request,'Puestos/puesto.html' ,contexto)
 
@@ -244,12 +266,65 @@ def crearPuesto(request):
 	contexto={'form':form}
 	return render(request,'Puestos/crearPuesto.html', contexto)
 
+def eliminarPuesto(request, id_puesto):
+	puesto = Puesto.objects.get(id=id_puesto)
+	if request.method == 'POST':
+		puesto.delete()
+		return redirect('http://127.0.0.1:8000/constructora/verPuesto/')
+	contexto= {'puesto' : puesto}
+	return render(request, 'Puestos/eliminarPuesto.html',contexto )
+
+def editarPuesto(request, id_puesto):
+	puesto = Puesto.objects.get(id = id_puesto)
+
+	if request.method == 'GET':
+		form = puestoForm(instance=puesto)
+		
+	else:
+		
+		form = puestoForm(request.POST, instance= puesto)
+		
+		
+		if form.is_valid():
+			form.save()
+			
+			
+		return redirect('http://127.0.0.1:8000/constructora/verPuesto/')
+	contexto={'form':form}
+	return render(request ,'Puestos/editarPuesto.html', contexto)
 
 def verCliente(request):
+	
 	clientes = Cliente.objects.all()
+	contexto = {'cliente':clientes}
+	if 'buscar' in request.GET:		
+		if request.GET['buscarInput'] != "":
+			palabraClave = request.GET['buscarInput']
+			
+			if Cliente.objects.filter(nombreCliente__contains = palabraClave).exists():
+				clientes = Cliente.objects.filter(nombreCliente__contains = palabraClave)
+				contexto = {'cliente':clientes}
+			else:
+				if Cliente.objects.filter(direccion__contains = palabraClave).exists():
+					clientes = Cliente.objects.filter(direccion__contains = palabraClave)
+					contexto = {'cliente':clientes}
+				
+					
+
+	else:
+		clientes = Cliente.objects.all()
+		contexto = {'cliente':clientes}
+
+
+
+
+
+
 
 	
-	contexto = {'cliente':clientes}
+
+	
+	
 
 	return render(request,'clientes/clientes.html', contexto)
 
