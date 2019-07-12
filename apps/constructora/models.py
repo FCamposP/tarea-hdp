@@ -109,6 +109,7 @@ class Solicitud(models.Model):
 
 class DetalleSolicitud(models.Model):
     solicitud=models.ForeignKey(Solicitud,on_delete=models.CASCADE)
+    tiporecurso=models.CharField(max_length=150)
     recurso=models.CharField(max_length=150)
     cantidad=models.IntegerField(default=0)
     asignado=models.BooleanField(default=False)

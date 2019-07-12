@@ -142,7 +142,6 @@
                                         {% csrf_token %}
 
                                         <input type="hidden" name="recurso" value="{{ e.id }}"> 
-                                        <a href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
 
                                         <input type="hidden" name="elimEmpleado" value="{{ e.id }}"> 
                                         <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>

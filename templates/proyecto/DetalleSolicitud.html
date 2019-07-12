@@ -1,0 +1,221 @@
+{% extends 'base/base.html'%}
+{% block Apartado%}{% endblock %}
+{%block links%}
+<div class="list-group">
+    <a href="" class="list-group-item list-group-item-action active">
+      Lista de enlaces
+    </a>
+    <a href="{% url 'constructora:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
+    <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+    <a href="{% url 'constructora:solicitud' %}"  class="list-group-item list-group-item-action">Solicitudes Pendientes</a>
+
+  </div>
+{%endblock%}   
+ 
+{% block contenido %}
+
+
+<div id="RecursosAñadidos" >
+  <hr><h5 id="recursoAñadido">Recursos Solicitados - {{proyecto.nombreProyecto}} </h5><hr>
+  <div class="recursosAsignar" >
+      <div id="tablaa" style="text-align: center;">
+          
+          {% if puestos %}
+  
+              <div class="alert alert-primary" role="alert">
+                     Puestos Solicitados
+                    </div>
+              <table class="table">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col" style="width:" class="centrarCol">#</th>
+                          <th scope="col"style="width:" class="centrarCol">Puesto</th>
+                          <th scope="col"style="width:" class="centrarCol">Cantidad</th>
+                          <th scope="col" style="widt:" class="centrarCol">Acción</th>
+  
+                      </tr>
+                      </thead>
+                      <tbody>
+                        {%for e in puestos %}
+                          <tr>
+                            <td>{{forloop.counter }}</td>
+                            <td>{{e.recurso}}</td>
+                            <td>{{e.cantidad}}</td>
+                            <td>
+                              <div>
+                                <form method="POST">
+                                          {% csrf_token %}
+  
+                                          <input type="hidden" name="recurso" value="{{ e.id }}"> 
+  
+                                          <input type="hidden" name="elimEmpleado" value="{{ e.id }}"> 
+                                          <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+  
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalLabel">Ventana de confirmación</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  ¿Esta seguro de eliminar al Empleado: <b>{{e.empleado.nombres}} {{e.empleado.apellidos}} ?</b>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <input class="btn btn-danger" type="submit" name="accionE" value="Eliminar">
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                       </form>
+                              </div>
+                            </td>
+                      </tr> 
+                          {%endfor%}
+                      </tbody>
+                    </table>
+  
+          {%else%}       
+          
+          <div class="alert alert-danger" role="alert">
+                  ¡NO HAY PUESTOS SOLICITADOS!
+                </div>
+  
+          {%endif%}
+  
+          {%if maquinarias %}
+              
+                    <div class="alert alert-primary" role="alert">
+                          Maquinarias Solicitadas
+                         </div>
+  
+                         <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col" style="width:" class="centrarCol">#</th>
+                                  <th scope="col"style="width:" class="centrarCol"> Maquina</th>
+                                  <th scope="col"style="width:" class="centrarCol">Cantidad</th>
+                                  <th scope="col" style="widt:" class="centrarCol">Acción</th>
+          
+                              </tr>
+                              </thead>
+                              <tbody>
+                                {%for e in maquinarias %}
+                                  <tr>
+                                    <td>{{forloop.counter }}</td>
+                                    <td>{{e.recurso}}</td>
+                                    <td>{{e.cantidad}}</td>
+                                    <td> 
+                                        <div>
+                                            <form method="POST">
+                                                      {% csrf_token %}
+                                                      <input type="hidden" name="elimRec" value="{{ e.id }}"> 
+                                                      <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+                                                      <!-- Modal -->
+                                                      <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <h5 class="modal-title" id="exampleModalLabel">Ventana de confirmación</h5>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                              </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                              ¿Esta seguro de eliminar al ejemplar con código: <b>{{e.ejemplar.codigoEjemplar}} ?</b>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                              <input class="btn btn-danger" type="submit" name="accionR" value="Eliminar">
+                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                   </form>
+                                          </div>
+                                    </td>
+                                  </tr>
+                                  {%endfor%}
+                              </tbody>
+                            </table>
+              {%else%}
+              <div class="alert alert-danger" role="alert">
+                      ¡NO HAY MAQUINARIAS SOLICITADAS!
+                    </div>
+  
+              {%endif%}
+  
+                            {% if herramientas %}
+  
+                         <div class="alert alert-primary" role="alert">
+                              Herramientas Solicitadas
+                             </div>
+  
+                             <table class="table">
+                                  <thead class="thead-dark">
+                                    <tr>
+                                      <th scope="col" style="width:" class="centrarCol">#</th>
+                                      <th scope="col"style="width:" class="centrarCol">Herramienta</th>
+                                      <th scope="col"style="width:" class="centrarCol">Cantidad</th>
+                                      <th scope="col" style="widt:" class="centrarCol">Acción</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                    {%for e in herramientas %}
+                                      <tr>
+                                        <td>{{forloop.counter }}</td>
+                                        <td>{{e.recurso}}</td>
+                                        <td>{{e.cantidad}}</td>
+                                        <td>  
+                                            <div>
+                                                <form method="POST">
+                                                          {% csrf_token %}
+                                                          <input type="hidden" name="elimHerr" value="{{ e.id }}"> 
+                                                          <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+                                                          <!-- Modal -->
+                                                          <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                  <h5 class="modal-title" id="exampleModalLabel">Ventana de confirmación</h5>
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                  </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                  ¿Esta seguro de eliminar a la herramienta con código: <b>{{e.Herramienta.codigoHerramienta}} ?</b>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                  <input class="btn btn-danger" type="submit" name="accionH" value="Eliminar">
+                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                       </form>
+                                              </div>
+                                        </td>
+                                      </tr>
+                                      {%endfor%}
+                                  </tbody>
+                                </table>
+                          {% else %}
+                          <div class="alert alert-danger" role="alert">
+                                  ¡NO HAY HERRAMIENTAS SOLICITADAS!
+                                </div>
+  
+                          {% endif %}
+  
+  
+      </div><!--fin de ajax-->
+  
+  </div> <!--fin de recursos asignar-->
+  </div><!--fin de recursosasignados-->
+
+
+
+{%endblock%}   

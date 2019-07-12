@@ -734,22 +734,25 @@ def solicitarRecursos(request):
 			if str(x.codigoPuesto) in request.POST:
 				detalle=DetalleSolicitud()
 				detalle.solicitud=Solicitud.objects.latest('id')
-				detalle.recurso='Puesto'
+				detalle.tiporecurso='Puesto'
+				detalle.recurso=str(x.codigoPuesto)
 				detalle.cantidad=request.POST[x.codigoPuesto]
 				detalle.save()
 		for x in recursos:
 			if str(x.codigoRecurso) in request.POST:
-				print('no sale')
+		
 				detalle=DetalleSolicitud()
 				detalle.solicitud=Solicitud.objects.latest('id')
-				detalle.recurso='Maquinaria'
+				detalle.tiporecurso='Maquinaria'
+				detalle.recurso=str(x.codigoRecurso)
 				detalle.cantidad=request.POST[x.codigoRecurso]
 				detalle.save()
 		for x in herramientas:
 			if str(x.codigoHerramienta) in request.POST:
 				detalle=DetalleSolicitud()
 				detalle.solicitud=Solicitud.objects.latest('id')
-				detalle.recurso='Herramienta'
+				detalle.tiporecurso='Herramienta'
+				detalle.recurso=str(x.codigoHerramienta)
 				detalle.cantidad=request.POST[x.codigoHerramienta]
 				detalle.save()
 		return redirect('constructora:recursosProyecto')
@@ -799,14 +802,21 @@ def conseguirElemento(request):
 	return HttpResponse(data,content_type='application/json')
 
 
-def aprobarSolicitud(request):
+def aprobarSolicitud(request): 
 	solicitudes=Solicitud.objects.filter(aprobado=False)
 
 	contexto={'solicitudes':solicitudes}
 	return render(request,'proyecto/AprobarSolicitud.html',contexto)
 
-def verDetalleSolicitud(request):
+def verDetalleSolicitud(request,id_p):
+	soli=Solicitud.objects.get(id=id_p)
+	proyecto=Proyecto.objects.get(id=soli.solicitante.proyecto.id)
+	print(proyecto)
+	puestos=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Puesto')
+	maquinas=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Maquinaria')
+	herramientas=DetalleSolicitud.objects.filter(solicitud=id_p,tiporecurso='Herramienta')
+	contexto={'puestos':puestos,'maquinas':maquinas,'herramientas':herramientas,'proyecto':proyecto}
 
-	return render(request,'proyecto/AprobarSolicitud.html')
+	return render(request,'proyecto/DetalleSolicitud.html',contexto)
 
 #FIN VISTAS FC

@@ -7,6 +7,7 @@
     </a>
     <a href="{% url 'constructora:busquedaProyecto' %}"  class="list-group-item list-group-item-action">Buscar Proyecto</a>
     <a href="{% url 'constructora:nuevoProyecto' %}"class="list-group-item list-group-item-action">Nuevo Proyecto</a>
+    <a href="{% url 'constructora:solicitud' %}"  class="list-group-item list-group-item-action">Solicitudes Pendientes</a>
 
   </div>
 {%endblock%}   
@@ -20,8 +21,8 @@
       <tr>
         <th scope="col" style="width:10%" class="centrarCol">N°</th>
         <th scope="col"style="width:15%" class="centrarCol">Proyecto</th>
-        <th scope="col"style="width:15%" class="centrarCol">Solicitante</th>
-        <th scope="col" style="width:40%" class="centrarCol">Fecha</th>
+        <th scope="col"style="width:35%" class="centrarCol">Solicitante</th>
+        <th scope="col" style="width:20%" class="centrarCol">Fecha</th>
         <th scope="col"style="width:25%" class="centrarCol">Acción</th>
       </tr>
     </thead>
@@ -30,9 +31,9 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>{{sol.solicitante.proyecto.nombreProyecto}}</td>
-          <td>{{sol.solicitante}}</td>
-          <td>{{sol.fecha}}</td>
-          <td>    <a href="{% url 'constructora:verDetalleSolicitud' sol.id %}"  class="btn btn-warning">ver Detalles</a></td>
+          <td>{{sol.solicitante.empleado.nombres}} {{sol.solicitante.empleado.apellidos}}</td>
+          <td>{{sol.fechaSolicitud}}</td>
+          <td>    <a href="{% url 'constructora:verDetalleSolicitud' sol.id %}"  class="btn btn-warning">Ver Detalles</a></td>
         </tr>
         {%endfor%}
     </tbody>
