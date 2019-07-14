@@ -42,8 +42,13 @@
 		</tr>
 		{% endfor %}
 		{% else %}
+		{% if empleados == 'None'%}
+		<div class="alert alert-danger" role="alert">
+                ¡Usted no esta asignado a un proyecto!
+         {%else%}       
 		<div class="alert alert-danger" role="alert">
                 ¡NO HAY EMPLEADOS ASIGNADOS!
+         {% endif %}
 	</tbody>
 		{% endif %}
 </table>

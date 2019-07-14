@@ -32,10 +32,10 @@ class Cliente(models.Model):
     codigoCliente=models.CharField(max_length=10)
     nombreCliente=models.CharField(max_length=50)
     direccion=models.CharField(max_length=200)
-    email=models.EmailField(max_length=55)
-    nit=models.CharField(max_length=15)
+    email=models.EmailField(max_length=30)
+    nit=models.CharField(max_length=14)
     giro=models.CharField(max_length=50)
-    numTelefono=models.CharField(max_length=15)
+    numTelefono=models.CharField(max_length=8)
     def __str__(self): 
     	return self.nombreCliente   
 
@@ -77,9 +77,9 @@ class Empleado(models.Model):
     nombres=models.CharField(max_length=50)
     apellidos=models.CharField(max_length=50)
     direccion=models.CharField(max_length=250)
-    numTelefono=models.CharField(max_length=15)
-    dui=models.CharField(max_length=15)
-    nit=models.CharField(max_length=15)
+    numTelefono=models.CharField(max_length=8)
+    dui=models.CharField(max_length=9)
+    nit=models.CharField(max_length=14)
     isss=models.CharField(max_length=15)
     disponible=models.BooleanField(default=True)
     def __str__(self): 
