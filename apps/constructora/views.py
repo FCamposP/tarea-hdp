@@ -1,6 +1,5 @@
 from django.shortcuts import render,redirect
 import hashlib
-from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import TemplateView, ListView
 from apps.constructora.models import *
 import datetime,time
@@ -515,18 +514,12 @@ def listarEmpleadosProyecto(request):
 
 	# lineas para capturar el proyecto al que pertenece el usuario activo
 	usuario = request.user.id
-	Asig=""
-	Asig2= ""
-	proyecto = ""
-	empleados = None
-	if AsignacionUsuario.objects.filter(usuario = usuario).exists():
-		Asig = AsignacionUsuario.objects.get(usuario = usuario)
-		Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
-		proyecto = Asig2.proyecto
-		empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)
-	
+	Asig = AsignacionUsuario.objects.get(usuario = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
+	proyecto = Asig2.proyecto
 	# fin
 	# extraccion de empleados
+	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)
 	contexto = {'empleados': empleados}
 	return render(request,'proyecto/recursosEmpleado.html', contexto)
 
@@ -574,36 +567,23 @@ def listaRecursos(request):
 	
 	# lineas para capturar el proyecto al que pertenece el usuario activo
 	usuario = request.user.id
-	Asig=""
-	Asig2= ""
-	proyecto = ""
-	example = None
-	herra = None
-	if AsignacionUsuario.objects.filter(usuario = usuario).exists():
-		Asig = AsignacionUsuario.objects.get(usuario = usuario)
-		Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
-		proyecto = Asig2.proyecto
-		example = AsignacionoEjemplar.objects.filter(idProyecto_id = proyecto)
-		herra = AsignacionHerramienta.objects.filter(idProyecto_id= proyecto)
-	
-
+	Asig = AsignacionUsuario.objects.get(usuario = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
+	proyecto = Asig2.proyecto
+	example = AsignacionoEjemplar.objects.filter(idProyecto_id = proyecto)
+	herra = AsignacionHerramienta.objects.filter(idProyecto_id= proyecto)
 	contexto = {'ejemplar': example, 'tools': herra}
 	return render(request, 'proyecto/RecursosProyecto.html', contexto)
 
 def mostrarAsistencia(request):
 	# lineas para capturar el proyecto al que pertenece el usuario activo
 	usuario = request.user.id
-	Asig=""
-	Asig2= ""
-	proyecto = ""
-	asistencia = None
-	if AsignacionUsuario.objects.filter(usuario = usuario).exists():
-		Asig = AsignacionUsuario.objects.get(usuario = usuario)
-		Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
-		proyecto = Asig2.proyecto
+	Asig = AsignacionUsuario.objects.get(usuario = usuario)
+	Asig2 = AsignacionPuestoProyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
+	proyecto = Asig2.proyecto
 	# fin 
 	# extraccion de empleados	
-		asistencia = Asistencia.objects.all()
+	asistencia = Asistencia.objects.all()
 	contexto = {'asistencias': asistencia}
 	return render(request, 'proyecto/Asistencia.html' ,contexto)	
 
@@ -683,7 +663,7 @@ def asignacionRecurso(request,id_p):
 	maqA=AsignacionoEjemplar.objects.filter(idProyecto=id_p)
 	herrA=AsignacionHerramienta.objects.filter(idProyecto=id_p)
 	pues=Puesto.objects.all()
-	recursos=Recurso.objects.all()
+	recursos=Recurso.objects.all() 
 	emp=Empleado.objects.filter(disponible=True)
 	herramientas=Herramienta.objects.all()
 

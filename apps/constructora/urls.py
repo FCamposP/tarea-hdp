@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^solicitud/$',login_required(aprobarSolicitud),name="solicitud"),
     url(r'^verDetalleSolicitud/(?P<id_p>\d+)/$',login_required(verDetalleSolicitud),name="verDetalleSolicitud"),
 
-     #vista Sebas
+     #vista Sebas 
     url(r'^RecursosProyecto/$',login_required(listaRecursos),name="RecursosProyecto"),
     url(r'^Asistencia/$',login_required(mostrarAsistencia),name="Asistencia"),
     url(r'^recursosEmpleado/$',login_required(listarEmpleadosProyecto),name="recursosEmpleado"),
