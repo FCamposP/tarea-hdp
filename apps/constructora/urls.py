@@ -22,6 +22,10 @@ urlpatterns = [
     url(r'^solicitud/$',login_required(aprobarSolicitud),name="solicitud"),
     url(r'^verDetalleSolicitud/(?P<id_p>\d+)/$',login_required(verDetalleSolicitud),name="verDetalleSolicitud"),
 
+    url(r'^ReasignarEjemplar/$',login_required(ReasignarEjemplar),name="ReasignarEjemplar"),
+
+#fin URL Fc
+
      #vista Sebas 
     url(r'^RecursosProyecto/$',login_required(listaRecursos),name="RecursosProyecto"),
     url(r'^Asistencia/$',login_required(mostrarAsistencia),name="Asistencia"),
@@ -32,7 +36,7 @@ urlpatterns = [
     url(r'^registroAsistencia/(?P<id_asistencia>\d+)/$',login_required(registroAsistencia), name="registroAsistencia"),
     #fin
 
-#fin URL Fc
+
 
 
     url(r'^contrato/$',login_required(verContrato),name="contrato"),

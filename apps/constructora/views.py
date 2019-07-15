@@ -668,11 +668,12 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 	recursos=Recurso.objects.all() 
 	emp=Empleado.objects.filter(disponible=True)
 	herramientas=Herramienta.objects.all()
+	cantidadMenor=False
 
 	if 'btnEmpleado' in request.POST:
 		asignacionE=AsignacionPuestoProyecto()
 		empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
-		asignacionE.empleado=empleado
+		asignacionE.empleado=empleado 
 		empleado.disponible=False
 		empleado.save()
 		asignacionE.puesto=Puesto.objects.get(id=request.POST['selectPuesto'])
@@ -703,16 +704,21 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 		pass
 
 	if 'btnHerramienta' in request.POST:
-		asignacionH=AsignacionHerramienta()
-		asignacionH.idProyecto=Proyecto.objects.get(id=id_p)
-		asignacionH.Herramienta=Herramienta.objects.get(codigoHerramienta=request.POST['selectHerramienta'])
-		asignacionH.fechaAsignacion=time.strftime("%c")
-		asignacionH.cantidadAsignada=request.POST['inputCantidad']
+		cantidad=request.POST['inputCantidad']
 		herramienta=Herramienta.objects.get(codigoHerramienta=request.POST['selectHerramienta'])
-		cantidad=herramienta.canatidadDisponibles
-		herramienta.canatidadDisponibles=int(cantidad)-int(asignacionH.cantidadAsignada)
-		herramienta.save()
-		asignacionH.save()
+		cantidadDis=herramienta.canatidadDisponibles
+		if int(cantidad)<cantidadDis:
+			asignacionH=AsignacionHerramienta()
+			asignacionH.idProyecto=Proyecto.objects.get(id=id_p)
+			asignacionH.Herramienta=Herramienta.objects.get(codigoHerramienta=request.POST['selectHerramienta'])
+			asignacionH.fechaAsignacion=time.strftime("%c")
+			asignacionH.cantidadAsignada=cantidad
+
+			herramienta.canatidadDisponibles=int(cantidadDis)-int(asignacionH.cantidadAsignada)
+			herramienta.save()
+			asignacionH.save()
+		else:
+			cantidadMenor=True
 		#eliminar empleado 
 	if 'accionE' in request.POST:
 		accion = request.POST['accionE']
@@ -747,7 +753,7 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 		else:
 			pass
 		pass
-	contexto={'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
+	contexto={'esMenor':cantidadMenor, 'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 
 
@@ -895,7 +901,7 @@ def verDetalleSolicitud(request,id_p):
 	soli=Solicitud.objects.get(id=id_p)
 	proyecto=Proyecto.objects.get(id=soli.solicitante.proyecto.id)
 	empleados=Empleado.objects.filter(disponible=True)
-	ejemplares=Ejemplar.objects.filter(disponible=True)
+	ejemplares=list(Ejemplar.objects.filter(disponible=True))
 	herramientasDisponibles=[]
 	herramientasTodas=Herramienta.objects.all()
 	for h in herramientasTodas:
@@ -910,7 +916,7 @@ def verDetalleSolicitud(request,id_p):
 	if 'btnEmpleado' in request.POST:
 		asignacionP=AsignacionPuestoProyecto()
 		detalleSoli=DetalleSolicitud.objects.get(id=request.POST['recurso'])
-		print(detalleSoli.recurso)
+		
 		puest=Puesto.objects.get(nombrePuesto=str(detalleSoli.recurso))
 		empleado=Empleado.objects.get(id=request.POST['selectEmpleado1'])
 		asignacionP.empleado=empleado
@@ -922,10 +928,57 @@ def verDetalleSolicitud(request,id_p):
 		asignacionP.save()
 		detalleSoli.cantidad=detalleSoli.cantidad-1
 		detalleSoli.save()
-		print(detalleSoli.cantidad)
+		
 		if detalleSoli.cantidad==0:
 			detalleSoli.asignado=True
 			detalleSoli.save()
+
+	if 'btnEjemplar' in request.POST:
+		detalleSoli=DetalleSolicitud.objects.get(id=request.POST['maquinaE'])
+
+		asignacionE=AsignacionoEjemplar()
+		asignacionE.idProyecto=proyecto
+		asignacionE.fechaAsignacion=time.strftime("%c")
+		asignacionE.ejemplar=Ejemplar.objects.get(codigoEjemplar=request.POST['selectEjemplar1'])
+		asignacionE.save()
+		detalleSoli.cantidad=detalleSoli.cantidad-1
+		detalleSoli.save()
+		
+		if detalleSoli.cantidad==0:
+			detalleSoli.asignado=True
+			detalleSoli.save()
+
+	if 'btnHerramientaR' in request.POST:
+		cantidad=int(request.POST['inputCantidad'])
+		if cantidad>0:
+			detalleSoli=DetalleSolicitud.objects.get(id=request.POST['herrRe'])
+			herramienta=Herramienta.objects.get(nombreHerramienta=str(detalleSoli.recurso))
+			if cantidad < herramienta.canatidadDisponibles:
+				asignacionHerr=AsignacionHerramienta()
+				asignacionHerr.idProyecto=proyecto
+				asignacionHerr.Herramienta=herramienta
+				asignacionHerr.cantidadAsignada=cantidad
+				herramienta.canatidadDisponibles-=cantidad
+				herramienta.fechaAsignacion=time.strftime("%c")
+				asignacionHerr.save()
+				detalleSoli.cantidad=detalleSoli.cantidad-cantidad
+				detalleSoli.save()
+				
+				if detalleSoli.cantidad==0:
+					detalleSoli.asignado=True
+					detalleSoli.save()
+
 	return render(request,'proyecto/DetalleSolicitud.html',contexto)
 
+def ReasignarEjemplar(request):
+	
+	detalleSoli=DetalleSolicitud.objects.get(id=request.GET['id_re'])
+	recurso=Recurso.objects.get(nombreRecurso=str(detalleSoli.recurso))
+
+	ejemplares=Ejemplar.objects.filter(idRecurso=recurso.codigoRecurso,disponible=True,)
+	
+	data=serializers.serialize('json',ejemplares)
+	print(data)
+	return HttpResponse(data,content_type='application/json')
+	
 #FIN VISTAS FC

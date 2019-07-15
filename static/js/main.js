@@ -199,7 +199,28 @@ function SolicitarRecurso(){
 function eliminarRecurso(name){
   console.log(name);
   document.getElementById(name).remove();
+}
 
+function MostrarEjemplares(){
+
+    var id_re=document.getElementById('reasignarEjemplar').value;
+
+    $.ajax({
+        data:{'id_re':id_re},
+        url:'/constructora/ReasignarEjemplar/',
+        type:'GET',
+        success: function(data){
+            console.log(data);
+            var html="";
+            html+=" <option></option>";
+            for (var i=0; i<data.length;i++){
+               
+            html+="<option value=\""+data[i].pk+"\">"+data[i].fields.nombreEjemplar+"</option>";
+        } 
+        $('#selectEjemplar1').html(html);      
+ 
+        }
+    });
 }
 
 // fin de js FC

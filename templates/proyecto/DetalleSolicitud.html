@@ -134,10 +134,10 @@
                                         <div>
                                             <form method="POST">
                                                       {% csrf_token %}
-                                                      <input type="hidden" name="elimRec" value="{{ e.codigoEjemplar }}"> 
-                                                      <a class="btn btn-primary" href="" data-toggle="modal" data-target="#modal_{{ e.codigoEjemplar }}">Asignajjr</a>
+                                                      <input type="hidden" name="maquinaE" id="reasignarEjemplar" value="{{ e.id }}"> 
+                                                      <a type="submit" class="btn btn-primary" href="" data-toggle="modal" name="AsignarEjemplar" data-target="#modal_{{ e.id }}" onclick="MostrarEjemplares()">Asignar</a>
                                                       <!-- Modal -->
-                                                      <div class="modal fade" id="modal_{{ e.codigoEjemplar }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                           <div class="modal-content">
                                                             <div class="modal-header">
@@ -147,22 +147,22 @@
                                                               </button>
                                                             </div>
                                                             <div class="modal-body">
-    <div  style="width: 70%; " >
+    <div   style="width: 70%; " class="cajasAñadir" >
 
         <fieldset class="groupbox">
             <legend > Bien Material</legend>
 <br>
                  <div style="width: 100%">
                         <label for="">Elija un Ejemplar</label><br>
-                                                   <div style="width: 100%; ">
-                                                                <label for="">Elija un Empleado</label><br>
+                                                   
                                                                 <select required class="form-control" name="selectEjemplar1" id="selectEjemplar1">
                                                                     <option></option>
-                                                                    {%for e in ejemplares%}
-                                                                    <option value="{{e.id}}" > {{e.nombreEjemplar}}</option>
-                                                                    {%endfor%}
+                                                                    {%for ej in ejemplares%}
+
+                                                                    <option value="{{e.id}}" > {{ej.nombreEjemplar}}</option>
+                                                                     {%endfor%}
                                                                 </select>
-                                                             </div> <br>
+                                                          <br>
                     </div><br> <!--fin de div para ajax-->
             <div class="btnAñadir">
                     <input class="btn btn-primary" name="btnEjemplar" style="margin-left:10%" type="submit" value="Asignar">
@@ -220,7 +220,7 @@
                                             <div>
                                                 <form method="POST">
                                                           {% csrf_token %}
-                                                          <input type="hidden" name="elimHerr" value="{{ e.id }}"> 
+                                                          <input type="hidden" name="herrRe" value="{{ e.id }}"> 
                                                           <a class="btn btn-primary" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Asignar</a>
                                                           <!-- Modal -->
                                                           <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -233,7 +233,25 @@
                                                                   </button>
                                                                 </div>
                                                                 <div class="modal-body">
+    <div style="width: 70%; " class="cajasAñadir" >
+        
 
+            <fieldset class="groupbox" >
+                <legend > Herramientas</legend>
+                <div style="width: 100%; ">
+                        <label for="">Cantidad a Asignar</label><br>
+             
+                     </div> <br>
+                     <div style="width: 100%; ">
+                            <label for="">Cantidad</label><br>
+                            <input required  type="text" id="inputCantidad" name="inputCantidad"  style="width: 100%">
+                         </div> <br>
+                <div class="btnAñadir">
+                  <input class="btn btn-primary" name="btnHerramientaR" style="margin-left:10%" type="submit" value="Asignar">
+                </div>
+            </fieldset>
+      
+        </div>
 
                                                                 </div>
                                                                 <div class="modal-footer">

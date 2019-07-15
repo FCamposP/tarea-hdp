@@ -16,7 +16,7 @@ class Ejemplar(models.Model):
     nombreEjemplar=models.CharField(max_length=25)
     descripcionEjemplar=models.CharField(max_length=100)
     disponible=models.BooleanField(default=True)
-    def __str__(self): 
+    def __str__(self):  
     	return self.codigoEjemplar   
 
 class Herramienta(models.Model):

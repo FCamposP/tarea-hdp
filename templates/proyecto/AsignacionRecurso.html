@@ -14,7 +14,7 @@
 
 {% block contenido %}
 
-<div class="row">
+<div class="row"> 
     <div class="col-md-4" class="cajasAñadir">
 
       <form method="POST">
@@ -105,6 +105,12 @@
 
 <br>
 
+{%if esMenor%}
+        <div class="alert alert-danger" role="alert">
+                ¡Ingrese una cantidad menor de herramientas!
+              </div>
+{%endif%}
+
 <div id="pruuueba"></div>
 
 
@@ -185,7 +191,7 @@
         {%if maqA %}
             
                   <div class="alert alert-primary" role="alert">
-                        Maquinarias Asignados
+                        Maquinarias Asignadas
                        </div>
 
                        <table class="table">
@@ -201,21 +207,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                              {%for e in maqA %}
+                              {%for m in maqA %}
                                 <tr>
                                   <td>{{forloop.counter }}</td>
                                   <td>Ejemplar</td>
-                                  <td>{{e.ejemplar.idRecurso.nombreRecurso}}  </td>
-                                  <td>{{e.ejemplar.nombreEjemplar}}</td>
-                                  <td> {{e.ejemplar.idRecurso.descripcionRecurso}} </td>
+                                  <td>{{m.ejemplar.idRecurso.nombreRecurso}}  </td>
+                                  <td>{{m.ejemplar.nombreEjemplar}}</td>
+                                  <td> {{m.ejemplar.idRecurso.descripcionRecurso}} </td>
                                   <td> 
                                       <div>
                                           <form method="POST">
                                                     {% csrf_token %}
-                                                    <input type="hidden" name="elimRec" value="{{ e.id }}"> 
-                                                    <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+                                                    <input type="hidden" name="elimRec" value="{{ m.id }}"> 
+                                                    <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ m.id }}">Eliminar</a>
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="modal_{{ m.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                       <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                           <div class="modal-header">
@@ -225,7 +231,7 @@
                                                             </button>
                                                           </div>
                                                           <div class="modal-body">
-                                                            ¿Esta seguro de eliminar al ejemplar con código: <b>{{e.ejemplar.codigoEjemplar}} ?</b>
+                                                            ¿Esta seguro de eliminar al ejemplar con código: <b>{{m.ejemplar.codigoEjemplar}} ?</b>
                                                           </div>
                                                           <div class="modal-footer">
                                                             <input class="btn btn-danger" type="submit" name="accionR" value="Eliminar">
@@ -266,20 +272,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                  {%for e in herrA %}
+                                  {%for h in herrA %}
                                     <tr>
                                       <td>{{forloop.counter }}</td>
                                       <td>Herramienta</td>
-                                      <td>{{e.Herramienta.nombreHerramienta}}</td>
-                                      <td>{{e.cantidadAsignada}}</td>
+                                      <td>{{h.Herramienta.nombreHerramienta}}</td>
+                                      <td>{{h.cantidadAsignada}}</td>
                                       <td>  
                                           <div>
                                               <form method="POST">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="elimHerr" value="{{ e.id }}"> 
-                                                        <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Eliminar</a>
+                                                        <input type="hidden" name="elimHerr" value="{{ h.id }}"> 
+                                                        <a class="btn btn-danger" href="" data-toggle="modal" data-target="#modal_{{ h.id }}">Eliminar</a>
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade" id="modal_{{ h.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                           <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                               <div class="modal-header">
@@ -288,12 +294,13 @@
                                                                   <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                               </div>
-                                                              <div class="modal-body">
-                                                                ¿Esta seguro de eliminar a la herramienta con código: <b>{{e.Herramienta.codigoHerramienta}} ?</b>
-                                                              </div>
-                                                              <div class="modal-footer">
-                                                                <input class="btn btn-danger" type="submit" name="accionH" value="Eliminar">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                       <div class="modal-body">
+                                                            ¿Esta seguro de eliminar la Herramienta con código: <b>{{h.Herramienta.codigoHerramienta}} ?</b>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <input class="btn btn-danger" type="submit" name="accionH" value="Eliminar">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                          </div>
                                                               </div>
                                                             </div>
                                                           </div>
