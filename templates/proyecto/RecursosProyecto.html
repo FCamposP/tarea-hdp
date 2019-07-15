@@ -6,7 +6,7 @@
     <a href="" class="list-group-item list-group-item-action active">
       Lista de enlaces
     </a>
-    <a href="{% url 'constructora:verProyecto' %}"  class="list-group-item list-group-item-action">Datos del Proyecto</a>
+
     <a href="{% url 'constructora:RecursosProyecto' %}"  class="list-group-item list-group-item-action">Recursos del proyecto</a>
     <a href="{% url 'constructora:recursosEmpleado' %}" class="list-group-item list-group-item-action">Empleados del Proyecto</a>
     <a href="{% url 'constructora:solicitarRecursos' %}" class="list-group-item list-group-item-action">Solicitar Recursos</a>
@@ -14,7 +14,8 @@
 {%endblock%}  
  
 {% block contenido %}
-<table class = "table table-bordered">
+<div>
+	<table class = "table table-bordered">
 	<thead>
 		{% if ejemplar %}
 		<tr>
@@ -37,6 +38,7 @@
 			<td>{{ ejem.fechaDisponible }}</td>
 			<td>{{ ejem.activo}}</td>
 			<td><a class="btn btn-danger" href="{% url 'constructora:CambioActivo1' ejem.id %}">Cambiar Estado</a>
+			</td>
 		</tr>
 		 	{% endfor %}
 		 	{% else %}
@@ -83,8 +85,17 @@
                 ¡NO HAY HERRAMIENTAS ASIGNADAS!
               </div>
              {% endif %}
-	{% endif %}	 	
+		 	
 	</tbody>
+	{% endif %}
+</div>
+{% block footer %}  
+
 {%endblock%}  
+
+{%endblock%}  
+
+
+
 
 				

@@ -77,12 +77,15 @@ WSGI_APPLICATION = 'hdp2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql_cymysql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tarea_hdp',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'administrador',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        },
     }
 }
 

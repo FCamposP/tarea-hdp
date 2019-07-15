@@ -20,7 +20,7 @@
   <div class="recursosAsignar" >
       <div id="tablaa" style="text-align: center;">
           
-          {% if puestos %}
+          {% if puestos %} 
   
               <div class="alert alert-primary" role="alert">
                      Puestos Solicitados
@@ -62,6 +62,7 @@
                                                   </button>
                                                 </div>
                                                 <div class="modal-body">
+
                                                   <div style="width: 70%; " class="cajasAñadir">
                                                     <fieldset class="groupbox">
                                                         <legend > Empleado</legend>
@@ -133,23 +134,48 @@
                                         <div>
                                             <form method="POST">
                                                       {% csrf_token %}
-                                                      <input type="hidden" name="elimRec" value="{{ e.id }}"> 
-                                                      <a class="btn btn-primary" href="" data-toggle="modal" data-target="#modal_{{ e.id }}">Asignar</a>
+                                                      <input type="hidden" name="elimRec" value="{{ e.codigoEjemplar }}"> 
+                                                      <a class="btn btn-primary" href="" data-toggle="modal" data-target="#modal_{{ e.codigoEjemplar }}">Asignajjr</a>
                                                       <!-- Modal -->
-                                                      <div class="modal fade" id="modal_{{ e.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal fade" id="modal_{{ e.codigoEjemplar }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                           <div class="modal-content">
                                                             <div class="modal-header">
                                                               <h5 class="modal-title" id="exampleModalLabel">Ventana de confirmación</h5>
-                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                               </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                              ¿Esta seguro de eliminar al ejemplar con código: <b>{{e.ejemplar.codigoEjemplar}} ?</b>
+    <div  style="width: 70%; " >
+
+        <fieldset class="groupbox">
+            <legend > Bien Material</legend>
+<br>
+                 <div style="width: 100%">
+                        <label for="">Elija un Ejemplar</label><br>
+                                                   <div style="width: 100%; ">
+                                                                <label for="">Elija un Empleado</label><br>
+                                                                <select required class="form-control" name="selectEjemplar1" id="selectEjemplar1">
+                                                                    <option></option>
+                                                                    {%for e in ejemplares%}
+                                                                    <option value="{{e.id}}" > {{e.nombreEjemplar}}</option>
+                                                                    {%endfor%}
+                                                                </select>
+                                                             </div> <br>
+                    </div><br> <!--fin de div para ajax-->
+            <div class="btnAñadir">
+                    <input class="btn btn-primary" name="btnEjemplar" style="margin-left:10%" type="submit" value="Asignar">
+                </div>
+        </fieldset>
+ 
+    </div> 
+
+
                                                             </div>
+
                                                             <div class="modal-footer">
-                                                              <input class="btn btn-danger" type="submit" name="accionR" value="Eliminar">
+
                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                                             </div>
                                                           </div>
@@ -211,7 +237,7 @@
 
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                  <input class="btn btn-danger" type="submit" name="accionH" value="Eliminar">
+                 
                                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                                                 </div>
                                                               </div>

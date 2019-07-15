@@ -678,10 +678,12 @@ def buscarProyecto(request):
 
 	return render(request,'proyecto/BuscarProyecto.html',contexto)
 
-def asignacionRecurso(request,id_p):
+def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y recuperar asignados
+	#asignaciones ya realizadas al proyecto
 	empA= AsignacionPuestoProyecto.objects.filter(proyecto=id_p)
 	maqA=AsignacionoEjemplar.objects.filter(idProyecto=id_p)
 	herrA=AsignacionHerramienta.objects.filter(idProyecto=id_p)
+	#objetos para asignar
 	pues=Puesto.objects.all()
 	recursos=Recurso.objects.all()
 	emp=Empleado.objects.filter(disponible=True)
@@ -731,7 +733,7 @@ def asignacionRecurso(request,id_p):
 		herramienta.canatidadDisponibles=int(cantidad)-int(asignacionH.cantidadAsignada)
 		herramienta.save()
 		asignacionH.save()
-
+		#eliminar empleado 
 	if 'accionE' in request.POST:
 		accion = request.POST['accionE']
 		id_asignacion = request.POST['elimEmpleado']
@@ -742,7 +744,7 @@ def asignacionRecurso(request,id_p):
 		else:
 			pass
 		pass
-
+		#eliminar recurso
 	if 'accionR' in request.POST:
 		accion = request.POST['accionR']
 		id_asignacion = request.POST['elimRec']
@@ -804,7 +806,7 @@ def nuevoProyecto(request):
 class recursosProyecto(TemplateView):
 	template_name='proyecto/RecursosProyecto.html'
 
-def solicitarRecursos(request):
+def solicitarRecursos(request): 
 	usuario=request.user
 	encontrado=True
 	try:
@@ -859,7 +861,7 @@ def solicitarRecursos(request):
 class verProyecto(TemplateView):
 	template_name='proyecto/VerProyecto.html'
 
-def ConseguirTipoRecurso(request):
+def ConseguirTipoRecurso(request): #funcion para recuperar datos en solicitar recursos
 	opcion= request.GET['opcion']
 
 	if opcion=='1':
