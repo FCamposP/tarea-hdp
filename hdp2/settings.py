@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tarea_hdp',
         'USER': 'root',
-        'PASSWORD': 'admon',
+        'PASSWORD': 'administrador',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {

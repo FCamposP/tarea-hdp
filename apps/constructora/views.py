@@ -754,6 +754,10 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 		accion = request.POST['accionE']
 		id_asignacion = request.POST['elimEmpleado']
 		dato=AsignacionPuestoProyecto.objects.get(id=id_asignacion)
+		
+		empleadoTrue=Empleado.objects.get(id=dato.empleado.id)
+		empleadoTrue.disponible=True
+		empleadoTrue.save()
 		if accion == 'Eliminar':	
 			dato.delete()
 			pass
@@ -765,6 +769,9 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 		accion = request.POST['accionR']
 		id_asignacion = request.POST['elimRec']
 		dato=AsignacionoEjemplar.objects.get(id=id_asignacion)
+		ejemplarTrue=Ejemplar.objects.get(codigoEjemplar=dato.ejemplar.codigoEjemplar)
+		ejemplarTrue.disponible=True
+		ejemplarTrue.save()
 		if accion == 'Eliminar':	
 			dato.delete()
 			pass
@@ -777,6 +784,9 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 		id_asignacion = request.POST['elimHerr']
 
 		dato=AsignacionHerramienta.objects.get(id=id_asignacion)
+		herramientaTrue=Herramienta.objects.get(codigoHerramienta=dato.Herramienta.codigoHerramienta)
+		herramientaTrue.canatidadDisponibles=dato.cantidadAsignada
+		herramientaTrue.save()
 		if accion == 'Eliminar':	
 			dato.delete()
 			pass
