@@ -669,13 +669,15 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 	emp=Empleado.objects.filter(disponible=True)
 	herramientas=Herramienta.objects.all()
 	cantidadMenor=False
+	nuevoUser=''
+	nuevaContra=''
+	esEncargado=False
 
 	if 'btnEmpleado' in request.POST:
 		asignacionE=AsignacionPuestoProyecto()
 		empleado=Empleado.objects.get(id=request.POST['selectEmpleado'])
 		asignacionE.empleado=empleado 
-		empleado.disponible=False
-		empleado.save()
+
 		asignacionE.puesto=Puesto.objects.get(id=request.POST['selectPuesto'])
 		asignacionE.proyecto=Proyecto.objects.get(id=id_p)
 		asignacionE.salario=request.POST['inputSalario']
@@ -690,9 +692,23 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 			asigUsuario.tipo_usuario="Encargado"
 			asigUsuario.descripcion="Es el responsable de la gestion del proyecto a su cargo"
 			asigUsuario.save()
+			nuevoUser=usuario.username
+			nuevaContra=proy.codigoProyecto
+			esEncargado=True
+			for x in pues:
+				if x.nombrePuesto=='Encargado':
+					print(x.nombrePuesto)
+					x.delete()
+			pues.save()
+		else:
+			pues=Puesto.objects.all()
+
+				
+
 
 		pass
-	
+		empleado.disponible=False
+		empleado.save()
 	if 'btnEjemplar' in request.POST:
 		asignacionM=AsignacionoEjemplar()
 		asignacionM.idProyecto=Proyecto.objects.get(id=id_p)
@@ -753,7 +769,7 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 		else:
 			pass
 		pass
-	contexto={'esMenor':cantidadMenor, 'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
+	contexto={'esEncargado':esEncargado,'nuevaContra':nuevaContra,'nuevoUser':nuevoUser, 'esMenor':cantidadMenor, 'puestos':pues,'empleados':emp,'recursos':recursos,'herramientas':herramientas,'empA':empA,'maqA':maqA,'herrA':herrA}
 	return render(request,'proyecto/AsignacionRecurso.html',contexto)
 
 

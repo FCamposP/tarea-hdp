@@ -105,6 +105,18 @@
 
 <br>
 
+{%if esEncargado%}
+
+        <div class="alert alert-danger" role="alert">
+             Credenciales! 
+             <br>
+             Username: {{nuevoUser}}
+             <br>
+             Password: {{nuevaContra}}
+
+         </div>
+{%endif%}
+
 {%if esMenor%}
         <div class="alert alert-danger" role="alert">
                 ¡Ingrese una cantidad menor de herramientas!
