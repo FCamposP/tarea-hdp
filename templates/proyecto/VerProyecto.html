@@ -11,5 +11,37 @@
 {%endblock%}  
 
 {% block contenido %}
+<table class="table table-bordered">
+	<thead>
+		{% if Asig2 %}
+	<tr>
+		<td>Cliente</td>
+		<td>Codigo</td>
+		<td>Descripcion</td>
+		<td>Ubicacion</td>
+		<td>Fecha de inicio</td>
+		<td>Fecha de finalizacion</td>
+	</tr>
+	</thead>
+	<tbody>
+		
+		<tr>
+			<td>{{ Asig2.idCliente }}</td>
+			<td>{{ Asig2.codigoProyecto }}</td>
+			<td>{{ Asig2.descripcionProyecto}}</td>
+			<td>{{ Asig2.ubicacion}}</td>
+			<td>{{ Asig2.fechaInicioConstruccion }}</td>
+			<td>{{ Asig2.fechaFinalizacion }}</td>
+		</tr>
+		
+		{% else %}
+		
+		<div class="alert alert-danger" role="alert">
+                ¡Usted no esta asignado a un proyecto!
+       
+         {% endif %}
+	</tbody>
+	
+</table>
 
 {%endblock%} 

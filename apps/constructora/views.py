@@ -510,6 +510,21 @@ def crearEmpleado(request):
 
 
 #INICIO VISTAS SEBASTIAN
+def DatosProy(request):
+
+	usuario = request.user.id
+	Asig= ""
+	Asig2= ""
+	
+
+	if AsignacionUsuario.objects.filter(usuario = usuario).exists():
+		Asig = AsignacionUsuario.objects.get(usuario = usuario)
+		Asig2 = Proyecto.objects.get(id = Asig.empleado_proyecto.proyecto_id)
+		
+
+	contexto = {'Asig2': Asig2}
+	return render(request, 'proyecto/verProyecto.html', contexto)
+
 def listarEmpleadosProyecto(request):
 
 	# lineas para capturar el proyecto al que pertenece el usuario activo
@@ -596,22 +611,21 @@ def registroAsistencia(request, id_asistencia):
 	# fin 
 	empleados = AsignacionPuestoProyecto.objects.filter(proyecto_id = proyecto)
 	asig = AsignacionPuestoProyecto.objects.get(id = id_asistencia)
-	asistencia = Asistencia()
-	asistencia.Asignacion_id = asig.id
-	asistencia.fechaAsistencia = "2019-06-24"
-	asistencia.asistencia = True
-	asistencia.save()
-	if request.method == 'POST':			
-		return redirect('http://127.0.0.1:8000/constructora/recursosEmpleado/')
+	if Asistencia.objects.filter(id= asig.id).exists():
+		asig= None
+	else:
+		asistencia = Asistencia()
+		asistencia.Asignacion_id = asig.id
+		asistencia.fechaAsistencia = "2019-06-24"
+		asistencia.asistencia = True
+		asistencia.save()
+		if request.method == 'POST':			
+			return redirect('http://127.0.0.1:8000/constructora/recursosEmpleado/')
+
 	contexto = { 'empleados': empleados}
 	return render(request, 'proyecto/recursosEmpleado.html', contexto)
 
 	
-
-
-
-
-
 	
 #FIN VISTAS SEBASTIAN 
 

@@ -48,7 +48,7 @@
                       {%endif%}
                       {%if user.is_superuser == False%}
                         <li class = "nav-item"><!--encargado-->
-                          <a class="nav-link" href="{%url 'constructora:recursosEmpleado'%}" style="color:white">  Proyecto </a>
+                          <a class="nav-link" href="{%url 'constructora:verProyecto'%}" style="color:white">  Proyecto </a>
                         </li>
                         {%endif%}  
                         {%if user.is_superuser == True%}

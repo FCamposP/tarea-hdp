@@ -15,7 +15,6 @@ urlpatterns = [
     url(r'^asignacionRecurso/(?P<id_p>\d+)/$',login_required(asignacionRecurso),name="asignacionRecurso"),
     url(r'^recursosProyecto/$',login_required(recursosProyecto.as_view()),name="recursosProyecto"),
     url(r'^solicitarRecursos/$',login_required(solicitarRecursos),name="solicitarRecursos"),
-    url(r'^verProyecto/$',login_required(verProyecto.as_view()),name="verProyecto"),
     url(r'^prueba/$',login_required(prueba),name="prueba"),
     url(r'^ConseguirTipoRecurso/$',login_required(ConseguirTipoRecurso),name="ConseguirTipoRecurso"),
     url(r'^conseguirElemento/$',login_required(conseguirElemento),name="conseguirElemento"),
@@ -27,6 +26,7 @@ urlpatterns = [
 #fin URL Fc
 
      #vista Sebas 
+    url(r'^verProyecto/$',login_required(DatosProy),name="verProyecto"),
     url(r'^RecursosProyecto/$',login_required(listaRecursos),name="RecursosProyecto"),
     url(r'^Asistencia/$',login_required(mostrarAsistencia),name="Asistencia"),
     url(r'^recursosEmpleado/$',login_required(listarEmpleadosProyecto),name="recursosEmpleado"),
