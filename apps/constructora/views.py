@@ -696,10 +696,12 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 		asignacionE.proyecto=Proyecto.objects.get(id=id_p)
 		asignacionE.salario=request.POST['inputSalario']
 		asignacionE.save()
+		verficarEncargado=False
 		if asignacionE.puesto.nombrePuesto=="Encargado":
+			
 			proy=Proyecto.objects.get(id=id_p)
 			asigUsuario=AsignacionUsuario()
-			usuario= User.objects.create_user("Encargado"+proy.codigoProyecto, 'myemail@crazymail.com', proy.codigoProyecto)
+			usuario= User.objects.create_user("Encargado"+str(empleado.id)+proy.codigoProyecto, 'myemail@crazymail.com', proy.codigoProyecto)
 			usuario.save()
 			asigUsuario.usuario=usuario
 			asigUsuario.empleado_proyecto=asignacionE
@@ -709,13 +711,13 @@ def asignacionRecurso(request,id_p):#se necesita id del proyecto para asignar y 
 			nuevoUser=usuario.username
 			nuevaContra=proy.codigoProyecto
 			esEncargado=True
-			for x in pues:
-				if x.nombrePuesto=='Encargado':
-					print(x.nombrePuesto)
-					x.delete()
-			pues.save()
-		else:
-			pues=Puesto.objects.all()
+		#	for x in pues:
+				#if x.nombrePuesto=='Encargado':
+				#	print(x.nombrePuesto)
+				#	x.delete()
+		#	pues.save()
+	#	else:
+		#	pues=Puesto.objects.all()
 
 				
 
